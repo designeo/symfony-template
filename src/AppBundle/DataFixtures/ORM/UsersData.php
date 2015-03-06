@@ -1,0 +1,52 @@
+<?php
+namespace AppBundle\DataFixtures\ORM;
+
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerAware;
+
+/**
+ * Class UsersData
+ * @package AppBundle\DataFixtures
+ * @author Ondřej Musil <omusil@gmail.com>
+ */
+class UsersData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
+{
+    protected $superAdminMail = 'admin@localhost';
+
+    public function load(ObjectManager $manager)
+    {
+        $userRepo = $manager->getRepository('AppBundle:User');
+        $superAdmin = $userRepo->findOneBy(array('email' => $this->superAdminMail));
+
+        if (!$superAdmin) {
+            $this->addSuperAdmin($manager);
+        }
+    }
+
+    private function addSuperAdmin(ObjectManager $manager)
+    {
+        $user = new User();
+
+        $user->setUsername($this->superAdminMail);
+        $user->setEmail($this->superAdminMail);
+        $user->setSuperAdmin(true);
+        $user->setEnabled(true);
+
+        $encoder = $this->container
+            ->get('security.encoder_factory')
+            ->getEncoder($user);
+
+        $user->setPassword($encoder->encodePassword('secret', $user->getSalt()));
+
+        $manager->persist($user);
+        $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 1;
+    }
+}

@@ -1,0 +1,22 @@
+web:
+    brand:    "Symfony Template"
+    homepage: "Web Homepage."
+
+    menu:
+        web: Web
+        admin: Administration
+        logout: Sign out
+        login: Sign in
+
+admin:
+    brand:    Administration
+    homepage: "Admin Homepage."
+
+security:
+    login:
+        title: Sign in
+        email: Email:
+        password: Password:
+        remember_me: Remeber me?
+        submit: Login
+        forgot_password: "Forgot password?"

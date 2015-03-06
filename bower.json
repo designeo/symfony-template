@@ -1,0 +1,8 @@
+{
+  "name": "symfony-template",
+  "dependencies": {
+    "bootstrap": "3.*"
+  },
+  "overrides": {
+  }
+}

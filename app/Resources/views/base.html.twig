@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+
+            <title>{% block title %}Symfony Template{% endblock title %}</title>
+
+            {% block meta %}
+            {% endblock meta %}
+
+            {% block head_css %}
+                <link rel="stylesheet" href="{{ asset('/css/main.css') }}"/>
+            {% endblock head_css %}
+        {% endblock head %}
+    </head>
+    <body class="{% block body_class %}{% endblock body_class %}">
+        {% block body %}
+            {% block header %}
+            {% endblock header %}
+
+            {% block container %}
+                <div class="container">
+                {% block content %}{% endblock %}
+                </div>
+            {% endblock container %}
+
+            {% block footer %}
+            {% endblock footer %}
+
+            {% block javascripts %}
+                <script src="{{ asset('/js/libs.js') }}" type="application/javascript"></script>
+                <script src="{{ asset('/js/main.js') }}" type="application/javascript"></script>
+            {% endblock javascripts %}
+
+        {% endblock body %}
+    </body>
+</html>
