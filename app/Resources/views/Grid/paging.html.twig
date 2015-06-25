@@ -1,0 +1,65 @@
+{% macro nav(page, max_page) %}
+
+    {% set route = app.request.get('_route') %}
+    {% set route_params = app.request.get('_route_params') | merge(app.request.query.all) %}
+    {% set current_page_range = 2 %}
+
+    <nav>
+        <ul class="pagination">
+            {% if page == 1 %}
+                <li class="disabled">
+                    <span aria-hidden="true">&laquo;</span>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path(route, route_params | merge({ page: page - 1 })) }}" aria-label="Předchozí">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            <li class="{% if 1 == page %}active{% endif %}">
+                <a href="{{ path(route, route_params | merge({ page: 1 })) }}" class="">{{ 1 }}</a>
+            </li>
+
+            {% if 2 + current_page_range < page %}
+                <li class="paginate_button disabled" no-click >
+                    <a no-click>...</a>
+                </li>
+            {% endif %}
+
+            {% for p in (page - current_page_range)..(page + current_page_range) %}
+                {% if p - current_page_range >= 0 and p + current_page_range - 1 <= max_page %}
+                <li class="{% if p == page %}active{% endif %}">
+                    <a href="{{ path(route, route_params | merge({ page: p })) }}" class="">{{ p }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if (max_page - current_page_range - 1) > page %}
+                <li class="paginate_button disabled" no-click >
+                    <a no-click>...</a>
+                </li>
+            {% endif %}
+
+            {% if max_page != 1%}
+            <li class="{% if max_page == page %}active{% endif %}">
+                <a href="{{ path(route, route_params | merge({ page: max_page })) }}" class="">{{ max_page }}</a>
+            </li>
+            {% endif %}
+
+            {% if page == max_page %}
+                <li class="disabled">
+                    <span aria-hidden="true">&raquo;</span>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path(route, route_params | merge({ page: page + 1 })) }}" aria-label="Následující">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+{% endmacro %}

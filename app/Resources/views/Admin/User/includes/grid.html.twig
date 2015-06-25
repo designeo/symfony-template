@@ -1,0 +1,76 @@
+{% set route = app.request.get('_route') %}
+{% set route_params = app.request.get('_route_params') | merge(filter) %}
+{% import 'Grid/paging.html.twig' as paginator %}
+
+<div class="grid">
+    <form method="get" class="grid-filter">
+        <div class="grid_header"></div>
+        <div class="grid_body">
+            <table class="table">
+                <tbody>
+                <tr class="grid-row-titles">
+                    <th><a class="order" href="{{ path(route, route_params | merge({ 'sortBy': 'U.lastName' })) }}">Jméno</a></th>
+                    <th><a class="order" href="{{ path(route, route_params | merge({ 'sortBy': 'U.email' })) }}">Email</a></th>
+                    <th>Role</th>
+                    <th><a class="order" href="{{ path(route, route_params | merge({ 'sortBy': 'U.enabled' })) }}">Aktivní</a></th>
+                    <th><a class="order" href="{{ path(route, route_params | merge({ 'sortBy': 'U.lastLogin' })) }}">Poslední přihlášení</a></th>
+                    <th class="text-right">Akce</th>
+                </tr>
+                <tr class="grid-row-filters">
+                    <th>
+                        <input name="name" type="text" value="{{ filter.name }}" class="send-form-on-enter" placeholder="Filtruj" />
+                    </th>
+                    <th>
+                        <input name="email" type="text" value="{{ filter.email }}" class="send-form-on-enter" placeholder="Filtruj" />
+                    </th>
+                    <th></th>
+                    <th>
+                        <select name="enabled" class="send-form-on-change">
+                            <option value="">-- Vyberte ---</option>
+                            <option value="1" {% if filter.enabled == '1' %}selected="selected"{% endif %}>Ano</option>
+                            <option value="0" {% if filter.enabled == '0' %}selected="selected"{% endif %}>Ne</option>
+                        </select>
+                    </th>
+                    <th>
+                        <input name="lastLogin" type="text" value="{{ filter.lastLogin }}" class="send-form-on-enter" placeholder="Filtruj" />
+                    </th>
+                    <th class="last-column functions">
+                        <button class="btn-primary btn" name="filter" type="submit">Filtruj</button>
+                        <a href="{{ url('users_index') }}" class="btn-primary btn">Reset</a>
+                    </th>
+                </tr>
+
+                {% for data_item in data %}
+                    <tr class="grid-row-cells even">
+                        <td class="grid-column-name">{{ data_item.getFullName }}</td>
+                        <td class="grid-column-name">{{ data_item.email }}</td>
+                        <td class="grid-column-name">
+                            {#{% include 'IS/Users/includes/roles.html.twig' with {'user': data_item} %}#}
+                        </td>
+                        <td class="grid-column-name">{{ data_item.enabled|renderBool }}</td>
+                        <td class="grid-column-name">{% if data_item.lastLogin is not empty %}{{ data_item.lastLogin|date('d.m.Y H:i') }}{% endif %}</td>
+
+                        {% block edit_actions %}
+                            <td class="text-right functions">
+                                {#<a href="{{ url('users_edit', {'id': data_item.id}) }}" target="_self" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="{{ url('users_remove', {'id': data_item.id}) }}" target="_self" class="btn btn-danger" data-confirm="Opravdu chcete tento záznam smazat?"><span class="glyphicon glyphicon-trash"></span></a>#}
+                            </td>
+                        {% endblock edit_actions %}
+
+                    </tr>
+                {%  endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        {% block pagination %}
+            {% if data|length > 0 %}
+                {{ paginator.nav(page, max_page) }}
+            {% endif %}
+        {% endblock pagination %}
+    </div>
+</div>

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\UserTracked;
 use FOS\UserBundle\Model\User as BaseUser;
 use AppBundle\Entity\Traits\Timestamps;
 
@@ -32,6 +31,20 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=45, nullable=true)
+     */
+    protected $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=45, nullable=true)
+     */
+    protected $lastName;
+
+    /**
      * @return int
      */
     public function getId()
@@ -39,9 +52,44 @@ class User extends BaseUser
         return $this->id;
     }
 
-    public function __construct()
+    /**
+     * @return string
+     */
+    public function getFirstName()
     {
-        parent::__construct();
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return sprintf('%s %s', $this->getLastName(), $this->getFirstName());
     }
 
     /**
