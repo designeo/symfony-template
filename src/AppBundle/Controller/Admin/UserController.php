@@ -64,8 +64,15 @@ class UserController extends AbstractController {
     {
         $user = new User;
         $form = $this->userForm($user, $request);
-        if ($form instanceof Response) {
-            return $form;
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->userFacade->save($user);
+                $this->addFlash('success', 'Uživatel byl úspěšně uložen');
+                return $this->redirectToRoute('users_index');
+            }
+            catch (UserException $e) {
+                $form->get('email')->addError(new FormError($e->getMessage()));
+            }
         }
 
         return $this->render(
@@ -89,8 +96,15 @@ class UserController extends AbstractController {
     {
         $formOptions = ['password_required' => false];
         $form = $this->userForm($user, $request, $formOptions);
-        if ($form instanceof Response) {
-            return $form;
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->userFacade->save($user);
+                $this->addFlash('success', 'Uživatel byl úspěšně uložen');
+                return $this->redirectToRoute('users_index');
+            }
+            catch (UserException $e) {
+                $form->get('email')->addError(new FormError($e->getMessage()));
+            }
         }
 
         return $this->render(
@@ -108,16 +122,6 @@ class UserController extends AbstractController {
         $form = $this->createForm($userType, $user, $formOptions);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $this->userFacade->save($user);
-                $this->addFlash('success', 'Uživatel byl úspěšně uložen');
-                return $this->redirectToRoute('users_index');
-            }
-            catch (UserException $e) {
-                $form->get('email')->addError(new FormError($e->getMessage()));
-            }
-        }
         return $form;
     }
 
