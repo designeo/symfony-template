@@ -1,0 +1,49 @@
+{% extends 'Admin/layout.html.twig' %}
+    {% block title %}{{ parent() }} - {{ title }} {% endblock %}
+
+{% block content %}
+
+    <h1>{{ title }}</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.email, {'label': 'Email', 'attr': {'placeholder': '@'}}) }}
+        </div>
+        <div class="col-md-66">
+            {{ form_row(form.plainPassword, {'label': 'Heslo'}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.firstName, {'label': 'Jméno', 'attr': {'placeholder': 'Křestní jméno'}}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.lastName, {'label': 'Příjmení', 'attr': {'placeholder': 'Příjmení uživatele'}}) }}
+        </div>
+    </div>
+
+    {% block credential_fields %}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.enabled) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.roles, {'label': 'Role', 'placeholder': '--- Vyberte roli ---'}) }}
+            </div>
+        </div>
+    {% endblock credential_fields %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.save, {'label': 'Uložit uživatele'}) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock content %}

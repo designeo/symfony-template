@@ -19,7 +19,56 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-
     app.controller.web.default:
         class: AppBundle\Controller\Web\DefaultController
         arguments: []
+
+    app.roles_provider:
+        class: AppBundle\Service\RolesProvider
+        arguments: [ @security.token_storage, @security.authorization_checker]
+
+    # -----------------
+    # Admin Controllers
+    # -----------------
+    app.admin.user_controller:
+        class: AppBundle\Controller\Admin\UserController
+        arguments: ['@app.grid_managers.admin.user_manager', '@app.roles_provider', '@app.model.user_facade']
+
+    # -----------------
+    # Web Controllers
+    # -----------------
+
+    # -----------------
+    # Model
+    # -----------------
+    app.model.user_facade:
+        class: AppBundle\Model\UserFacade
+        arguments: ['@doctrine.orm.entity_manager', '@app.notifications.user_create_mail']
+
+    # -----------------
+    # IS Grid managers
+    # -----------------
+    app.grid_managers.admin.user_manager:
+        class: AppBundle\GridManagers\Admin\UserManager
+        arguments: ['@doctrine.orm.entity_manager']
+
+    # ---------------------------
+    # Notifications
+    # ---------------------------
+    app.notifications.mailer:
+        class: AppBundle\Service\Notification\Mailer
+        arguments: ['@mailer', '@templating', '@translator']
+
+    app.notifications.user_create_mail:
+        class: AppBundle\Service\Notification\UserCreateMail
+        arguments: ['@app.notifications.mailer', '%mailer_sender_mail%', '%mailer_sender_name%']
+
+    # --------------------
+    # Twig extensions
+    # --------------------
+    app.bool_extension:
+        class: AppBundle\Twig\BoolExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+

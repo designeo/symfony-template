@@ -21,3 +21,34 @@
         </div>
     </nav>
 {% endblock header %}
+
+{% block container %}
+
+    <div id="container" class="{% block containerClass %}{% endblock %}">
+        <div class="row">
+            <div class="col-md-2">
+                <div id="sidebar" class="nav-collapse">
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <li class="sidebar-delimiter">Admin</li>
+                        <li><a href="{{ url('admin_homepage') }}">Rozcestník</a></li>
+                        <li><a href="{{ url('users_index') }}">Uživatelé</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10">
+                {% block flash_messages %}
+                    {% for label, flashes in app.session.flashbag.all %}
+                        {% for flash in flashes %}
+                            <div class="alert alert-{{ label }}">
+                                {{ flash }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endblock flash_messages %}
+
+
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock container %}
