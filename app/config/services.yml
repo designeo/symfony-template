@@ -33,8 +33,6 @@ services:
     app.admin.user_controller:
         class: AppBundle\Controller\Admin\UserController
         arguments: ['@app.grid_managers.admin.user_manager', '@app.roles_provider', '@app.model.user_facade']
-        calls:
-            - [setContainer, ["@service_container"]]
 
     # -----------------
     # Web Controllers
