@@ -7,22 +7,13 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Class AMailer
+ * Class Mailer
  * @package AppBundle\Service\Notifier
  * @author Ondřej Musil <ondrej.musil@designeo.cz>
+ * @author Petr Fidler
  */
-abstract class AMailer
+final class Mailer
 {
-    /**
-     * @var string
-     */
-    protected $senderMail;
-
-    /**
-     * @var string
-     */
-    protected $senderName;
-
     /**
      * @var Swift_Mailer
      */
@@ -38,36 +29,29 @@ abstract class AMailer
      */
     private $translator;
 
-    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, TranslatorInterface $translator, $senderMail, $senderName)
+    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, TranslatorInterface $translator)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->translator = $translator;
-        $this->senderMail = $senderMail;
-        $this->senderName = $senderName;
     }
 
-    protected function getSenderMail()
+    public function createMessage()
     {
-        return $this->senderMail;
+        return $this->mailer->createMessage();
     }
 
-    protected function getSenderName()
+    public function send($message)
     {
-        return $this->senderName;
+        return $this->mailer->send($message);
     }
 
-    protected function getMailer()
-    {
-        return $this->mailer;
-    }
-
-    protected function getTemplating()
+    public function getTemplating()
     {
         return $this->templating;
     }
 
-    protected function getTranslator()
+    public function getTranslator()
     {
         return $this->translator;
     }

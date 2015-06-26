@@ -2,7 +2,7 @@
 
 namespace AppBundle\Model;
 
-use AppBundle\Service\Notification\UserCreate;
+use AppBundle\Service\Notification\UserCreateMail;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Entity\User;
@@ -17,7 +17,7 @@ class UserFacade {
     /** @var UserCreate */
     private $userCreate;
 
-    public function __construct(EntityManagerInterface $entityManager, UserCreate $userCreate)
+    public function __construct(EntityManagerInterface $entityManager, UserCreateMail $userCreate)
     {
 
         $this->entityManager = $entityManager;

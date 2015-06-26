@@ -43,7 +43,7 @@ services:
     # -----------------
     app.model.user_facade:
         class: AppBundle\Model\UserFacade
-        arguments: ['@doctrine.orm.entity_manager', '@app.notifications.user_create']
+        arguments: ['@doctrine.orm.entity_manager', '@app.notifications.user_create_mail']
 
     # -----------------
     # IS Grid managers
@@ -55,9 +55,13 @@ services:
     # ---------------------------
     # Notifications
     # ---------------------------
-    app.notifications.user_create:
-        class: AppBundle\Service\Notification\UserCreate
-        arguments: ['@mailer', '@templating', '@translator', '%mailer_sender_mail%', '%mailer_sender_name%']
+    app.notifications.mailer:
+        class: AppBundle\Service\Notification\Mailer
+        arguments: ['@mailer', '@templating', '@translator']
+
+    app.notifications.user_create_mail:
+        class: AppBundle\Service\Notification\UserCreateMail
+        arguments: ['@app.notifications.mailer', '%mailer_sender_mail%', '%mailer_sender_name%']
 
     # --------------------
     # Twig extensions
