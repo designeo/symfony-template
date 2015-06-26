@@ -11,14 +11,12 @@ var mainBowerFiles = require('main-bower-files');
 var LessPluginCleanCSS = require("less-plugin-clean-css"),
     cleancss = new LessPluginCleanCSS({advanced: true});
 
-var LessPluginAutoPrefix = require('less-plugin-autoprefix'),
-    autoprefix= new LessPluginAutoPrefix({browsers: ["last 2 versions"]});
 
 gulp.task('css', function() {
     return gulp.src('app/Resources/less/main.less')
         .pipe(plugins.if(!argv.production, plugins.sourcemaps.init()))
         .pipe(plugins.less({
-            plugins: [autoprefix, cleancss]
+            plugins: [cleancss]
         }))
         .on('error', plugins.notify.onError("Less error: <%= error.file %> <%= error.message %>"))
         .pipe(plugins.if(!argv.production, plugins.sourcemaps.write()))
@@ -57,7 +55,7 @@ gulp.task('js:libs', function() {
 });
 
 gulp.task('assets:fonts', function() {
-    var fonts = ['ttf', 'woff', 'eot', 'svg'].join(',');
+    var fonts = ['ttf', 'woff', 'woff2', 'eot', 'svg'].join(',');
 
     return gulp.src(mainBowerFiles())
         .pipe(plugins.ignore.include('**/*.{'+ fonts +'}'))
