@@ -14,7 +14,7 @@ class UserFacade {
      */
     private $entityManager;
 
-    /** @var UserCreate */
+    /** @var UserCreateMail */
     private $userCreate;
 
     public function __construct(EntityManagerInterface $entityManager, UserCreateMail $userCreate)
@@ -56,6 +56,6 @@ class UserFacade {
     }
 }
 
-Class UserException extends \Exception {
+class UserException extends \Exception {
 
 }
