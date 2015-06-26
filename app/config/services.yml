@@ -57,7 +57,7 @@ services:
     # ---------------------------
     app.notifications.user_create:
         class: AppBundle\Service\Notification\UserCreate
-        arguments: ['@service_container', '%mailer_sender_mail%', '%mailer_sender_name%']
+        arguments: ['@mailer', '@templating', '@translator', '%mailer_sender_mail%', '%mailer_sender_name%']
 
     # --------------------
     # Twig extensions

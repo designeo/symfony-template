@@ -2,15 +2,16 @@
 
 namespace AppBundle\Service\Notification;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Swift_Mailer;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class AMailer
  * @package AppBundle\Service\Notifier
  * @author Ondřej Musil <ondrej.musil@designeo.cz>
  */
-abstract class AMailer extends ContainerAware
+abstract class AMailer
 {
     /**
      * @var string
@@ -22,9 +23,26 @@ abstract class AMailer extends ContainerAware
      */
     protected $senderName;
 
-    public function __construct(ContainerInterface $container, $senderMail, $senderName)
+    /**
+     * @var Swift_Mailer
+     */
+    private $mailer;
+
+    /**
+     * @var EngineInterface
+     */
+    private $templating;
+
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, TranslatorInterface $translator, $senderMail, $senderName)
     {
-        $this->container = $container;
+        $this->mailer = $mailer;
+        $this->templating = $templating;
+        $this->translator = $translator;
         $this->senderMail = $senderMail;
         $this->senderName = $senderName;
     }
@@ -41,16 +59,16 @@ abstract class AMailer extends ContainerAware
 
     protected function getMailer()
     {
-        return $this->container->get('mailer');
+        return $this->mailer;
     }
 
     protected function getTemplating()
     {
-        return $this->container->get('templating');
+        return $this->templating;
     }
 
     protected function getTranslator()
     {
-        return $this->container->get('translator');
+        return $this->translator;
     }
 }
