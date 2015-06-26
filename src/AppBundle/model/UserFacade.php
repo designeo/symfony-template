@@ -43,6 +43,17 @@ class UserFacade {
             $this->userCreate->send($user, $generatedPassword);
         }
     }
+
+    public function remove(User $user)
+    {
+        try {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+        }
+        catch (DBALException $e) {
+            throw new UserException('Uživatel nebyl vymazán');
+        }
+    }
 }
 
 Class UserException extends \Exception {

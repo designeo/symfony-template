@@ -122,6 +122,27 @@ class UserController extends AbstractController {
     }
 
     /**
+     * @Sensio\Route("/{id}/smazat", name="users_remove")
+     * @Sensio\Method({"GET"})
+     * @Sensio\ParamConverter("id", class="AppBundle:User")
+     *
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     */
+    public function removeAction(User $user)
+    {
+        try {
+            $this->userFacade->remove($user);
+            $this->addFlash('success', 'Uživatel byl úspěšně vymazán');
+        } catch (UserException $e) {
+            $this->addFlash('danger', $e->getMessage());
+        }
+
+        return $this->redirect($this->generateUrl('users_index'));
+    }
+
+    /**
      * @param Request $request
      * @return array
      */
