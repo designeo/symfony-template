@@ -2,18 +2,17 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration as Sensio;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
 use AppBundle\Form\Admin\UserType;
 use AppBundle\GridManagers\Admin\UserManager;
 use AppBundle\Model\UserException;
 use AppBundle\Model\UserFacade;
 use AppBundle\Service\RolesProvider;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration as Sensio;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class UsersController
@@ -21,15 +20,10 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @Sensio\Route("/admin/uzivatele-systemu", service="app.admin.user_controller")
  */
-class UserController {
-
-    private $templating;
+class UserController extends AbstractController {
 
     /** @var UserManager */
     private $userManager;
-
-    /** @var FormFactoryInterface */
-    private $formFactory;
 
     /** @var RolesProvider */
     private $rolesProvider;
@@ -37,11 +31,9 @@ class UserController {
     /** @var UserFacade */
     private $userFacade;
 
-    public function __construct(EngineInterface $templating, FormFactoryInterface $formFactory, UserManager $userManager, RolesProvider $rolesProvider, UserFacade $userFacade)
+    public function __construct(UserManager $userManager, RolesProvider $rolesProvider, UserFacade $userFacade)
     {
-        $this->templating = $templating;
         $this->userManager = $userManager;
-        $this->formFactory = $formFactory;
         $this->rolesProvider = $rolesProvider;
         $this->userFacade = $userFacade;
     }
@@ -55,7 +47,7 @@ class UserController {
      */
     public function indexAction(Request $request)
     {
-        return $this->templating->renderResponse(
+        return $this->render(
           'Admin/User/index.html.twig',
           $this->getUserGridData($request)
         );
@@ -71,28 +63,61 @@ class UserController {
     public function newAction(Request $request)
     {
         $user = new User;
+        $form = $this->userForm($user, $request);
+        if ($form instanceof Response) {
+            return $form;
+        }
+
+        return $this->render(
+          'Admin/User/edit.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Nový uživatel',
+          ]
+        );
+    }
+
+    /**
+     * @Sensio\Route("/{id}/editace", name="users_edit")
+     * @Sensio\Method({"GET", "POST"})
+     * @Sensio\ParamConverter("id", class="AppBundle:User")
+     *
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     */
+    public function editAction(Request $request, User $user)
+    {
+        $form = $this->userForm($user, $request);
+        if ($form instanceof Response) {
+            return $form;
+        }
+
+        return $this->render(
+          'Admin/User/edit.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Editace uživatele',
+          ]
+        );
+    }
+
+    private function userForm(User $user, Request $request)
+    {
         $userType = new UserType($this->rolesProvider);
 
-        $form = $this->formFactory->create($userType, $user);
+        $form = $this->createForm($userType, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $this->userFacade->save($user);
-                $this->addFlash('success', 'Uživatel byl úspěšně vytvořen');
+                $this->addFlash('success', 'Uživatel byl úspěšně uložen');
                 return $this->redirect($this->generateUrl('users_index'));
             }
             catch (UserException $e) {
                 $form->get('email')->addError(new FormError($e->getMessage()));
             }
         }
-
-        return $this->templating->renderResponse(
-          'Admin/User/edit.html.twig', [
-            'form' => $form->createView(),
-            'title' => 'Nový uživatel',
-          ]
-        );
+        return $form;
     }
 
     /**

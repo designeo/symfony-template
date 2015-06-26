@@ -52,8 +52,8 @@
 
                         {% block edit_actions %}
                             <td class="text-right functions">
-                                {#<a href="{{ url('users_edit', {'id': data_item.id}) }}" target="_self" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="{{ url('users_remove', {'id': data_item.id}) }}" target="_self" class="btn btn-danger" data-confirm="Opravdu chcete tento záznam smazat?"><span class="glyphicon glyphicon-trash"></span></a>#}
+                                <a href="{{ url('users_edit', {'id': data_item.id}) }}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                                {#<a href="{{ url('users_remove', {'id': data_item.id}) }}" class="btn btn-danger" data-confirm="Opravdu chcete tento záznam smazat?"><span class="glyphicon glyphicon-trash"></span></a>#}
                             </td>
                         {% endblock edit_actions %}
 

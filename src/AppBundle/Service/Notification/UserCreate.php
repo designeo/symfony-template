@@ -33,7 +33,7 @@ class UserCreate extends AMailer
      */
     public function getMessage(User $user, $password)
     {
-        return $this->getTemplating()->render('IS/Users/emails/create.html.twig', [
+        return $this->getTemplating()->render('Admin/User/emails/create.html.twig', [
             'user' => $user,
             'password' => $password
         ]);

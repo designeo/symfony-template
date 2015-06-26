@@ -1,0 +1,14 @@
+Dobrý den,<br />
+<p>právě Vám byl zřízen účet.</p>
+<p>
+    Vaše přístupové údaje jsou<br />
+    <strong>E-mailová adresa: {{ user.email }}</strong><br />
+    <strong>Heslo: {{ password }}</strong>
+</p>
+<p>Do systému se můžete přihlásit na <a href="{{ url('fos_user_security_login') }}">{{ url('fos_user_security_login') }}</a>.</p>
+<p>Heslo si můžete kdykoliv změnit.</p>
+<p>Jedná se o informační e-mail. Na tento e-mail neodpovídejte.</p>
+<p>
+    S pozdravem<br />
+    {{ url('fos_user_security_login') }}
+</p>
