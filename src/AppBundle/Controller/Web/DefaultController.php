@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration as Sensio;
  * Class DefaultController
  * @package AppBundle\Web\Controller
  * @author  Ondřej Musil <omusil@gmail.com>
+ *
+ * @Sensio\Route(service="app.controller.web.default")
  */
 class DefaultController extends AbstractWebController
 {

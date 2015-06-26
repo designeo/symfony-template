@@ -18,3 +18,8 @@ services:
         arguments: ['@security.token_storage']
         tags:
             - { name: doctrine.event_subscriber }
+
+
+    app.controller.web.default:
+        class: AppBundle\Controller\Web\DefaultController
+        arguments: []
