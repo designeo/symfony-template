@@ -112,7 +112,7 @@ class UserController extends AbstractController {
             try {
                 $this->userFacade->save($user);
                 $this->addFlash('success', 'Uživatel byl úspěšně uložen');
-                return $this->redirect($this->generateUrl('users_index'));
+                return $this->redirectToRoute('users_index');
             }
             catch (UserException $e) {
                 $form->get('email')->addError(new FormError($e->getMessage()));
@@ -139,7 +139,7 @@ class UserController extends AbstractController {
             $this->addFlash('danger', $e->getMessage());
         }
 
-        return $this->redirect($this->generateUrl('users_index'));
+        return $this->redirectToRoute('users_index');
     }
 
     /**
