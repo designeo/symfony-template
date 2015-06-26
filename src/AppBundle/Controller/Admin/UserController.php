@@ -87,7 +87,8 @@ class UserController extends AbstractController {
      */
     public function editAction(Request $request, User $user)
     {
-        $form = $this->userForm($user, $request);
+        $formOptions = ['password_required' => false];
+        $form = $this->userForm($user, $request, $formOptions);
         if ($form instanceof Response) {
             return $form;
         }
@@ -100,11 +101,11 @@ class UserController extends AbstractController {
         );
     }
 
-    private function userForm(User $user, Request $request)
+    private function userForm(User $user, Request $request, array $formOptions = [])
     {
         $userType = new UserType($this->rolesProvider);
 
-        $form = $this->createForm($userType, $user);
+        $form = $this->createForm($userType, $user, $formOptions);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
