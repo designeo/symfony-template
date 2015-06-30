@@ -54,7 +54,7 @@ class UserCreateMail
      */
     public function getMessage(User $user, $password)
     {
-        return $this->mailer->getTemplating()->render('Admin/User/emails/create.html.twig', [
+        return $this->mailer->getTemplating()->render('AppBundle:Admin/User:emails/create.html.twig', [
             'user' => $user,
             'password' => $password
         ]);

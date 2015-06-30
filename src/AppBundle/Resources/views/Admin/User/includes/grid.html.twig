@@ -1,6 +1,6 @@
 {% set route = app.request.get('_route') %}
 {% set route_params = app.request.get('_route_params') | merge(filter) %}
-{% import 'Grid/paging.html.twig' as paginator %}
+{% import 'AppBundle:Grid:paging.html.twig' as paginator %}
 
 <div class="grid">
     <form method="get" class="grid-filter">

@@ -1,4 +1,4 @@
-{% extends 'Admin/layout.html.twig' %}
+{% extends 'AppBundle:Admin:layout.html.twig' %}
 
 {% block title %}{{ parent() }} - Uživatelé {% endblock %}
 
@@ -13,6 +13,6 @@
         </div>
     </div>
 
-    {{ include('Admin/User/includes/grid.html.twig') }}
+    {{ include('AppBundle:Admin/User:includes/grid.html.twig') }}
 
 {% endblock %}

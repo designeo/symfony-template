@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as Sensio;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class DefaultController
@@ -14,11 +13,12 @@ class DefaultController extends AbstractAdminController
 {
     /**
      * @Sensio\Route("/admin", name="admin_homepage")
+     * @Sensio\Template("AppBundle:Admin/Default:index.html.twig")
      *
-     * @return Response
+     * @return array
      */
     public function indexAction()
     {
-        return $this->render('Admin/Default/index.html.twig');
+        return [];
     }
 }

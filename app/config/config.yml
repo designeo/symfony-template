@@ -88,4 +88,4 @@ fos_user:
 # KNP Menu Configuration
 knp_menu:
     twig:
-        template: "Menu/bootstrap_menu.html.twig"
+        template: "AppBundle:Menu:bootstrap_menu.html.twig"
