@@ -19,6 +19,6 @@ class DefaultController extends AbstractWebController
      */
     public function indexAction()
     {
-        return array();
+        return [];
     }
 }

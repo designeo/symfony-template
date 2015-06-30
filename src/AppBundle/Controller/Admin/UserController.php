@@ -31,6 +31,11 @@ class UserController extends AbstractController {
     /** @var UserFacade */
     private $userFacade;
 
+    /**
+     * @param UserManager $userManager
+     * @param RolesProvider $rolesProvider
+     * @param UserFacade $userFacade
+     */
     public function __construct(UserManager $userManager, RolesProvider $rolesProvider, UserFacade $userFacade)
     {
         $this->userManager = $userManager;
@@ -41,24 +46,23 @@ class UserController extends AbstractController {
     /**
      * @Sensio\Route("/", name="users_index")
      * @Sensio\Method({"GET", "POST"})
+     * @Sensio\Template("AppBundle:Admin/User:index.html.twig")
      *
      * @param Request $request
-     * @return Response
+     * @return array
      */
     public function indexAction(Request $request)
     {
-        return $this->render(
-          'AppBundle:Admin/User:index.html.twig',
-          $this->getUserGridData($request)
-        );
+        return $this->getUserGridData($request);
     }
 
     /**
      * @Sensio\Route("/novy", name="users_new")
      * @Sensio\Method({"GET", "POST"})
+     * @Sensio\Template("AppBundle:Admin/User:edit.html.twig")
      *
      * @param Request $request
-     * @return Response
+     * @return array
      */
     public function newAction(Request $request)
     {
@@ -75,22 +79,21 @@ class UserController extends AbstractController {
             }
         }
 
-        return $this->render(
-          'Admin/User/edit.html.twig', [
+        return [
             'form' => $form->createView(),
             'title' => 'Nový uživatel',
-          ]
-        );
+        ];
     }
 
     /**
      * @Sensio\Route("/{id}/editace", name="users_edit")
      * @Sensio\Method({"GET", "POST"})
      * @Sensio\ParamConverter("id", class="AppBundle:User")
+     * @Sensio\Template("AppBundle:Admin/User:edit.html.twig")
      *
      * @param Request $request
      * @param User $user
-     * @return Response
+     * @return array
      */
     public function editAction(Request $request, User $user)
     {
@@ -107,22 +110,10 @@ class UserController extends AbstractController {
             }
         }
 
-        return $this->render(
-          'AppBundle:Admin/User:edit.html.twig', [
+        return [
             'form' => $form->createView(),
             'title' => 'Editace uživatele',
-          ]
-        );
-    }
-
-    private function userForm(User $user, Request $request, array $formOptions = [])
-    {
-        $userType = new UserType($this->rolesProvider);
-
-        $form = $this->createForm($userType, $user, $formOptions);
-        $form->handleRequest($request);
-
-        return $form;
+        ];
     }
 
     /**
@@ -187,4 +178,19 @@ class UserController extends AbstractController {
         ];
     }
 
+    /**
+     * @param User $user
+     * @param Request $request
+     * @param array $formOptions
+     * @return \Symfony\Component\Form\Form
+     */
+    private function userForm(User $user, Request $request, array $formOptions = [])
+    {
+        $userType = new UserType($this->rolesProvider);
+
+        $form = $this->createForm($userType, $user, $formOptions);
+        $form->handleRequest($request);
+
+        return $form;
+    }
 }
