@@ -15,9 +15,10 @@ class DefaultController extends AbstractWebController
 {
     /**
      * @Sensio\Route("/", name="homepage")
+     * @Sensio\Template("AppBundle:Web/Default:index.html.twig")
      */
     public function indexAction()
     {
-        return $this->render('Web/Default/index.html.twig');
+        return array();
     }
 }

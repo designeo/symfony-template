@@ -19,6 +19,6 @@ class DefaultController extends AbstractAdminController
      */
     public function indexAction()
     {
-        return $this->render('Admin/Default/index.html.twig');
+        return $this->render('AppBundle:Admin/Default:index.html.twig');
     }
 }

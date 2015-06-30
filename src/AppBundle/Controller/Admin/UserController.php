@@ -48,7 +48,7 @@ class UserController extends AbstractController {
     public function indexAction(Request $request)
     {
         return $this->render(
-          'Admin/User/index.html.twig',
+          'AppBundle:Admin/User:index.html.twig',
           $this->getUserGridData($request)
         );
     }
@@ -108,7 +108,7 @@ class UserController extends AbstractController {
         }
 
         return $this->render(
-          'Admin/User/edit.html.twig', [
+          'AppBundle:Admin/User:edit.html.twig', [
             'form' => $form->createView(),
             'title' => 'Editace uživatele',
           ]
