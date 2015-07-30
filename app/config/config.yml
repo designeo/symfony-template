@@ -24,11 +24,16 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
+    ide: "phpstorm://open?file=%%f&line=%%l"
 
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'AppBundle:Vich:form_fields.html.twig'
+    form:
+        resources: ['AppBundle:Admin:bootstrap_3_layout.html.twig']
 
 # Assetic Configuration
 assetic:
@@ -84,8 +89,57 @@ fos_user:
     db_driver:      orm
     firewall_name:  main
     user_class:     AppBundle\Entity\User
+    registration:
+        form:
+            type: web_registration
+    profile:
+        form:
+            type: web_profile
 
 # KNP Menu Configuration
 knp_menu:
     twig:
-        template: "Menu/bootstrap_menu.html.twig"
+        template: "AppBundle:Menu:bootstrap_menu.html.twig"
+
+# Vich uploader
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+
+        destination_image:
+            uri_prefix:         /files/destinations
+            upload_destination: %kernel.root_dir%/../web/files/destinations
+            namer:              app.uploader.uniqid_namer
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
+        video_thumbnails:
+            uri_prefix:         /files/thumbnails/videos
+            upload_destination: %kernel.root_dir%/../web/files/thumbnails/videos
+            namer:              app.uploader.uniqid_namer
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
+a2lix_translation_form:
+    locale_provider: default
+    locales: %locale.allowed.array%
+
+jms_translation:
+    configs:
+        routing:
+            dirs: [%kernel.root_dir%/../src]
+            domains: [routes]
+            excluded_names: ["*TestCase.php", "*Test.php"]
+            excluded_dirs: [cache, data, logs]
+            extractor: jms_i18n_routing
+            output_dir: %kernel.root_dir%/Resources/translations
+            output_format: yml
+
+
+jms_i18n_routing:
+    default_locale: %locale%
+    locales: %locale.allowed.array%
+    strategy: prefix

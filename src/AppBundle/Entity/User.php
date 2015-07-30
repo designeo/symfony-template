@@ -2,10 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use AppBundle\Entity\Traits\Timestamps;
-
+use AppBundle\Service\RolesProvider;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -13,8 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @package AppBundle\Entity
  * @author Ondřej Musil <omusil@gmail.com>
  *
- * @ORM\Entity()
  * @ORM\Table(name="users")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
@@ -32,7 +35,8 @@ class User extends BaseUser
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="user.firstname.notBlank")
+     * @Assert\Length(max=45, maxMessage="user.firstname.tooLong")
      * @ORM\Column(name="first_name", type="string", length=45, nullable=true)
      */
     protected $firstName;
@@ -40,6 +44,8 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="user.lastname.notBlank")
+     * @Assert\Length(max=45, maxMessage="user.lastname.tooLong")
      * @ORM\Column(name="last_name", type="string", length=45, nullable=true)
      */
     protected $lastName;
@@ -115,4 +121,32 @@ class User extends BaseUser
 
         return $this;
     }
+
+    /**
+     * Avoiding baseUser methods like hasRole etc
+     * @param string $role
+     */
+    public function setUserRole($role)
+    {
+        $this->addRole($role);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserRole()
+    {
+        $roles = $this->getRoles();
+
+        return $roles[0];
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserRoleName()
+    {
+        return RolesProvider::getRoleName($this->getUserRole());
+    }
+
 }

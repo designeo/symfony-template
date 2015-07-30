@@ -1,0 +1,108 @@
+general:
+    boolean:
+        yes: Yes
+        no: No
+    date: 'd.m.Y'
+
+web:
+    brand:    "Designeo"
+    homepage: "Web Homepage."
+
+    menu:
+        web: Web
+        admin: Administration
+        logout: Sign out
+        login: Sign in
+        register: Sign up
+
+    static:
+        aboutUs:
+            title: About us
+        howItWorks:
+            title: How it works?
+        termsOfUse:
+            title: Terms of use
+
+    registration:
+        membershipType:
+            year: Full year
+            threeMonths: Three months
+        agreeTermsOfService: I agree to Terms of Service
+admin:
+    brand:    Administration
+    homepage: "Admin Homepage."
+
+    grids:
+        filter: Filter
+        select: --- Select ---
+        reset: Reset
+
+    global:
+        save: Save
+        filter: Filter
+        yes: Yes
+        no: No
+        reset: Reset
+        choose: Choose
+        action: Action
+        reallyDelete: Do you really want to delete this record?
+
+    destination:
+        actions:
+            create: Add destination
+            edit: Edit destination
+
+        entity:
+            lat: Lat
+            lng: Lng
+            code: Code
+            slug: Slug
+            photoFile: Photo
+            name: Name
+
+        messages:
+            recordCreated: Destination was successfully created
+            recordDeleted: Destination was successfully deleted
+            recordUpdated: Destination was successfully updated
+            failedToCreateRecord: System failed to create a new record
+            failedToDeleteRecord: System failed to delete the given record
+
+        title: Destinations
+
+    users:
+        actions:
+            create: New user
+            edit: Edit user
+            detail: User detail
+        entity:
+            email: E-mail
+            password: Password
+            firstName: First Name
+            lastName: Surname
+            enabled: Enabled
+            role: Role
+            name: Name
+            lastLogin: Last login
+
+        errors:
+            failedToDelete: User can't be deleted
+            duplicateEmail: User with this e-mail already exists
+
+        messages:
+            removed: User was deleted
+            saved: User was saved
+            confirmDelete: Really delete user?
+        title: Users
+
+
+security:
+    login:
+        title: Přihlásit se
+        email: Email:
+        password: Password:
+        remember_me: Remember me?
+        submit: Login
+        forgot_password: "Forgot password?"
+
+vich:
+    delete: Delete photo

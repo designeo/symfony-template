@@ -1,6 +1,8 @@
 .idea
 .DS_Store
 
+web/adminer.php
+
 # Project
 /web/bundles/
 /app/bootstrap.php.cache
@@ -16,9 +18,6 @@
 /bin/
 /composer.phar
 
-# On projects I commit also lock file to ensure same versions
-/composer.lock
-
 # Builded assets
 web/css/*
 !web/css/.gitkeep
@@ -32,3 +31,6 @@ web/img/*
 # node and bower
 node_modules
 bower_components
+
+# ignore scripts config
+scripts/config.sh

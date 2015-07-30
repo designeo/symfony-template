@@ -55,3 +55,14 @@ And fill database with initial data.
 __Running tests:__
 
 	bin/phpunit -c app/
+
+## I18n routes
+
+1) Create a translation file for routes:
+    ```app/console translation:extract  -c routing <locale>```
+
+2) Translate newly generated file app/Resources/translations/routing.<locale>.yml
+3) Enjoy a happy life.
+
+There is also the update version of translation command: `app/console translation:update`,
+however it probably can not fully utilize preconfigured settings from config.yml

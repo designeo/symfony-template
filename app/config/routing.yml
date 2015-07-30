@@ -1,6 +1,18 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    options:
+        i18n: false
 
-app:
-    resource: @AppBundle/Controller/
+app_admin:
+    resource: @AppBundle/Controller/Admin
     type:     annotation
+    schemes:  [%httpProtocol%]
+    options:
+        i18n: false
+
+app_web:
+    resource: @AppBundle/Controller/Web
+    type:     annotation
+    schemes:  [%httpProtocol%]
+    requirements:
+        _locale: %locale.allowed.string%

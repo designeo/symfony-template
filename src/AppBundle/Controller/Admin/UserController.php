@@ -3,188 +3,264 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration as Sensio;
+use AppBundle\GridDataSources\Admin\UserDataSource;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
 use AppBundle\Form\Admin\UserType;
-use AppBundle\GridManagers\Admin\UserManager;
-use AppBundle\Model\UserException;
-use AppBundle\Model\UserFacade;
+use AppBundle\Exception\UserException;
+use AppBundle\Model\UserModel;
 use AppBundle\Service\RolesProvider;
 
 /**
  * Class UsersController
  * @package AppBundle\Controller\IS
  *
- * @Sensio\Route("/admin/uzivatele-systemu", service="app.admin.user_controller")
+ * @Route("/admin/user", service="app.admin.user_controller")
  */
-class UserController extends AbstractController {
+class UserController extends AbstractController
+{
 
-    /** @var UserManager */
-    private $userManager;
+    /** @var UserDataSource */
+    private $userDataSource;
 
     /** @var RolesProvider */
     private $rolesProvider;
 
-    /** @var UserFacade */
-    private $userFacade;
+    /** @var UserModel */
+    private $userModel;
 
-    public function __construct(UserManager $userManager, RolesProvider $rolesProvider, UserFacade $userFacade)
+    /**
+     * @param UserDataSource $userDataSource
+     * @param RolesProvider  $rolesProvider
+     * @param UserModel      $userModel
+     */
+    public function __construct(UserDataSource $userDataSource, RolesProvider $rolesProvider, UserModel $userModel)
     {
-        $this->userManager = $userManager;
+        $this->userDataSource = $userDataSource;
         $this->rolesProvider = $rolesProvider;
-        $this->userFacade = $userFacade;
+        $this->userModel = $userModel;
     }
 
     /**
-     * @Sensio\Route("/", name="users_index")
-     * @Sensio\Method({"GET", "POST"})
+     * @Route("/", name="admin_user_index")
+     * @Method({"GET"})
+     * @Template("AppBundle:Admin/User:index.html.twig")
      *
      * @param Request $request
-     * @return Response
+     * @return array
      */
     public function indexAction(Request $request)
     {
-        return $this->render(
-          'Admin/User/index.html.twig',
-          $this->getUserGridData($request)
-        );
+        return $this->getUserGridData($request);
     }
 
     /**
-     * @Sensio\Route("/novy", name="users_new")
-     * @Sensio\Method({"GET", "POST"})
+     * Displays a form to create a new User entity.
      *
-     * @param Request $request
-     * @return Response
+     * @Route("/new", name="admin_user_new")
+     * @Method("GET")
+     * @Template("AppBundle:Admin/User:edit.html.twig")
+     * @return array
      */
-    public function newAction(Request $request)
+    public function newAction()
     {
         $user = new User;
-        $form = $this->userForm($user, $request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $this->userFacade->save($user);
-                $this->addFlash('success', 'Uživatel byl úspěšně uložen');
-                return $this->redirectToRoute('users_index');
-            }
-            catch (UserException $e) {
-                $form->get('email')->addError(new FormError($e->getMessage()));
-            }
-        }
+        $form   = $this->createCreateForm($user);
 
-        return $this->render(
-          'Admin/User/edit.html.twig', [
-            'form' => $form->createView(),
-            'title' => 'Nový uživatel',
-          ]
+        return array(
+          'title' => 'admin.users.actions.create',
+          'entity' => $user,
+          'form'   => $form->createView(),
         );
     }
 
     /**
-     * @Sensio\Route("/{id}/editace", name="users_edit")
-     * @Sensio\Method({"GET", "POST"})
-     * @Sensio\ParamConverter("id", class="AppBundle:User")
+     * @Route("/create", name="admin_user_create")
+     * @Method({"POST"})
+     * @Template("AppBundle:Admin/User:edit.html.twig")
      *
      * @param Request $request
-     * @param User $user
-     * @return Response
+     * @return array
      */
-    public function editAction(Request $request, User $user)
+    public function createAction(Request $request)
     {
-        $formOptions = ['password_required' => false];
-        $form = $this->userForm($user, $request, $formOptions);
-        if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $this->userFacade->save($user);
-                $this->addFlash('success', 'Uživatel byl úspěšně uložen');
-                return $this->redirectToRoute('users_index');
-            }
-            catch (UserException $e) {
-                $form->get('email')->addError(new FormError($e->getMessage()));
-            }
-        }
-
-        return $this->render(
-          'Admin/User/edit.html.twig', [
-            'form' => $form->createView(),
-            'title' => 'Editace uživatele',
-          ]
-        );
-    }
-
-    private function userForm(User $user, Request $request, array $formOptions = [])
-    {
-        $userType = new UserType($this->rolesProvider);
-
-        $form = $this->createForm($userType, $user, $formOptions);
+        $user = new User;
+        $form = $this->createCreateForm($user);
         $form->handleRequest($request);
 
-        return $form;
+        if ($form->isValid()) {
+            try {
+                $this->userModel->persist($user);
+                $this->addFlash('success', 'admin.users.messages.saved');
+
+                return $this->redirectToRoute('admin_user_index');
+            } catch (UserException $e) {
+                $form->addError(new FormError($e->getMessage()));
+            }
+        }
+
+        return [
+            'form' => $form->createView(),
+            'entity' => $user,
+            'title' => 'admin.users.actions.create',
+        ];
     }
 
     /**
-     * @Sensio\Route("/{id}/smazat", name="users_remove")
-     * @Sensio\Method({"GET"})
-     * @Sensio\ParamConverter("id", class="AppBundle:User")
+     * @Route("/{id}/edit", name="admin_user_edit")
+     * @Method({"GET"})
+     * @ParamConverter("id", class="AppBundle:User")
+     * @Template("AppBundle:Admin/User:edit.html.twig")
+     *
+     * @param User $user
+     * @return array
+     */
+    public function editAction(User $user)
+    {
+        $form = $this->createEditForm($user);
+
+        return [
+            'form' => $form->createView(),
+            'entity' => $user,
+            'title' => 'admin.users.actions.edit',
+        ];
+    }
+
+    /**
+     * @Route("/{id}", name="admin_user_update")
+     * @Method({"PUT"})
+     * @ParamConverter("id", class="AppBundle:User")
+     * @Template("AppBundle:Admin/User:edit.html.twig")
      *
      * @param Request $request
+     * @param User    $user
+     * @return array
+     */
+    public function updateAction(Request $request, User $user)
+    {
+        $form = $this->createEditForm($user);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            try {
+                $this->userModel->update($user);
+                $this->addFlash('success', 'admin.users.messages.saved');
+
+                return $this->redirectToRoute('admin_user_index');
+            } catch (UserException $e) {
+                $form->addError(new FormError($e->getMessage()));
+            }
+        }
+
+        return [
+          'form' => $form->createView(),
+          'title' => 'admin.users.actions.edit',
+        ];
+    }
+
+    /**
+     * @Route("/{id}/remove", name="admin_user_remove")
+     * @Method({"DELETE"})
+     * @ParamConverter("id", class="AppBundle:User")
+     *
      * @param User $user
      * @return Response
      */
     public function removeAction(User $user)
     {
         try {
-            $this->userFacade->remove($user);
-            $this->addFlash('success', 'Uživatel byl úspěšně vymazán');
+            $this->userModel->remove($user);
+            $this->addFlash('success', 'admin.users.messages.removed');
         } catch (UserException $e) {
             $this->addFlash('danger', $e->getMessage());
         }
 
-        return $this->redirectToRoute('users_index');
+        return $this->redirectToRoute('admin_user_index');
+    }
+
+    /**
+     * @Route("/{id}/detail", name="admin_user_detail")
+     * @Method({"GET"})
+     * @ParamConverter("id", class="AppBundle:User")
+     * @Template("AppBundle:Admin/User:detail.html.twig")
+     *
+     * @param User $user
+     * @return array
+     */
+    public function detailAction(User $user)
+    {
+        return [
+          'user' => $user,
+          'title' => 'admin.users.actions.detail',
+        ];
     }
 
     /**
      * @param Request $request
      * @return array
      */
-    public function getUserGridData(Request $request)
+    private function getUserGridData(Request $request)
     {
-        $gridManager = $this->userManager;
+        $gridManager = $this->userDataSource;
+        $defaultSort = 'U.lastName';
+        $gridManager->setDefaultDataFromRequest($request, $defaultSort);
 
         // parameters
-        $page = $request->get('page', 1);
-
         $name = $request->get('name');
         $email = $request->get('email');
         $role = $request->get('role');
         $enabled = $request->get('enabled');
-        $lastLogin = $request->get('lastLogin');
 
         $gridManager->setName($name);
         $gridManager->setEmail($email);
         $gridManager->setRole($role);
         $gridManager->setEnabled($enabled);
-        $gridManager->setLastLogin($lastLogin);
 
-        $gridManager->setPage($page);
-        $gridManager->sortBy($request->get('sortBy', 'U.lastName'), $request->get('sortDir'));
+        $data = $gridManager->getDataForGrid();
+        $data['filterData']['roles'] = $this->rolesProvider->getRoleNames();
 
-        return [
-          'data' => $gridManager->getData(),
-          'page' => $gridManager->getPage(),
-          'max_page' => $gridManager->getMaxPage(),
-          'filter' => [
-            'name' => $name,
-            'email' => $email,
-            'role' => $role,
-            'enabled' => $enabled,
-            'lastLogin' => $lastLogin,
-            'sortDir' => $gridManager->getNextSortDir(),
-          ],
-        ];
+        return $data;
     }
 
+    /**
+     * Creates a form to create a User entity.
+     * @param User $entity
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createCreateForm(User $entity)
+    {
+        $form = $this->createForm(new UserType($this->rolesProvider), $entity, [
+            'action' => $this->generateUrl('admin_user_create'),
+            'method' => 'POST',
+            'password_required' => true,
+        ]);
+
+        $form->add('submit', 'submit', ['attr' => ['class' => 'btn btn-primary']]);
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to edit a User entity.
+     * @param User $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(User $entity)
+    {
+        $form = $this->createForm(new UserType($this->rolesProvider), $entity, [
+            'action' => $this->generateUrl('admin_user_update', ['id' => $entity->getId()]),
+            'method' => 'PUT',
+            'password_required' => false,
+        ]);
+
+        $form->add('submit', 'submit', ['attr' => ['class' => 'btn btn-primary']]);
+
+        return $form;
+    }
 }

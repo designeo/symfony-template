@@ -2,8 +2,8 @@
 
 namespace AppBundle\Tests;
 
+use AppBundle\Tests\Base\AWebDatabaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -12,15 +12,19 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  * @package AppBundle\Tests
  * @author  Ondřej Musil <omusil@gmail.com>
  */
-class ApplicationAvailabilityFunctionalTest extends WebTestCase
+class ApplicationAvailabilityFunctionalTest extends AWebDatabaseTestCase
 {
     /**
      * @var Client
      */
     protected $client;
 
+    /**
+     *
+     */
     public function setUp()
     {
+        parent::setUp();
         $this->client = static::createClient();
     }
 
@@ -52,25 +56,33 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
      */
     protected function signInAsAdmin()
     {
-        $session = $this->client->getContainer()->get('session');
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('_submit')->form(array(
+            '_username'  => 'admin@localhost',
+            '_password'  => 'secret',
+        ));
 
-        $firewall = 'main';
-        $token = new UsernamePasswordToken('admin', null, $firewall, array('ROLE_ADMIN'));
-        $session->set('_security_'.$firewall, serialize($token));
-        $session->save();
+        $this->client->submit($form);
 
-        $cookie = new Cookie($session->getName(), $session->getId());
-        $this->client->getCookieJar()->set($cookie);
+        $this->assertTrue($this->client->getResponse()->isRedirect());
+
+        $this->client->followRedirect();
     }
 
+    /**
+     * @return array
+     */
     public function webUrlProvider()
     {
         return array(
-            array('/'),
-            array('/login')
+            array('/en/'),
+            array('/login'),
         );
     }
 
+    /**
+     * @return array
+     */
     public function adminUrlProvider()
     {
         return array(

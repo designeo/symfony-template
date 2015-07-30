@@ -16,6 +16,10 @@ parameters:
     mailer_sender_name: ~
 
     locale:            en
+    locale.allowed.array: ['en']
+    locale.allowed.string: '|en'
+    locale.languages:
+        en: 'English'
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

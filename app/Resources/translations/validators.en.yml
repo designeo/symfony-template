@@ -1,0 +1,34 @@
+destination:
+    alreadyExists: Destination with this slug already exists in this language.
+    imageNotNull: Photo is required
+    code:
+        notBlank: Code must be filled.
+        tooLong: Max length of code is {{ limit }} characters.
+    lat:
+        mustBeDecimal: Latitude must be a decimal number.
+        notBlank: Latitude must be filled.
+    lng:
+        mustBeDecimal: Longitude must be a decimal number.
+        notBlank: Longitude must be filled.
+    photo:
+        tooLong: Photo file name can only be {{ limit }} characters long.
+
+destinationtranslation:
+    name:
+        notBlank: Name must not be blank.
+        tooShort: Minimum length of name is {{ limit }} characters.
+        tooLong: Maximum length of name is {{ limit }} characters.
+
+title:
+    tooLong: Maximum length of title must be {{ limit }} characters.
+
+slug:
+    tooShort: Minimum length of slug must be {{ limit }} characters.
+    tooLong: Maximum length of slug must be {{ limit }} characters.
+user:
+    firstname:
+        notBlank: First name must not be blank
+        tooLong: Maximum length of first name is {{ limit }} characters.
+    lastname:
+        notBlank: Last name must not be blank
+        tooLong: Maximum length of last name is {{ limit }} characters.

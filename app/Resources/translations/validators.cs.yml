@@ -1,0 +1,2 @@
+destination:
+    imageNotNull: Photo is required
