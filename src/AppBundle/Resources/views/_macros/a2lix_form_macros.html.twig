@@ -1,0 +1,52 @@
+{#
+Example:
+{% import "AppBundle:_macros:a2lix_form_macros.html.twig" as a2lixMacros %}
+{{ a2lixMacros.orderedTranslations(form.translations, ['title','slug']) }}
+{{ a2lixMacros.renderSlugifyListenerScript(form.translations, 'title', 'slug') }}
+#}
+
+{% macro orderedTranslations(form, fieldsNames) %}
+    <div class="a2lix_translations tabbable">
+        <ul class="a2lix_translationsLocales nav nav-tabs">
+            {% for translationsFields in form %}
+                {% set locale = translationsFields.vars.name %}
+
+                <li {% if app.request.locale == locale %}class="active"{% endif %}>
+                    <a href="#" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}">
+                        {{ locale|capitalize }}
+                        {% if form.vars.default_locale == locale %}[Default]{% endif %}
+                        {% if translationsFields.vars.required %}*{% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="a2lix_translationsFields tab-content">
+            {% for translationsFields in form %}
+                {% set locale = translationsFields.vars.name %}
+
+                <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
+                    {% for fieldName in fieldsNames %}
+                        {% if fieldName in translationsFields.children|keys %}
+                            {{ form_row(translationsFields.children[fieldName]) }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro renderSlugifyListenerScript(form, titleFieldName, slugFieldName) %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            {% for locale, value in form.children %}
+                // slug listener for {{ locale }} locale
+                {% set titleFieldId = form.children[locale].children[titleFieldName].vars.id %}
+                {% set slugFieldId = form.children[locale].children[slugFieldName].vars.id %}
+                slugifyListener("#{{ titleFieldId }}", "#{{ slugFieldId }}");
+            {% endfor %}
+        });
+    </script>
+{% endmacro %}

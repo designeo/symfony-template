@@ -1,0 +1,47 @@
+{% extends 'AppBundle:Admin:layout.html.twig' %}
+    {% block title %}{{ parent() }} - {{ title|trans }} {% endblock %}
+
+{% block content %}
+
+    <h1>{{ title|trans }}</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.email, {'label': 'admin.users.entity.email', 'attr': {'placeholder': '@'}}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.plainPassword, {'label': 'admin.users.entity.password'}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.firstName, {'label': 'admin.users.entity.firstName', 'attr': {'placeholder': 'admin.users.entity.firstName'}}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.lastName, {'label': 'admin.users.entity.lastName', 'attr': {'placeholder': 'admin.users.entity.lastName'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.enabled, {'label': 'admin.users.entity.enabled'}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.userRole, {'label': 'admin.users.entity.role', 'placeholder': 'admin.users.entity.role'}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.submit, {'label': 'admin.global.save'}) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock content %}

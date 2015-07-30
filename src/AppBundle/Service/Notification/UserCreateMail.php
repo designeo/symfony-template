@@ -25,6 +25,11 @@ class UserCreateMail
      */
     private $mailer;
 
+    /**
+     * @param Mailer $mailer
+     * @param string $senderMail
+     * @param string $senderName
+     */
     public function __construct(Mailer $mailer, $senderMail, $senderName)
     {
         $this->mailer = $mailer;
@@ -33,8 +38,8 @@ class UserCreateMail
     }
 
     /**
-     * @param User $user
-     * @param $password
+     * @param User   $user
+     * @param string $password
      */
     public function send(User $user, $password)
     {
@@ -48,13 +53,13 @@ class UserCreateMail
     }
 
     /**
-     * @param User $user
-     * @param $password
+     * @param User   $user
+     * @param string $password
      * @return string|void
      */
     public function getMessage(User $user, $password)
     {
-        return $this->mailer->getTemplating()->render('Admin/User/emails/create.html.twig', [
+        return $this->mailer->getTemplating()->render('AppBundle:Admin/User:emails/create.html.twig', [
             'user' => $user,
             'password' => $password
         ]);

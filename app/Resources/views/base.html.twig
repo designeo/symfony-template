@@ -5,6 +5,7 @@
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,300,400italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
             <title>{% block title %}Symfony Template{% endblock title %}</title>
 
@@ -23,6 +24,21 @@
 
             {% block container %}
                 <div class="container">
+
+                    {% block flash_messages %}
+                        {% for label, flashes in app.session.flashbag.all %}
+                            {% for flash in flashes %}
+                                <div class="alert alert-{{ label }} alert-dismissible">
+                                    {{ flash|trans }}
+
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endblock flash_messages %}
+
                 {% block content %}{% endblock %}
                 </div>
             {% endblock container %}

@@ -1,0 +1,7 @@
+{% extends '@App/Web/layout.html.twig' %}
+
+{% block content %}
+    <h2>{{ destination.translate.name }}</h2>
+    <img src="{{ vich_uploader_asset(destination, 'photoFile') }}" alt="">
+
+{% endblock %}

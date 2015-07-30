@@ -12,8 +12,8 @@ var LessPluginCleanCSS = require("less-plugin-clean-css"),
     cleancss = new LessPluginCleanCSS({advanced: true});
 
 
-gulp.task('css', function() {
-    return gulp.src('app/Resources/less/main.less')
+gulp.task('css:web', function() {
+    return gulp.src('app/Resources/less/web/main.less')
         .pipe(plugins.if(!argv.production, plugins.sourcemaps.init()))
         .pipe(plugins.less({
             plugins: [cleancss]
@@ -23,7 +23,25 @@ gulp.task('css', function() {
         .pipe(plugins.addSrc.prepend(mainBowerFiles()))
         .pipe(plugins.ignore.include('*.css'))
         .pipe(plugins.ignore.exclude('**/bootstrap.css'))
-        .pipe(plugins.concat('main.css'))
+        .pipe(plugins.concat('web.css'))
+        .pipe(plugins.if(argv.production, plugins.minifyCss()))
+        .on('error', plugins.notify.onError("Minify error: <%= error.file %> <%= error.message %>"))
+        .pipe(gulp.dest('web/css/'))
+        .pipe(plugins.notify('CSS build finished'));
+});
+
+gulp.task('css:admin', function() {
+    return gulp.src('app/Resources/less/admin/main.less')
+        .pipe(plugins.if(!argv.production, plugins.sourcemaps.init()))
+        .pipe(plugins.less({
+            plugins: [cleancss]
+        }))
+        .on('error', plugins.notify.onError("Less error: <%= error.file %> <%= error.message %>"))
+        .pipe(plugins.if(!argv.production, plugins.sourcemaps.write()))
+        .pipe(plugins.addSrc.prepend(mainBowerFiles()))
+        .pipe(plugins.ignore.include('*.css'))
+        .pipe(plugins.ignore.exclude('**/bootstrap.css'))
+        .pipe(plugins.concat('admin.css'))
         .pipe(plugins.if(argv.production, plugins.minifyCss()))
         .on('error', plugins.notify.onError("Minify error: <%= error.file %> <%= error.message %>"))
         .pipe(gulp.dest('web/css/'))
@@ -72,6 +90,11 @@ gulp.task('assets:images', function() {
         .pipe(plugins.addSrc('app/Resources/img/**/*.{'+ images +'}'))
         .pipe(gulp.dest('web/img/'))
 });
+
+gulp.task('css', [
+    'css:admin',
+    'css:web'
+]);
 
 gulp.task('assets', [
     'assets:fonts',

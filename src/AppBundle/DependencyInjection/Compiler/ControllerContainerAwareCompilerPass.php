@@ -24,7 +24,7 @@ class ControllerContainerAwareCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         foreach ($container->getDefinitions() as $definition) {
-            if (preg_match("/Controller$/", $definition->getClass()) && !$definition->hasMethodCall('setContainer')) {
+            if (preg_match('/Controller$/', $definition->getClass()) && !$definition->hasMethodCall('setContainer')) {
                 $definition->addMethodCall(
                     'setContainer',
                     array(new Reference('service_container'))

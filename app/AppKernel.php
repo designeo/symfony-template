@@ -23,6 +23,12 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new \Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
 
             // Application bundles
             new AppBundle\AppBundle(),

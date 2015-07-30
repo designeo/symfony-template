@@ -1,8 +1,19 @@
 {
   "name": "symfony-template",
   "dependencies": {
-    "bootstrap": "3.*"
+    "designeo-bootstrap": "http://git.designeo.cz/designeo/designeo-boostrap.git"
   },
   "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/js/bootstrap.js",
+        "./fonts/glyphicons-halflings-regular.eot",
+        "./fonts/glyphicons-halflings-regular.svg",
+        "./fonts/glyphicons-halflings-regular.ttf",
+        "./fonts/glyphicons-halflings-regular.woff",
+        "./fonts/glyphicons-halflings-regular.woff2"
+      ]
+    }
   }
 }

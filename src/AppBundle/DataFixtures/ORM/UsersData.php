@@ -16,6 +16,9 @@ class UsersData extends ContainerAware implements FixtureInterface, OrderedFixtu
 {
     protected $superAdminMail = 'admin@localhost';
 
+    /**
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $userRepo = $manager->getRepository('AppBundle:User');
@@ -24,6 +27,14 @@ class UsersData extends ContainerAware implements FixtureInterface, OrderedFixtu
         if (!$superAdmin) {
             $this->addSuperAdmin($manager);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrder()
+    {
+        return 1;
     }
 
     private function addSuperAdmin(ObjectManager $manager)
@@ -43,10 +54,5 @@ class UsersData extends ContainerAware implements FixtureInterface, OrderedFixtu
 
         $manager->persist($user);
         $manager->flush();
-    }
-
-    public function getOrder()
-    {
-        return 1;
     }
 }

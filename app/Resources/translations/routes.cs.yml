@@ -1,0 +1,56 @@
+# Desc: /about-us
+app_static_aboutus: /o-nas
+
+# Desc: /how-it-works
+app_static_howitworks: /jak-to-funguje
+
+# Desc: /terms-of-use
+app_static_termsofuse: /podminky-pouziti
+
+# Desc: /profile/change-password
+fos_user_change_password: /profil/zmena-hesla
+
+# Desc: /profile/edit
+fos_user_profile_edit: /profil/upravit
+
+# Desc: /profile/
+fos_user_profile_show: /profil/
+
+# Desc: /register/check-email
+fos_user_registration_check_email: /registrace/kontrola-emailu
+
+# Desc: /register/confirm/{token}
+fos_user_registration_confirm: '/registrace/confirm/{token}'
+
+# Desc: /register/confirmed
+fos_user_registration_confirmed: /registrace/confirmed
+
+# Desc: /register/
+fos_user_registration_register: /registrace/
+
+# Desc: /resetting/check-email
+fos_user_resetting_check_email: /zmena-hesla/kontrola-emailu
+
+# Desc: /resetting/request
+fos_user_resetting_request: /zmena-hesla/zadost
+
+# Desc: /resetting/reset/{token}
+fos_user_resetting_reset: '/zmena-hesla/reset/{token}'
+
+# Desc: /resetting/send-email
+fos_user_resetting_send_email: /zmena-hesla/zaslani-emailu
+
+# Desc: /login_check
+fos_user_security_check: /login_kontrola
+
+# Desc: /login
+fos_user_security_login: /login
+
+# Desc: /logout
+fos_user_security_logout: /logout
+
+# Desc: /destination/{slug}
+web_destination_detail: '/destinace/{slug}'
+
+# Desc: /
+web_homepage_index: /

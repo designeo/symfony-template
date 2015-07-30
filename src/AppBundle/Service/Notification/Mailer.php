@@ -29,28 +29,50 @@ final class Mailer
      */
     private $translator;
 
-    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, TranslatorInterface $translator)
+    /**
+     * @param Swift_Mailer        $mailer
+     * @param EngineInterface     $templating
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(
+        Swift_Mailer $mailer,
+        EngineInterface $templating,
+        TranslatorInterface $translator
+    )
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->translator = $translator;
     }
 
+    /**
+     * @return object
+     */
     public function createMessage()
     {
         return $this->mailer->createMessage();
     }
 
+    /**
+     * @param mixed $message
+     * @return int
+     */
     public function send($message)
     {
         return $this->mailer->send($message);
     }
 
+    /**
+     * @return EngineInterface
+     */
     public function getTemplating()
     {
         return $this->templating;
     }
 
+    /**
+     * @return TranslatorInterface
+     */
     public function getTranslator()
     {
         return $this->translator;

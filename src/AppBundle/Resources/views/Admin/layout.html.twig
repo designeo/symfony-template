@@ -1,0 +1,66 @@
+{% extends 'layout.html.twig' %}
+
+{% block header %}
+    <nav class="navbar navbar-default navbar-admin">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation-admin">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="sidebar-toggle" href="#"><span class="fa fa-bars" aria-hidden="true"></span></a>
+                <a class="navbar-brand" href="{{ path('admin_homepage') }}">
+                    {{ 'admin.brand'|trans }}
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navigation-admin">
+                {{ knp_menu_render('AppBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}
+            </div>
+        </div>
+    </nav>
+{% endblock header %}
+
+{% block container %}
+
+    <div id="container" class="{% block containerClass %}container-fluid main-layout{% endblock %}">
+
+        <aside class="sidebar">
+            <div class="nav-collapse" tabindex="5000">
+                <ul class="nav nav-sidebar">
+                    <li><a href="{{ url('admin_homepage') }}"><span class="fa fa-th-large"></span> Rozcestník</a></li>
+                    <li><a href="{{ url('admin_destination_index') }}"><span class="fa fa-plane"></span>Destinace</a></li>
+                    <li><a href="{{ url('admin_user_index') }}"><span class="fa fa-user"></span>Uživatelé</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <section class="main-content">
+
+            <div class="main-block">
+
+                <div class="row">
+
+                    {% block flash_messages %}
+                        {% for label, flashes in app.session.flashbag.all %}
+                            {% for flash in flashes %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ flash|trans }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endblock flash_messages %}
+
+
+                    {% block content %}{% endblock %}
+
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+{% endblock container %}

@@ -1,0 +1,17 @@
+{% extends 'AppBundle:Web:layout.html.twig' %}
+
+{% block content %}
+    {{ 'web.homepage'|trans }}
+
+    <h2>Destinace</h2>
+
+    {% for destination in destinations %}
+        <div class="well well-sm">
+            <strong><a href="{{ path('web_destination_detail', {'slug' : destination.translate.slug}) }}">{{ destination.translate.name }}</a></strong><br>
+            Lat: {{ destination.lat }}<br>
+            Lng: {{ destination.lng }}<br>
+            Code: {{ destination.code }}
+            <a href="{{ path('web_destination_detail', {'slug': destination.translate.slug}) }}">Detail</a>
+        </div>
+    {% endfor %}
+{% endblock %}
