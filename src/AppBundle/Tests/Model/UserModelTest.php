@@ -23,9 +23,6 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
         $user->expects($this->once())
             ->method('getPlainPassword')
             ->will($this->returnValue($password));
-        $user->expects($this->once())
-          ->method('getSubscribedToDate')
-          ->willReturn(null);
 
         $em = $this->getEmMock();
         $em->expects($this->once())
@@ -39,46 +36,7 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
             ->method('send')
             ->with($user, $password);
 
-        $subscriptionModel = $this->getSubscriptionModelMock();
-        $subscriptionModel->expects($this->never())
-          ->method('newSubscription');
-
-        $userModel = new UserModel($em, $userRepository, $userCreateMail, $subscriptionModel);
-        $userModel->persist($user);
-    }
-
-    /**
-     *
-     */
-    public function testCreateUserWithSubscription()
-    {
-        $password = 'secretPasswd';
-
-        $user = $this->getUserMock();
-        $user->expects($this->once())
-          ->method('getPlainPassword')
-          ->will($this->returnValue($password));
-        $user->expects($this->exactly(2))
-          ->method('getSubscribedToDate')
-          ->willReturn(new \DateTime());
-
-        $em = $this->getEmMock();
-        $em->expects($this->once())
-          ->method('persist')
-          ->with($user);
-
-        $userRepository = $this->getUserRepositoryMock();
-
-        $userCreateMail = $this->getUserCreateMailMock();
-        $userCreateMail->expects($this->once())
-          ->method('send')
-          ->with($user, $password);
-
-        $subscriptionModel = $this->getSubscriptionModelMock();
-        $subscriptionModel->expects($this->once())
-          ->method('newSubscription');
-
-        $userModel = new UserModel($em, $userRepository, $userCreateMail, $subscriptionModel);
+        $userModel = new UserModel($em, $userRepository, $userCreateMail);
         $userModel->persist($user);
     }
 
@@ -101,11 +59,7 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
         $userCreateMail->expects($this->never())
           ->method('send');
 
-        $subscriptionModel = $this->getSubscriptionModelMock();
-        $subscriptionModel->expects($this->never())
-          ->method('newSubscription');
-
-        $userModel = new UserModel($em, $userRepository, $userCreateMail, $subscriptionModel);
+        $userModel = new UserModel($em, $userRepository, $userCreateMail);
         $userModel->persist($user);
     }
 
@@ -114,26 +68,13 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testEditUser()
     {
-        $date = new \DateTime();
-        $oldUser = ['subscribedToDate' => $date];
 
         $user = $this->getUserMock();
-        $user->expects($this->once())
-          ->method('getSubscribedToDate')
-          ->willReturn($date);
-
-        $uow = $this->getUOWMock();
-        $uow->expects($this->once())
-          ->method('getOriginalEntityData')
-          ->willReturn($oldUser);
 
         $em = $this->getEmMock();
         $em->expects($this->once())
           ->method('persist')
           ->with($user);
-        $em->expects($this->once())
-          ->method('getUnitOfWork')
-          ->willReturn($uow);
 
         $userRepository = $this->getUserRepositoryMock();
 
@@ -141,52 +82,7 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
         $userCreateMail->expects($this->never())
           ->method('send');
 
-        $subscriptionModel = $this->getSubscriptionModelMock();
-        $subscriptionModel->expects($this->never())
-          ->method('newSubscription');
-
-        $userModel = new UserModel($em, $userRepository, $userCreateMail, $subscriptionModel);
-        $userModel->update($user);
-    }
-
-    /**
-     *
-     */
-    public function testEditUserWithSubscriptionUpdate()
-    {
-        $date = new \DateTime();
-        $date->modify('-1 day');
-        $oldUser = ['subscribedToDate' => $date];
-
-        $user = $this->getUserMock();
-        $user->expects($this->exactly(2))
-          ->method('getSubscribedToDate')
-          ->willReturn(new \DateTime());
-
-        $uow = $this->getUOWMock();
-        $uow->expects($this->once())
-          ->method('getOriginalEntityData')
-          ->willReturn($oldUser);
-
-        $em = $this->getEmMock();
-        $em->expects($this->once())
-          ->method('persist')
-          ->with($user);
-        $em->expects($this->once())
-          ->method('getUnitOfWork')
-          ->willReturn($uow);
-
-        $userRepository = $this->getUserRepositoryMock();
-
-        $userCreateMail = $this->getUserCreateMailMock();
-        $userCreateMail->expects($this->never())
-          ->method('send');
-
-        $subscriptionModel = $this->getSubscriptionModelMock();
-        $subscriptionModel->expects($this->once())
-          ->method('newSubscription');
-
-        $userModel = new UserModel($em, $userRepository, $userCreateMail, $subscriptionModel);
+        $userModel = new UserModel($em, $userRepository, $userCreateMail);
         $userModel->update($user);
     }
 

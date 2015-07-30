@@ -35,7 +35,6 @@ class UserModel
      * @param EntityManagerInterface $entityManager
      * @param UserRepository         $userRepository
      * @param UserCreateMail         $userCreate
-     * @param SubscriptionModel      $subscriptionModel
      */
     public function __construct(
         EntityManagerInterface $entityManager,

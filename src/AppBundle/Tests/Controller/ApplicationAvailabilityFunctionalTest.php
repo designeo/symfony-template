@@ -77,7 +77,6 @@ class ApplicationAvailabilityFunctionalTest extends AWebDatabaseTestCase
         return array(
             array('/en/'),
             array('/login'),
-          array('/en/mobile'),
         );
     }
 
