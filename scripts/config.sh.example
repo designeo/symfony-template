@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export PROJECT="protokolos"
+export PROJECT="xxx"
 export ENV="DEV"
-export SLACK_TOKEN="xoxp-2417770188-7822507937-7822348423-f4f9d4"
-export CHANNEL="protokolos"
+export SLACK_TOKEN="xoxp-xxxxx"
+export CHANNEL="xx"
