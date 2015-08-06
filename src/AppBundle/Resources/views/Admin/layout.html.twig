@@ -1,5 +1,9 @@
 {% extends 'layout.html.twig' %}
 
+            {% block head_css %}
+                <link rel="stylesheet" href="{{ asset('/css/admin.css') }}"/>
+            {% endblock head_css %}
+
 {% block header %}
     <nav class="navbar navbar-default navbar-admin">
         <div class="container-fluid">
