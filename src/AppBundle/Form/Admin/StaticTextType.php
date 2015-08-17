@@ -25,7 +25,7 @@ class StaticTextType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('content');
-        $builder->add('description');
+        $builder->add('description', 'text');
         $builder->add('title', 'text');
         $builder->add('name', 'text');
     }
