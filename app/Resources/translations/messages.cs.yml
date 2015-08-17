@@ -8,6 +8,22 @@ web:
     brand:    "Designeo"
     homepage: "Web Homepage."
 
+
+    brand: Designeo
+    global:
+        choose: Vyberte
+    homepage: 'Web Homepage.'
+    profile:
+        accountActivated: 'Account was successfully activated.'
+        labels:
+            editProfile: 'Upravit profil'
+        messages:
+            saved: 'Profil byl úspěšně upraven.'
+            passwordChanged: 'Heslo bylo změněno.'
+        title:
+            detail: 'Detail profilu'
+            edit: 'Úprava profilu'
+        setPassword: 'Set password for %name%'
     menu:
         web: Web
         admin: Administration
@@ -31,7 +47,30 @@ web:
 admin:
     brand:    Administration
     homepage: "Admin Homepage."
-
+        logout: 'Sign out'
+        login: 'Sign in'
+        register: 'Sign up'
+    user:
+        entity:
+            activity: Aktivita
+            companyId: IČ
+            email: Email
+            employer: Zaměstnavatel
+            employees: Zaměstnanci
+            firstName: 'Křestní jméno'
+            lastLogin: 'Poslední přihlášení'
+            lastName: Příjmení
+            name: Jméno
+            phone: Telefon
+            role: Role
+            salesRep: 'Primární obchodní zástupce'
+            segments: Segmenty
+            submit: Odeslat
+        messages:
+            salesRepUndefined: 'Obchodní zástupce nebyl nastaven.'
+admin:
+    brand: Administration
+    homepage: 'Admin Homepage.'
     grids:
         filter: Filter
         select: --- Select ---
@@ -82,8 +121,6 @@ admin:
             enabled: Enabled
             role: Role
             name: Name
-            lastLogin: Last login
-
         errors:
             failedToDelete: User can't be deleted
             duplicateEmail: User with this e-mail already exists
@@ -93,8 +130,25 @@ admin:
             saved: User was saved
             confirmDelete: Really delete user?
         title: Users
-
-
+    staticText:
+        actions:
+            create: Nový statický text
+            edit: Upravit statický text
+            detail: Zobrazit statický text
+        entity:
+            content: Obsah
+            description: Popis
+            id: ID
+            name: Název
+            title: Nadpis
+        errors:
+            failedToDelete: Statický text se nepodařilo smazat.
+            failedToSave: Statický text se nepodařilo uložit.
+        messages:
+            removed: Statický text byl smazán.
+            saved: Statický text byl uložen.
+            confirmDelete: 'Opravdu si přejet smazat $entity$?'
+        title: Statické texty
 security:
     login:
         title: Přihlásit se

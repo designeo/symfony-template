@@ -96,8 +96,22 @@ admin:
             saved: User was saved
             confirmDelete: Really delete user?
         title: Users
-
-
+    staticText:
+        actions:
+            create: 'New staticText'
+            edit: 'Edit staticText'
+            detail: 'User staticText'
+        entity:
+            name: Name
+        errors:
+            duplicateEmail: 'staticText with this e-mail already exists'
+            failedToDelete: 'staticText can''t be deleted'
+            failedToSave: 'staticText could not be saved. Try it again later please.'
+        messages:
+            removed: 'staticText was deleted'
+            saved: 'staticText was saved'
+            confirmDelete: 'Really delete $entity$?'
+        title: staticText
 security:
     login:
         title: Sign in
