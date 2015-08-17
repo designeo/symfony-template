@@ -14,4 +14,33 @@
             <a href="{{ path('web_destination_detail', {'slug': destination.translate.slug}) }}">Detail</a>
         </div>
     {% endfor %}
+
+    {# STATICKE TEXTY  #}
+    {# Kazdy staticky text je instanci entity StaticText #}
+    {# Tato entity ma ctyri atributy: #}
+    {#
+        - title: Nadpis bloku.
+        - content: Obsah bloku.
+        - description: Popis bloku. Slouzi primarne jako popiska pro uzivatele v administraci, aby věděl, kde se jeho zmena projevi.
+        - name: systemovy nazev bloku
+    #}
+
+    {# Nacteme najednou vsechny bloky, ktere budeme v teto sablone potrebovat. #}
+    {#
+        {{ preloadStaticTexts(['foo', 'bar', 'baz']) }}
+    #}
+
+    {# Konkretni blok nasledne muzeme ulozit do promnenne #}
+    {#
+        {% set bazBlock = getStaticText('baz') %}
+    #}
+
+    {# A jeho obsah (nebo nadpis) nasledne vypsat #}
+    {#
+        <h4>{{ bazBlock.title }}</h4>
+        {{ bazBlock.content }}
+    #}
+
+    {# Pri pokusu o preloadnuti bloku, ktery neni v databazi, bude ad-hoc vytvorena entita s dummy daty. #}
+    {# Pri pokusu o ziskani bloku, ktery nebyl preloadnut, se stane totez.  ==> VZDYCKY si bloky preloadnete. #}
 {% endblock %}

@@ -90,6 +90,20 @@ class StaticTextModel extends AbstractLoggerAwareModel
     }
 
     /**
+     * @param string $name
+     * @return StaticText
+     */
+    public function createDummyStaticText($name)
+    {
+        $staticText = new StaticText();
+        $staticText
+            ->setName($name)
+            ->setContent(sprintf('Dummy text pro blok "%s".', $name));
+
+        return $staticText;
+    }
+
+    /**
      * @param int $id
      * @return null|StaticText
      */
