@@ -121,6 +121,12 @@ services:
     # Model
     # -----------------
 
+    app.model.abstract_logger_aware_model:
+        class: AppBundle\Model\AbstractLoggerAwareModel
+        abstract: true
+        calls:
+            - [setLogger, ['@logger']]
+
     app.model.destination_model:
         class: AppBundle\Model\DestinationModel
         arguments:
