@@ -1,0 +1,75 @@
+<?php
+
+namespace AppBundle\GridDataSources\Admin;
+
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
+
+/**
+ * Class {{ entity_class }}DataSource
+ * @package AppBundle\GridDataSources\Admin
+ */
+class {{ entity_class }}DataSource extends AbstractGridDataSource
+{
+
+    /**
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        parent::__construct($em);
+    }
+
+
+    /**
+     * @return QueryBuilder
+     */
+    protected function createQueryBuilder()
+    {
+        $qb = $this->createBaseQueryBuilder('AppBundle:{{ entity_class }}', '{{ entity_id }}');
+        return $qb;
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    protected function getCountQueryBuilder()
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->resetDQLParts(array(
+            'select',
+            'orderBy'
+        ));
+
+        $qb->setMaxResults(null);
+        $qb->setFirstResult(null);
+
+        $qb->select('COUNT({{ entity_id }})');
+
+        return $qb;
+    }
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        $qb = $this->createQueryBuilder();
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * @return int
+     */
+    public function getCount()
+    {
+        $qb = $this->getCountQueryBuilder();
+        $query = $qb->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
+}
+

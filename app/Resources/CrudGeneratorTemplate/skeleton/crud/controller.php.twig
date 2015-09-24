@@ -1,0 +1,237 @@
+<?php
+
+namespace AppBundle\Controller\Admin;
+
+use AppBundle\Controller\AbstractController;
+use AppBundle\Entity\{{ entity_class }};
+use AppBundle\Exception\{{ entity_class }}Exception;
+use AppBundle\Form\Admin\{{ entity_class }}Type;
+use AppBundle\GridDataSources\Admin\{{ entity_class }}DataSource;
+use AppBundle\Model\{{ entity_class }}Model;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Class {{ entity_class }}Controller
+ *
+ * @Route("/admin/{{ entity }}", service="app.admin.{{ entity }}_controller")
+ */
+class {{ entity_class }}Controller extends AbstractController
+{
+    /**
+     * @var {{ entity_class }}Model
+     */
+    protected ${{ entity }}Model;
+
+    /**
+     * @var {{ entity_class }}DataSource
+     */
+    protected ${{ entity }}DataSource;
+
+
+    /**
+     * @param {{ entity_class }}DataSource ${{ entity }}DataSource
+     * @param {{ entity_class }}Model ${{ entity }}Model
+     */
+    public function __construct({{ entity_class }}DataSource ${{ entity }}DataSource, {{ entity_class }}Model ${{ entity }}Model)
+    {
+        $this->{{ entity }}Model = ${{ entity }}Model;
+        $this->{{ entity }}DataSource = ${{ entity }}DataSource;
+    }
+
+    /**
+     * @Route("/", name="admin_{{ entity }}_index")
+     * @Method({"GET"})
+     * @Template("AppBundle:Admin/{{ entity_class }}:index.html.twig")
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function indexAction(Request $request)
+    {
+        return $this->get{{ entity_class }}GridData($request);
+    }
+
+    /**
+     * Displays a form to create a new {{ entity_class }} entity.
+     *
+     * @Route("/new", name="admin_{{ entity }}_new")
+     * @Method("GET")
+     * @Template("AppBundle:Admin/{{ entity_class }}:edit.html.twig")
+     * @return array
+     */
+    public function newAction()
+    {
+        ${{ entity }} = new {{ entity_class }}();
+        $form = $this->createCreateForm(${{ entity }});
+
+        return array(
+            'title' => 'admin.{{ entity }}.actions.create',
+            'entity' => ${{ entity }},
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * @Route("/create", name="admin_{{ entity }}_create")
+     * @Method({"POST"})
+     * @Template("AppBundle:Admin/{{ entity_class }}:edit.html.twig")
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function createAction(Request $request)
+    {
+        ${{ entity }} = new {{ entity_class }}();
+        $form = $this->createCreateForm(${{ entity }});
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            try {
+                $this->{{ entity }}Model->persist(${{ entity }});
+                $this->addFlash('success', 'admin.{{ entity }}.messages.saved');
+
+                return $this->redirectToRoute('admin_{{ entity }}_index');
+            } catch ({{ entity_class }}Exception $e) {
+                $form->addError(new FormError($e->getMessage()));
+            }
+        }
+
+        return [
+            'form' => $form->createView(),
+            'entity' => ${{ entity }},
+            'title' => 'admin.{{ entity }}.actions.create',
+        ];
+    }
+
+    /**
+     * @Route("/{id}/edit", name="admin_{{ entity }}_edit")
+     * @Method({"GET"})
+     * @ParamConverter("id", class="AppBundle:{{ entity_class }}")
+     * @Template("AppBundle:Admin/{{ entity_class }}:edit.html.twig")
+     *
+     * @param {{ entity_class }} ${{ entity }}
+     * @return array
+     */
+    public function editAction({{ entity_class }} ${{ entity }})
+    {
+        $form = $this->createEditForm(${{ entity }});
+
+        return [
+            'form' => $form->createView(),
+            'entity' => ${{ entity }},
+            'title' => 'admin.{{ entity }}.actions.edit',
+        ];
+    }
+
+    /**
+     * @Route("/{id}", name="admin_{{ entity }}_update")
+     * @Method({"PUT"})
+     * @ParamConverter("id", class="AppBundle:{{ entity_class }}")
+     * @Template("AppBundle:Admin/{{ entity_class }}:edit.html.twig")
+     *
+     * @param Request $request
+     * @param {{ entity_class }} ${{ entity }}
+     * @return array
+     */
+    public function updateAction(Request $request, {{ entity_class }} ${{ entity }})
+    {
+        $form = $this->createEditForm(${{ entity }});
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            try {
+                $this->{{ entity }}Model->update(${{ entity }});
+                $this->addFlash('success', 'admin.{{ entity }}.messages.saved');
+
+                return $this->redirectToRoute('admin_{{ entity }}_index');
+            } catch ({{ entity_class }}Exception $e) {
+                $form->addError(new FormError($e->getMessage()));
+            }
+        }
+
+        return [
+            'form' => $form->createView(),
+            'title' => 'admin.{{ entity }}.actions.edit',
+        ];
+    }
+
+    /**
+     * @Route("/{id}/remove", name="admin_{{ entity }}_remove")
+     * @Method({"DELETE"})
+     * @ParamConverter("id", class="AppBundle:{{ entity_class }}")
+     *
+     * @param {{ entity_class }} ${{ entity }}
+     * @return Response
+     */
+    public function removeAction({{ entity_class }} ${{ entity }})
+    {
+        try {
+            $this->{{ entity }}Model->remove(${{ entity }});
+            $this->addFlash('success', 'admin.{{ entity }}.messages.removed');
+        } catch ({{ entity_class }}Exception $e) {
+            $this->addFlash('danger', $e->getMessage());
+        }
+
+        return $this->redirectToRoute('admin_{{ entity }}_index');
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private function get{{ entity_class }}GridData(Request $request)
+    {
+        $gridManager = $this->{{ entity }}DataSource;
+        $defaultSort = '{{ entity_id }}.id';
+        $gridManager->setDefaultDataFromRequest($request, $defaultSort);
+
+        // parameters
+        //$name = $request->get('name');
+
+        //$gridManager->setName($name);
+
+        $data = $gridManager->getDataForGrid();
+
+        return $data;
+    }
+
+    /**
+     * Creates a form to create a {{ entity_class }} entity.
+     * @param {{ entity_class }} $entity
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createCreateForm({{ entity_class }} $entity)
+    {
+        $form = $this->createForm(new {{ entity_class }}Type(), $entity, [
+            'action' => $this->generateUrl('admin_{{ entity }}_create'),
+            'method' => 'POST',
+        ]);
+
+        $form->add('submit', 'submit', ['attr' => ['class' => 'btn btn-primary']]);
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to edit a {{ entity_class }} entity.
+     * @param {{ entity_class }} $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm({{ entity_class }} $entity)
+    {
+        $form = $this->createForm(new {{ entity_class }}Type(), $entity, [
+            'action' => $this->generateUrl('admin_{{ entity }}_update', ['id' => $entity->getId()]),
+            'method' => 'PUT',
+        ]);
+
+        $form->add('submit', 'submit', ['attr' => ['class' => 'btn btn-primary']]);
+
+        return $form;
+    }
+}

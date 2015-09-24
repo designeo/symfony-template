@@ -1,0 +1,108 @@
+<?php
+
+namespace AppBundle\Model;
+
+use AppBundle\Entity\{{ entity_class }};
+use AppBundle\Repository\{{ entity_class }}Repository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\DBAL\DBALException;
+use AppBundle\Exception\{{ entity_class }}Exception;
+
+/**
+ * Model for {{ entity_class }} entity
+ * @package AppBundle\Model
+ */
+class {{ entity_class }}Model extends AbstractLoggerAwareModel
+{
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * @var {{ entity_class }}Repository
+     */
+    private ${{ entity }}Repository;
+
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @param {{ entity_class }}Repository      ${{ entity }}Repository
+     */
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        {{ entity_class }}Repository ${{ entity }}Repository
+    )
+    {
+        $this->entityManager = $entityManager;
+        $this->{{ entity }}Repository = ${{ entity }}Repository;
+    }
+
+    /**
+     * @param {{ entity_class }} ${{ entity }}
+     * @throws \AppBundle\Exception\{{ entity_class }}Exception
+     */
+    public function persist({{ entity_class }} ${{ entity }})
+    {
+        $this->save(${{ entity }});
+    }
+
+    /**
+     * @param {{ entity_class }} ${{ entity }}
+     * @throws \AppBundle\Exception\{{ entity_class }}Exception
+     */
+    public function update({{ entity_class }} ${{ entity }})
+    {
+        $this->save(${{ entity }});
+    }
+
+    /**
+     * @param {{ entity_class }} ${{ entity }}
+     * @throws \AppBundle\Exception\{{ entity_class }}Exception
+     */
+    public function remove({{ entity_class }} ${{ entity }})
+    {
+        try {
+            $this->entityManager->remove(${{ entity }});
+            $this->entityManager->flush();
+        } catch (DBALException $e) {
+            $this->logger->error($e);
+            throw new {{ entity_class }}Exception('admin.{{ entity }}.errors.failedToDelete', null, $e);
+        }
+    }
+
+    /**
+     * @param {{ entity_class }} ${{ entity }}
+     *
+     * @throws {{ entity_class }}Exception
+     */
+    private function save({{ entity_class }} ${{ entity }})
+    {
+        try {
+            if (!${{ entity }}->getId()) {
+                $this->entityManager->persist(${{ entity }});
+            }
+            $this->entityManager->flush();
+        } catch (DBALException $e) {
+            $this->logger->error($e);
+            throw new {{ entity_class }}Exception('admin.{{ entity }}.errors.failedToDelete', null, $e);
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return null|{{ entity_class }}
+     */
+    public function find($id)
+    {
+        return $this->{{ entity }}Repository->find($id);
+    }
+
+    /**
+     * @return {{ entity_class }}[]
+     */
+    public function findAll()
+    {
+        return $this->{{ entity }}Repository->findAll();
+    }
+}

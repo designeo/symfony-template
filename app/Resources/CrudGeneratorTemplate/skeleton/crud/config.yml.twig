@@ -1,0 +1,25 @@
+services:
+    app.model.{{ entity }}_model:
+        class: AppBundle\Model\{{ entity_class }}Model
+        parent: 'app.model.abstract_logger_aware_model'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@app.repository.{{ entity }}_repository'
+
+    app.admin.{{ entity }}_controller:
+        class: AppBundle\Controller\Admin\{{ entity_class }}Controller
+        arguments:
+            - '@app.grid_data_source.admin.{{ entity }}_data_source'
+            - '@app.model.{{ entity }}_model'
+
+    app.grid_data_source.admin.{{ entity }}_data_source:
+        class: AppBundle\GridDataSources\Admin\{{ entity_class }}DataSource
+        arguments:
+            - '@doctrine.orm.entity_manager'
+
+    app.repository.{{ entity }}_repository:
+        class: AppBundle\Repository\{{ entity_class }}Repository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - AppBundle:{{ entity_class }}

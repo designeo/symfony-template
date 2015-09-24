@@ -1,0 +1,85 @@
+{% set route = app.request.get('_route') %}
+{% set route_params = app.request.get('_route_params') | merge(filter) %}
+{% import 'AppBundle:Grid:paging.html.twig' as paginator %}
+
+<div class="grid">
+    <form method="get" class="grid-filter">
+        <div class="grid_header"></div>
+        <div class="grid_body">
+            <table class="table responsive table-hover">
+                <thead class="title">
+                    <tr>
+                        <th><a class="order" href="{{ path(route, route_params | merge({ 'sortBy': '[[ entity_id ]].id' })) }}">{{ 'admin.[[ entity ]].entity.id'|trans }}</a></th>
+                        <th class="text-right">{{ 'admin.global.action'|trans }}</th>
+                    </tr>
+                </thead>
+                <thead class="filters">
+                    <tr>
+                        <th>
+                        </th>
+                        {#
+                            =======================
+                            VALUE FILTER
+                            -----------------------
+                        <th>
+                            <input name="name" type="text" value="{{ filter.name }}" class="send-form-on-enter" placeholder="{{ 'admin.global.filter'|trans }}" />
+                        </th>
+
+                            =======================
+                            SELECT BOX FILTER
+                            -----------------------
+                        <th>
+                            <select name="role" class="send-form-on-change">
+                                <option value="">-- {{ 'admin.global.choose'|trans }} ---</option>
+                                {% for key, role in filterData.roles %}
+                                    <option value="{{ key }}" {% if filter.role == key %}selected="selected"{% endif %}>{{ role }}</option>
+                                {%  endfor %}
+                            </select>
+                        </th>
+
+                        {#
+                            =======================
+                            CUSTOM SELECT BOX FILTER
+                            -----------------------
+                        <th>
+                            <select name="enabled" class="send-form-on-change">
+                                <option value="">-- {{ 'admin.global.choose'|trans }} ---</option>
+                                <option value="1" {% if filter.enabled == '1' %}selected="selected"{% endif %}>{{ 'admin.global.yes'|trans }}</option>
+                                <option value="0" {% if filter.enabled == '0' %}selected="selected"{% endif %}>{{ 'admin.global.no'|trans }}</option>
+                            </select>
+                        </th>
+                        #}
+
+                        <th class="last-column functions">
+                            <button class="btn-neutral btn btn-sm" name="filter" type="submit"><span class="fa fa-check"></span></button>
+                            <a href="{{ url('admin_[[ entity ]]_index') }}" class="btn-neutral btn btn-sm"><span class="fa fa-times"></span></a>
+                        </th>
+                    </tr>
+                </thead>
+
+                {% for data_item in data %}
+                <tbody>
+                    <tr class="grid-row-cells even">
+                        <td class="grid-column-name">{{ data_item.id }}</td>
+                        <td class="text-right functions">
+                            <a href="{{ url('admin_[[ entity ]]_edit', {'id': data_item.id}) }}" class="btn btn-secondary"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="{{ url('admin_[[ entity ]]_remove', {'id': data_item.id}) }}" class="btn btn-primary" data-method="DELETE" data-confirm="{{ 'admin.[[ entity ]].messages.confirmDelete'|trans }}"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+
+                    </tr>
+                {%  endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        {% block pagination %}
+            {% if data|length > 0 %}
+                {{ paginator.nav(page, max_page) }}
+            {% endif %}
+        {% endblock pagination %}
+    </div>
+</div>

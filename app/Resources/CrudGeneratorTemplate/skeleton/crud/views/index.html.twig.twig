@@ -1,0 +1,18 @@
+{% extends 'AppBundle:Admin:layout.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ 'admin.[[ entity ]].title'|trans }} {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12 main-block-heading">
+            <h2 class="pull-left">{{ 'admin.[[ entity ]].title'|trans }}</h2>
+            <a href="{{ url('admin_[[ entity ]]_new') }}" class="btn btn-primary pull-right" title="{{ 'admin.[[ entity ]].actions.create'|trans }}">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+    </div>
+
+    {{ include('AppBundle:Admin/[[ entity_class ]]:includes/grid.html.twig') }}
+
+{% endblock %}
