@@ -1,0 +1,12 @@
+
+# Basic designeo server tools
+- src: git+http://git.designeo.cz/ansible/designeo.server.git
+
+# PHP
+- src: git+http://git.designeo.cz/ansible/designeo.php.git
+
+# Composer
+- src: kosssi.composer
+
+# Nodejs 0.12
+- src: ateoto.nodejs
