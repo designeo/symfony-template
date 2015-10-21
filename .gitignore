@@ -34,3 +34,5 @@ bower_components
 
 # ignore scripts config
 scripts/config.sh
+
+.vagrant
