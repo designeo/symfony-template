@@ -16,7 +16,7 @@ $('a[data-method]').on('click',function(e){
     $form.attr({
         'action' : $(this).attr('href'),
         'method':'post'
-    })
+    });
 
     //adding the _method hidden field
     $form.append($('<input/>',{

@@ -58,5 +58,5 @@ var slugifyListener = function (from, to) {
 
     $(from).on('change', function () {
         $to.val(slugify($(this).val()));
-    })
+    });
 };
