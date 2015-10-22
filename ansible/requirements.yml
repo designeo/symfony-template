@@ -5,8 +5,17 @@
 # PHP
 - src: git+http://git.designeo.cz/ansible/designeo.php.git
 
+# Apache
+- src: git+http://git.designeo.cz/ansible/designeo.apache.git
+
+# Deploy Symfony app
+- src: git+http://git.designeo.cz/ansible/designeo.symfony.git
+
 # Composer
 - src: kosssi.composer
 
 # Nodejs 0.12
 - src: ateoto.nodejs
+
+# Postgresql
+- src: galaxyprojectdotorg.postgresql

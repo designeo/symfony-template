@@ -1,0 +1,12 @@
+---
+domain: designeo.local
+subdomain: symfony
+database_name: local_symfony
+database_user: symfony
+database_password: Q5Uh6QUQ
+
+env: dev
+deploy_method: vagrant
+deploy_versioned: False
+
+apache_disabled_sites: ['default', 'default-ssl']

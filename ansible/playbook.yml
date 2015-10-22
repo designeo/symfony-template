@@ -1,20 +1,15 @@
 ---
-- name: Prepare symfony template server
+- name: Deploy symfony template
   hosts: all
   sudo: true
   vars_files:
+    - vars/symfony.yml
     - vars/project.yml
   roles:
-      - designeo.server
-
-- name: Deploy Local
-  hosts: local
-  vars_files:
-      - vars/project.yml
-      - vars/env/local.yml
-
-- name: Deploy Production
-  hosts: prod
-  vars_files:
-    - vars/project.yml
-    - vars/env/prod.yml
+    - designeo.server
+    - galaxyprojectdotorg.postgresql
+    - designeo.apache
+    - designeo.php
+    - kosssi.composer
+    - ateoto.nodejs
+    - designeo.symfony

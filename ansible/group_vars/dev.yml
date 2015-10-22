@@ -1,0 +1,7 @@
+---
+domain: designeo.net
+subdomain: dev-symfony
+
+env: dev
+deploy_method: git
+deploy_versioned: False

@@ -1,0 +1,25 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+    database_driver:   pdo_pgsql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     {{ config_database_name }}
+    database_user:     {{ config_database_user }}
+    database_password: {{ config_database_password }}
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+    mailer_port:       ~
+    mailer_sender_mail: ~
+    mailer_sender_name: ~
+
+    locale:            en
+    locale.allowed.array: ['en']
+    locale.allowed.string: '|en'
+    locale.languages:
+        en: 'English'
+
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt

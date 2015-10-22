@@ -1,0 +1,7 @@
+---
+domain: designeo.cz
+subdomain: symfony
+
+env: prod
+deploy_method: git
+deploy_versioned: tag

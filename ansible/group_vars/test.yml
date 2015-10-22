@@ -1,0 +1,7 @@
+---
+domain: designeo.net
+subdomain: test-symfony
+
+env: prod
+deploy_method: git
+deploy_versioned: rev
