@@ -2,6 +2,7 @@ ateoto.nodejs
 designeo.apache
 designeo.php
 designeo.server
-designeo.symfony
+designeo.symfony_app
+designeo.web_env
 galaxyprojectdotorg.postgresql
 kosssi.composer
