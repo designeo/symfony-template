@@ -7,7 +7,7 @@
             <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
             <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,300,400italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
-            <title>{% block title %}Symfony Template{% endblock title %}</title>
+            <title>{% block title %}{{ 'web.brand'|trans }}{% endblock title %}</title>
 
             {% block meta %}
             {% endblock meta %}
