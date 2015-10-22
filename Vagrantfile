@@ -70,14 +70,14 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  config.vm.provision "shell", inline: "apt-get install --yes python-apt"
+  #config.vm.provision "shell", inline: "apt-get install --yes python-apt"
 
-  config.vm.provision "ansible" do |ansible|
+  #config.vm.provision "ansible" do |ansible|
 
-    ansible.groups = {
-        "local" => ["default"],
-    }
+    #ansible.groups = {
+    #    "local" => ["default"],
+    #}
 
-    ansible.playbook = "ansible/playbook.yml"
-  end
+    #ansible.playbook = "ansible/playbook.yml"
+  #end
 end

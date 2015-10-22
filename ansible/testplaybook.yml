@@ -1,0 +1,19 @@
+---
+- name: Test SSH agent
+  hosts: all
+  sudo: yes
+  roles:
+   #- designeo.server
+  tasks:
+   - name: Add ssh agent line to sudoers
+     lineinfile:
+       dest: /etc/sudoers
+       state: present
+       regexp: SSH_AUTH_SOCK
+       line: Defaults env_keep += "SSH_AUTH_SOCK"
+   - name: ssh test
+     command: ssh -T -oStrictHostKeyChecking=no git@github.com
+
+  vars_files:
+      - vars/symfony.yml
+      - vars/project.yml
