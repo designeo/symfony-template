@@ -9,7 +9,10 @@
 - src: git+http://git.designeo.cz/ansible/designeo.apache.git
 
 # Deploy Symfony app
-- src: git+http://git.designeo.cz/ansible/designeo.symfony.git
+- src: git+http://git.designeo.cz/ansible/designeo.symfony_app.git
+
+# Deploy Webenv app
+- src: git+http://git.designeo.cz/ansible/designeo.web_env.git
 
 # Composer
 - src: kosssi.composer
