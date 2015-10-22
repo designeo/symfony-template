@@ -6,6 +6,8 @@ database_user: symfony
 database_password: Q5Uh6QUQ
 
 env: dev
+
+app_user: vagrant
 deploy_method: vagrant
 deploy_versioned: False
 

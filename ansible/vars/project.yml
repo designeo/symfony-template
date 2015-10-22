@@ -1,1 +1,4 @@
+project_name: symfony # [a-z]+ !!
 project_git: git@github.com:designeo/symfony-template.git
+
+app_user: {{ project_name }}

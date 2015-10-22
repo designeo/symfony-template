@@ -1,15 +1,34 @@
 ---
-- name: Deploy symfony template
-  hosts: all
+- name: Prepare server
+  hosts:
+    - local
+    - prod
   sudo: true
   vars_files:
     - vars/symfony.yml
     - vars/project.yml
   roles:
     - designeo.server
-    - galaxyprojectdotorg.postgresql
     - designeo.apache
+    - galaxyprojectdotorg.postgresql
     - designeo.php
     - kosssi.composer
-    - ateoto.nodejs
-    - designeo.symfony
+#    - ateoto.nodejs
+
+- name: Prepare server for php application
+  hosts: all
+  become: True
+  vars_files:
+    - vars/symfony.yml
+    - vars/project.yml
+  roles:
+    - designeo.web_env
+
+- name: Deploy symfony application
+  hosts: all
+  become: "{{ app_user }}"
+  vars_files:
+    - vars/symfony.yml
+    - vars/project.yml
+  roles:
+    - designeo.symfony_app

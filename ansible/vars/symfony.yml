@@ -1,1 +1,7 @@
+# dirs are from project root
 public_dir: web
+data_file_dirs:
+  - web/files
+
+apache_envs:
+  SYMFONY_ENV: "{{ env }}"
