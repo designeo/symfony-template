@@ -2,10 +2,11 @@
 <html>
     <head>
         {% block head %}
-            <meta charset="UTF-8" />
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
-            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,300,400italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+            <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
             <title>{% block title %}{{ 'web.brand'|trans }}{% endblock title %}</title>
 
@@ -17,38 +18,39 @@
     </head>
     <body class="{% block body_class %}{% endblock body_class %}">
         {% block body %}
-            {% block header %}
-            {% endblock header %}
+            <div class="page-container">
+                {% block sidebar %}{% endblock sidebar %}
+                <div class="main-layout">
+                    {% block header %}{% endblock header %}
 
-            {% block container %}
-                <div class="container">
+                    {% block container %}
 
-                    {% block flash_messages %}
-                        {% for label, flashes in app.session.flashbag.all %}
-                            {% for flash in flashes %}
-                                <div class="alert alert-{{ label }} alert-dismissible">
-                                    {{ flash|trans }}
+                        {% block flash_messages %}
+                            {% for label, flashes in app.session.flashbag.all %}
+                                {% for flash in flashes %}
+                                    <div class="alert alert-{{ label }} alert-dismissible">
+                                        {{ flash|trans }}
 
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                {% endfor %}
                             {% endfor %}
-                        {% endfor %}
-                    {% endblock flash_messages %}
+                        {% endblock flash_messages %}
 
-                {% block content %}{% endblock %}
+                        {% block content %}{% endblock %}
+
+                    {% endblock container %}
                 </div>
-            {% endblock container %}
-
-            {% block footer %}
-            {% endblock footer %}
-
-            {% block javascripts %}
-                <script src="{{ asset('/js/libs.js') }}" type="application/javascript"></script>
-                <script src="{{ asset('/js/main.js') }}" type="application/javascript"></script>
-            {% endblock javascripts %}
-
+                {% block footer %}
+                {% endblock footer %}
+            </div>
         {% endblock body %}
+
+        {% block javascripts %}
+            <script src="{{ asset('/js/libs.js') }}" type="application/javascript"></script>
+            <script src="{{ asset('/js/main.js') }}" type="application/javascript"></script>
+        {% endblock javascripts %}
     </body>
 </html>
