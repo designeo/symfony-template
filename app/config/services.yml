@@ -80,12 +80,6 @@ services:
     # -----------------
     # Admin Controllers
     # -----------------
-    app.admin.destination_controller:
-        class: AppBundle\Controller\Admin\DestinationController
-        arguments:
-            - '@app.grid_data_source.admin.destination_data_source'
-            - '@app.model.destination_model'
-
     app.admin.user_controller:
         class: AppBundle\Controller\Admin\UserController
         arguments: ['@app.grid_data_source.admin.user_data_source', '@app.roles_provider', '@app.model.user_model']
@@ -102,17 +96,10 @@ services:
 
     app.web.homepage_controller:
         class: AppBundle\Controller\Web\HomePageController
-        arguments:
-            - '@app.model.destination_model'
 
     app.web.static_controller:
         class: AppBundle\Controller\Web\StaticController
         arguments: []
-
-    app.web.destination_controller:
-        class: AppBundle\Controller\Web\DestinationController
-        arguments:
-            - '@app.model.destination_model'
 
     app.web.profile_controller:
         class: AppBundle\Controller\Web\ProfileController
@@ -126,14 +113,6 @@ services:
         abstract: true
         calls:
             - [setLogger, ['@logger']]
-
-    app.model.destination_model:
-        class: AppBundle\Model\DestinationModel
-        arguments:
-            - '@app.repository.destination_repository'
-            - '@doctrine.orm.entity_manager'
-            - '@app.service.locale_provider'
-            - '@app.services.slug_service'
 
     app.model.static_text_model:
         class: AppBundle\Model\StaticTextModel
@@ -152,10 +131,6 @@ services:
     # -----------------
     # IS Grid managers
     # -----------------
-    app.grid_data_source.admin.destination_data_source:
-        class: AppBundle\GridDataSources\Admin\DestinationDataSource
-        arguments: ['@doctrine.orm.entity_manager']
-
     app.grid_data_source.admin.static_text_data_source:
         class: AppBundle\GridDataSources\Admin\StaticTextDataSource
         arguments:
@@ -180,20 +155,6 @@ services:
     # ---------------------------
     # Repositories
     # ---------------------------
-    app.repository.destination_repository:
-        class: AppBundle\Repository\DestinationRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
-        arguments:
-            - AppBundle:Destination
-
-    app.repository.destination_translation_repository:
-        class: AppBundle\Repository\DestinationTranslationRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
-        arguments:
-            - AppBundle:DestinationTranslation
-
     app.repository.static_text_repository:
         class: AppBundle\Repository\StaticTextRepository
         factory_service: doctrine.orm.default_entity_manager

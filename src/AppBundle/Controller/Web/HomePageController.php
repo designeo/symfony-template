@@ -16,20 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class HomePageController extends AbstractWebController
 {
-    /**
-     * @var DestinationModel
-     */
-    private $destinationModel;
-
-    /**
-     * @param DestinationModel $destinationModel
-     * @param NewsModel        $newsModel
-     * @param PostModel        $postModel
-     */
-    public function __construct(DestinationModel $destinationModel)
-    {
-        $this->destinationModel = $destinationModel;
-    }
 
     /**
      * @Route("/", name="web_homepage_index")
@@ -39,8 +25,6 @@ class HomePageController extends AbstractWebController
      */
     public function indexAction()
     {
-        return [
-            'destinations' => $this->destinationModel->findAllWithTranslation(),
-        ];
+        return [];
     }
 }
