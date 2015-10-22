@@ -17,10 +17,6 @@ web:
         register: Register
 
     static:
-        aboutUs:
-            title: About us
-        howItWorks:
-            title: How it works?
         termsOfUse:
             title: Terms of use
 
