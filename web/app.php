@@ -19,10 +19,12 @@ $loader->unregister();
 $apcLoader->register(true);
 */
 
+$environment = (getenv('SYMFONY_ENV')) ?: 'prod';
+
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
-$kernel = new AppKernel('prod', false);
+$kernel = new AppKernel($environment, $environment != 'prod');
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
 

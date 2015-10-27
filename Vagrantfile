@@ -38,7 +38,17 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder ".", "/srv/app"
+  config.vm.synced_folder ".", "/vagrant",
+    nfs: true
+    #map_uid: "vagrant",
+    #map_gid: "www-data"
+    #group: "www-data",
+    #mount_options: ["dmode=775,fmode=775"]
+
+  config.bindfs.bind_folder "/vagrant", "/srv/app",
+    perms: "u=rwx:g=rwx:o=rx",
+    owner: "vagrant",
+    group: "www-data"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -70,14 +80,15 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  #config.vm.provision "shell", inline: "apt-get install --yes python-apt"
+  config.vm.provision "shell", inline: "apt-get install --yes python-apt"
 
-  #config.vm.provision "ansible" do |ansible|
+  config.vm.provision "ansible" do |ansible|
 
-    #ansible.groups = {
-    #    "local" => ["default"],
-    #}
+    ansible.groups = {
+        "local" => ["default"],
+    }
 
-    #ansible.playbook = "ansible/playbook.yml"
-  #end
+    #ansible.playbook = "ansible/testplaybook.yml"
+    ansible.playbook = "ansible/playbook.yml"
+  end
 end

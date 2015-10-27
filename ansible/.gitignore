@@ -6,3 +6,5 @@ designeo.symfony_app
 designeo.web_env
 galaxyprojectdotorg.postgresql
 kosssi.composer
+designeo.mysql
+designeo.postgresql

@@ -14,6 +14,12 @@
 # Deploy Webenv app
 - src: git+http://git.designeo.cz/ansible/designeo.web_env.git
 
+# Deploy postgresql
+- src: git+http://git.designeo.cz/ansible/designeo.postgresql.git
+
+# Deploy mysql
+- src: git+http://git.designeo.cz/ansible/designeo.mysql.git
+
 # Composer
 - src: kosssi.composer
 

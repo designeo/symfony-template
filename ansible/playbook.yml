@@ -1,34 +1,44 @@
 ---
+- name: push auth key
+  hosts:
+   - local
+  sudo: yes
+  tasks:
+   - name: auth key
+     authorized_key: user={{ansible_ssh_user}}
+                     key="{{ lookup('file', '/Users/johny/.ssh/johny.pub') }}"
+
 - name: Prepare server
   hosts:
     - local
     - prod
   sudo: true
-  vars_files:
-    - vars/symfony.yml
-    - vars/project.yml
+#  vars_files:
+#    - vars/symfony.yml
+#    - vars/project.yml
   roles:
     - designeo.server
     - designeo.apache
-    - galaxyprojectdotorg.postgresql
+    #- galaxyprojectdotorg.postgresql
     - designeo.php
     - kosssi.composer
-#    - ateoto.nodejs
+    - designeo.postgresql
+    - ateoto.nodejs
 
 - name: Prepare server for php application
   hosts: all
   become: True
-  vars_files:
-    - vars/symfony.yml
-    - vars/project.yml
+#  vars_files:
+#    - vars/symfony.yml
+#    - vars/project.yml
   roles:
     - designeo.web_env
 
 - name: Deploy symfony application
   hosts: all
   become: "{{ app_user }}"
-  vars_files:
-    - vars/symfony.yml
-    - vars/project.yml
+#  vars_files:
+#    - vars/symfony.yml
+#    - vars/project.yml
   roles:
     - designeo.symfony_app
