@@ -49,6 +49,12 @@ After that you need to create initial DB schema.
 And fill database with initial data.
 
 	app/console doctrine:fixtures:load
+
+## Styles + JS
+
+	npm install
+	bower install
+	gulp build (gulp for CSS and JS watcher)
 	
 ## Testing
 
@@ -66,3 +72,15 @@ __Running tests:__
 
 There is also the update version of translation command: `app/console translation:update`,
 however it probably can not fully utilize preconfigured settings from config.yml
+
+## CRUD generator
+
+1) Generate entity:
+
+	app/console doctrine:generate:entity
+
+* Name: AppBundle:Test
+* Field: name
+* Repository: Yes
+
+	app/console designeo:generate:crud AppBundle:Test
