@@ -28,7 +28,7 @@
                     <a class="navbar-brand" href="{{ url('admin_homepage') }}"><img src="{{ asset('/img/logo-admin.png') }}" alt="{{ 'admin.brand'|trans }}"/></a>
                 </div>
 
-                <div class="col-sm-5 col-xs-6 ">
+                <div class="col-sm-5 col-xs-6 text-right">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
@@ -36,12 +36,16 @@
                         <span class="icon-bar"></span>
                     </button>
                     <div class="clearfix"></div>
+                    <div id="navbar-lang" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            {% for lang_locale,language in languages %}
+                                <li><a class="lang {% if locale == lang_locale %}active{% endif %}" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}">{{ language }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         {{ knp_menu_render('DesigneoBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}
                     </div>
-                    {#{% for lang_locale,language in languages %}
-                        <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}" class="{% if locale == lang_locale %}active{% endif %}">{{ language }}</a> |
-                    {% endfor %}#}
                 </div>
             </div>
 
