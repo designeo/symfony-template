@@ -32,6 +32,7 @@ class AppKernel extends Kernel
 
             // Application bundles
             new AppBundle\AppBundle(),
+            new DesigneoBundle\DesigneoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

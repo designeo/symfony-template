@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Admin;
 
-use AppBundle\Form\Traits\EntityQueryBuilderCallbacks;
-use AppBundle\Service\RolesProvider;
+use DesigneoBundle\Form\Traits\EntityQueryBuilderCallbacks;
+use DesigneoBundle\Service\RolesProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Form\Traits\DateOptions;
+use DesigneoBundle\Form\Traits\DateOptions;
 
 /**
  * FormType for Users

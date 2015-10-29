@@ -2,7 +2,7 @@
 
 namespace AppBundle;
 
-use AppBundle\DependencyInjection\Compiler\ControllerContainerAwareCompilerPass;
+use DesigneoBundle\DependencyInjection\Compiler\ControllerContainerAwareCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

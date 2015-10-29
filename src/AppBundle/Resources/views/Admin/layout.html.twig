@@ -37,7 +37,7 @@
                     </button>
                     <div class="clearfix"></div>
                     <div id="navbar" class="navbar-collapse collapse">
-                        {{ knp_menu_render('AppBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}
+                        {{ knp_menu_render('DesigneoBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}
                     </div>
                     {#{% for lang_locale,language in languages %}
                         <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}" class="{% if locale == lang_locale %}active{% endif %}">{{ language }}</a> |
