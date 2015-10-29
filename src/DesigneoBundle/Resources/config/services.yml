@@ -75,6 +75,16 @@ services:
         class: DesigneoBundle\Service\Notification\UserCreateMail
         arguments: ['@app.notifications.mailer', '%mailer_sender_mail%', '%mailer_sender_name%']
 
+    # -----------------
+    # Model
+    # -----------------
+
+    app.model.abstract_logger_aware_model:
+        class: DesigneoBundle\Model\AbstractLoggerAwareModel
+        abstract: true
+        calls:
+            - [setLogger, ['@logger']]
+
     # --------------------
     # Twig extensions
     # --------------------
