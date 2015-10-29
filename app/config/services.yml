@@ -8,37 +8,6 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
-    kernel.listener.json_request_transformer:
-        class: DesigneoBundle\Service\RequestTransformer\JsonRequestTransformer
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
-
-    app.timestamp_logging_subscriber:
-        class: DesigneoBundle\Entity\Listeners\TimestampLoggingSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    app.user_tracked_subscriber:
-        class: DesigneoBundle\Entity\Listeners\UserTrackedSubscriber
-        arguments: ['@security.token_storage']
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    app.fos_redirecter_subscriber:
-        class: DesigneoBundle\Subscriber\FOSRedirecterSubscriber
-        arguments:
-            - "@router"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    app.user_subscription_enforcer:
-        class: DesigneoBundle\Service\UserSubscriptionEnforcer
-        arguments: [ @security.authorization_checker]
-
-    app.roles_provider:
-        class: DesigneoBundle\Service\RolesProvider
-        arguments: [ @security.token_storage, @security.authorization_checker]
-
     app.registration_form_type:
         class: AppBundle\Form\Web\RegistrationFormType
         tags:
@@ -48,34 +17,6 @@ services:
         class: AppBundle\Form\Web\ProfileFormType
         tags:
             - { name: form.type, alias: web_profile }
-
-    app.translatable_entity_param_converter:
-        class: DesigneoBundle\ParamConverter\TranslatableEntityParamConverter
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@app.service.locale_provider'
-        tags:
-            - { name: request.param_converter, converter: translatable_param_converter }
-
-    app.services.slug_service:
-            class: DesigneoBundle\Service\SlugService
-            arguments:
-                - '@cocur_slugify'
-
-    # -----------------
-    # Locale
-    # -----------------
-    app.locale.listener:
-        class: DesigneoBundle\Locale\LocaleListener
-        arguments: ["%locale%", "@router", "%kernel.environment%"]
-        tags:
-            - { name: kernel.event_subscriber }
-
-    app.service.locale_provider:
-        class: DesigneoBundle\Locale\LocaleProvider
-        arguments: ["@twig", "@doctrine.orm.entity_manager", %locale.languages%]
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
     # -----------------
     # Admin Controllers
@@ -140,17 +81,6 @@ services:
         class: AppBundle\GridDataSources\Admin\UserDataSource
         arguments: ['@doctrine.orm.entity_manager']
 
-    # ---------------------------
-    # Notifications
-    # ---------------------------
-    app.notifications.mailer:
-        class: DesigneoBundle\Service\Notification\Mailer
-        arguments: ['@mailer', '@templating', '@translator']
-
-    app.notifications.user_create_mail:
-        class: DesigneoBundle\Service\Notification\UserCreateMail
-        arguments: ['@app.notifications.mailer', '%mailer_sender_mail%', '%mailer_sender_name%']
-
 
     # ---------------------------
     # Repositories
@@ -168,27 +98,6 @@ services:
         factory_method: getRepository
         arguments:
             - AppBundle:User
-
-    # --------------------
-    # Twig extensions
-    # --------------------
-    app.twig.bool_extension:
-        class: DesigneoBundle\Twig\BoolExtension
-        arguments: ['@translator']
-        tags:
-            - { name: twig.extension }
-
-    app.twig.role_extension:
-        class: DesigneoBundle\Twig\RoleExtension
-        tags:
-            - { name: twig.extension }
-
-    app.twig.static_text_extension:
-        class: DesigneoBundle\Twig\StaticTextExtension
-        arguments:
-            - '@app.model.static_text_model'
-        tags:
-            - { name: twig.extension }
 
     # ------------------------
     # Vich uploader extensions
