@@ -33,7 +33,7 @@ __package.json__
     # Postgres users
     CREATE USER symfony_template WITH PASSWORD 'secret';
     CREATE DATABASE symfony_template_dev TEMPLATE=template0 LC_COLLATE='en_US.UTF-8' OWNER=symfony_template;
-    CREATE DATABASE symfony_template_tes TEMPLATE=template0 LC_COLLATE='en_US.UTF-8' OWNER=symfony_template;
+    CREATE DATABASE symfony_template_test TEMPLATE=template0 LC_COLLATE='en_US.UTF-8' OWNER=symfony_template;
 
 __!!! You might need to change locale to onw supported by your OS. List installed locales on UNIX like systems with ```locale -a``` !!!__
 
