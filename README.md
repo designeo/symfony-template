@@ -40,15 +40,72 @@ __!!! You might need to change locale to onw supported by your OS. List installe
 After that you need to create initial DB schema.
 
 	# with migrations (recommended)
-	app/console doctrine:migrations:diff
 	app/console doctrine:migrations:migrate
 	
-	# without
+	# without (But you want to run migration, you want to run migration from your colleagues later)
 	app/console doctrine:schema:create
 	
 And fill database with initial data.
 
 	app/console doctrine:fixtures:load
+	
+### Usefull commands:
+
+__Build-in server__
+
+* Run local server:
+
+		app/console server:run
+
+* Run local server with debug:
+
+		app/console server:run -vvv
+
+* Run local server in product env with debug:
+
+		app/console server:run --env=prod -vvv
+
+* Run local server for public acces from another device (eg. mobile phone):
+
+		app/console server:run 0.0.0.0:8001
+		
+* Stop server running on background:
+
+		app/console server:stop 0.0.0.0:8001
+		
+__Router debug__
+
+		app/console d:r --show-controllers
+		app/console debug:router /your-route
+
+__Migrations__
+
+* Change properties in entity
+* Run diff for create SQL diff:
+
+		app/console doctrine:migrations:diff
+	
+* Check migration created in AppBundle/Migrations. You can make changes in SQL.
+* Remove SQL which is generated each time - eg. SEQUENCE
+* Save migration file
+* Run migration to your database:
+
+		app/console doctrine:migrations:migrate
+
+
+* Append fixures:
+
+		app/console d:f:l --append
+
+* Rollback migration:
+
+		app/console d:m:e --down 20150723104243 # 20150723104243 is migration you want to rollback
+
+__Schema check__
+
+* To see, if you have any changes at entities, which are not in your database:
+
+		app/console d:s:u --dump-sql
 
 ## Styles + JS
 
@@ -73,14 +130,8 @@ __Running tests:__
 There is also the update version of translation command: `app/console translation:update`,
 however it probably can not fully utilize preconfigured settings from config.yml
 
+[Documentation](https://github.com/schmittjoh/JMSI18nRoutingBundle)
+
 ## CRUD generator
 
-1) Generate entity:
-
-	app/console doctrine:generate:entity
-
-* Name: AppBundle:Test
-* Field: name
-* Repository: Yes
-
-	app/console designeo:generate:crud AppBundle:Test
+[Documentation](src/Designeo/GeneratorBundle/README.md)
