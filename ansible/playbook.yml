@@ -1,12 +1,12 @@
 ---
-- name: push auth key
-  hosts:
-   - local
-  sudo: yes
-  tasks:
-   - name: auth key
-     authorized_key: user={{ansible_ssh_user}}
-                     key="{{ lookup('file', '/Users/johny/.ssh/johny.pub') }}"
+#- name: push auth key
+#  hosts:
+#   - local
+#  sudo: yes
+#  tasks:
+#   - name: auth key
+#     authorized_key: user={{ansible_ssh_user}}
+#                     key="{{ lookup('file', '/Users/johny/.ssh/johny.pub') }}"
 
 - name: Prepare server
   hosts:
