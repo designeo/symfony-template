@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace DesigneoBundle\Command;
+namespace Designeo\GeneratorBundle\Command;
 
-use DesigneoBundle\Generator\CrudGenerator;
+use Designeo\GeneratorBundle\CrudGenerator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
