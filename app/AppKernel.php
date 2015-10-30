@@ -30,9 +30,11 @@ class AppKernel extends Kernel
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
 
+            // Designeo bundles
+            new Designeo\FrameworkBundle\DesigneoFrameworkBundle(),
+
             // Application bundles
-            new AppBundle\AppBundle(),
-            new DesigneoBundle\DesigneoBundle(),
+            new AppBundle\AppBundle()
         ];
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

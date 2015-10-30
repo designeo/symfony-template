@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Web;
 
-use DesigneoBundle\Controller\AbstractController;
+use Designeo\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class AbstractWebController

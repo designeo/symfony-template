@@ -3,8 +3,8 @@
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
-use DesigneoBundle\Entity\Traits\Timestamps;
-use DesigneoBundle\Service\RolesProvider;
+use Designeo\FrameworkBundle\Entity\Traits\Timestamps;
+use Designeo\FrameworkBundle\Service\RolesProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 

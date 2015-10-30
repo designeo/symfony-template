@@ -132,7 +132,7 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
      */
     private function getUserCreateMailMock()
     {
-        return $this->getMockBuilder('DesigneoBundle\Service\Notification\UserCreateMail')
+        return $this->getMockBuilder('Designeo\FrameworkBundle\Service\Notification\UserCreateMail')
           ->disableOriginalConstructor()
           ->getMock();
     }

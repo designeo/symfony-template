@@ -3,7 +3,7 @@
 namespace AppBundle\Model;
 
 use AppBundle\Repository\UserRepository;
-use DesigneoBundle\Service\Notification\UserCreateMail;
+use Designeo\FrameworkBundle\Service\Notification\UserCreateMail;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\DBAL\DBALException;

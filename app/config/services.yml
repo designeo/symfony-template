@@ -99,3 +99,15 @@ services:
 
     app.uploader.uniqid_namer:
         class: Vich\UploaderBundle\Naming\UniqidNamer
+
+
+    # --------------------
+    # Twig extensions
+    # --------------------
+    app.twig.static_text_extension:
+        class: AppBundle\Twig\StaticTextExtension
+        arguments:
+            - '@app.model.static_text_model'
+        tags:
+            - { name: twig.extension }
+

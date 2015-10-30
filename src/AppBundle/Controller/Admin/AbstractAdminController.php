@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
-use DesigneoBundle\Controller\AbstractController;
+use Designeo\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class AbstractAdminController

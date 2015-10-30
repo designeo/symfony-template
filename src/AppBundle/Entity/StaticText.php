@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use DesigneoBundle\Entity\Traits\PrimaryKey;
+use Designeo\FrameworkBundle\Entity\Traits\PrimaryKey;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
