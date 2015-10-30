@@ -44,6 +44,9 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Designeo\GeneratorBundle\DesigneoGeneratorBundle();
         }
+        else {
+            $bundles[] = new \Designeo\DumpBundle\DesigneoDumpBundle();
+        }
 
 
         return $bundles;
