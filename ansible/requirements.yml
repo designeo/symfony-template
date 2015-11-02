@@ -1,21 +1,21 @@
 
 # Basic designeo server tools
-- src: http://git.designeo.cz/ansible/designeo.server.git
+- src: git+git@git.designeo.cz:ansible/designeo.server.git
 
 # PHP
-- src: http://git.designeo.cz/ansible/designeo.php.git
+- src: git+git@git.designeo.cz:ansible/designeo.php.git
 
 # Apache
-- src: http://git.designeo.cz/ansible/designeo.apache.git
+- src: git+git@git.designeo.cz:ansible/designeo.apache.git
 
 # Deploy Symfony app
-- src: http://git.designeo.cz/ansible/designeo.symfony_app.git
+- src: git+git@git.designeo.cz:ansible/designeo.symfony_app.git
 
 # Deploy Webenv app
-- src: http://git.designeo.cz/ansible/designeo.web_env.git
+- src: git+git@git.designeo.cz:ansible/designeo.web_env.git
 
 # Deploy postgresql
-- src: http://git.designeo.cz/ansible/designeo.postgresql.git
+- src: git+git@git.designeo.cz:ansible/designeo.postgresql.git
 
 # Deploy mysql
 #- src: git+http://git.designeo.cz/ansible/designeo.mysql.git
