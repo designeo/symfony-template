@@ -14,7 +14,6 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Admin\UserType;
 use AppBundle\Exception\UserException;
 use AppBundle\Model\UserModel;
-use DesigneoBundle\Service\RolesProvider;
 
 /**
  * Class UsersController
