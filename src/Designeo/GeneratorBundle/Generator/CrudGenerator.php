@@ -1,6 +1,6 @@
 <?php
 
-namespace Designeo\GeneratorBundle\Generator\CrudGenerator;
+namespace Designeo\GeneratorBundle\Generator;
 
 use Sensio\Bundle\GeneratorBundle\Generator\Generator;
 use Symfony\Component\Filesystem\Filesystem;
