@@ -11,7 +11,7 @@
 
 namespace Designeo\GeneratorBundle\Command;
 
-use Designeo\GeneratorBundle\CrudGenerator;
+use Designeo\GeneratorBundle\Generator\CrudGenerator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
