@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Designeo\GeneratorBundle\Generator;
+namespace Designeo\GeneratorBundle\CrudGenerator;
 
 use Sensio\Bundle\GeneratorBundle\Generator\Generator;
 use Symfony\Component\Filesystem\Filesystem;
