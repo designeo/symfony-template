@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\AbstractController;
 use AppBundle\Entity\{{ entity_class }};
 use AppBundle\Exception\{{ entity_class }}Exception;
 use AppBundle\Form\Admin\{{ entity_class }}Type;
@@ -21,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @Route("/admin/{{ entity }}", service="app.admin.{{ entity }}_controller")
  */
-class {{ entity_class }}Controller extends AbstractController
+class {{ entity_class }}Controller extends AbstractAdminController
 {
     /**
      * @var {{ entity_class }}Model
