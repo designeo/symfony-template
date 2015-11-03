@@ -5,3 +5,10 @@ subdomain: dev-symfony
 env: dev
 deploy_method: git
 deploy_versioned: False
+
+database_name: dev_symfony
+database_user: symfony
+database_password: Q5Uh6QUQ
+
+apache_envs:
+  SYMFONY_ENV: "{{ env }}"

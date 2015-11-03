@@ -1,0 +1,6 @@
+domain: symfony-template
+subdomain: local
+
+app_user: vagrant
+deploy_method: vagrant
+deploy_versioned: False

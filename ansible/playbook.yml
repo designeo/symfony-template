@@ -9,17 +9,13 @@
 #                     key="{{ lookup('file', '/Users/johny/.ssh/johny.pub') }}"
 
 - name: Prepare server
-  hosts:
-    - local
-    - prod
+  hosts: all
   sudo: true
-#  vars_files:
-#    - vars/symfony.yml
-#    - vars/project.yml
+  vars_files:
+    - vars/project.yml
   roles:
     - designeo.server
     - designeo.apache
-    #- galaxyprojectdotorg.postgresql
     - designeo.php
     - kosssi.composer
     - designeo.postgresql
@@ -28,17 +24,15 @@
 - name: Prepare server for php application
   hosts: all
   become: True
-#  vars_files:
-#    - vars/symfony.yml
-#    - vars/project.yml
+  vars_files:
+    - vars/project.yml
   roles:
     - designeo.web_env
 
 - name: Deploy symfony application
   hosts: all
   become: "{{ app_user }}"
-#  vars_files:
-#    - vars/symfony.yml
-#    - vars/project.yml
+  vars_files:
+      - vars/project.yml
   roles:
     - designeo.symfony_app
