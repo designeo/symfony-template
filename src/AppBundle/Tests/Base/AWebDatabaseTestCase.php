@@ -56,6 +56,7 @@ abstract class AWebDatabaseTestCase extends WebTestCase
 
         static::$application->setAutoExit(false);
         $this->runConsole('d:s:d', array('--force' => true));
+        $this->runConsole('d:m:m');
         $this->em->createNativeQuery('TRUNCATE migration_versions;', $rsm = new ResultSetMapping())->execute();
         $this->runConsole('d:m:m');
         $this->runConsole('d:f:l', array('--append' => true));

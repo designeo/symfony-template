@@ -15,3 +15,9 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+monolog:
+      handlers:
+          main:
+              level: debug
+              channels: ["!event", "!translation"]
