@@ -7,7 +7,7 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
             // Default Symfony2 bundles
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
@@ -30,16 +30,24 @@ class AppKernel extends Kernel
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
 
+            // Designeo bundles
+            new Designeo\FrameworkBundle\DesigneoFrameworkBundle(),
+
             // Application bundles
-            new AppBundle\AppBundle(),
-        );
+            new AppBundle\AppBundle()
+        ];
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Designeo\GeneratorBundle\DesigneoGeneratorBundle();
         }
+        else {
+            $bundles[] = new \Designeo\DumpBundle\DesigneoDumpBundle();
+        }
+
 
         return $bundles;
     }

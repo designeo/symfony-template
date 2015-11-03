@@ -3,7 +3,6 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\StaticText;
-use AppBundle\Exception\StaticTextException;
 use AppBundle\Model\StaticTextModel;
 use Doctrine\Common\Collections\ArrayCollection;
 

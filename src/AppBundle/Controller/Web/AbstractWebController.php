@@ -1,7 +1,8 @@
 <?php
 
 namespace AppBundle\Controller\Web;
-use AppBundle\Controller\AbstractController;
+
+use Designeo\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class AbstractWebController

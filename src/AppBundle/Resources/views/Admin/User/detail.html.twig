@@ -1,9 +1,8 @@
 {% extends 'AppBundle:Admin:layout.html.twig' %}
-    {% block title %}{{ parent() }} - {{ title|trans }} {% endblock %}
+{% block title %}{{ parent() }} - {{ user.getFullName }} {% endblock %}
+{% block main_heading_content %}{{ user.getFullName }}{% endblock %}
 
 {% block content %}
-
-    <h1>{{ user.getFullName }}</h1>
 
     <p>{{ user.email }}</p>
     <p>{{ user.userRoleName }}</p>

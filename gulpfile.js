@@ -48,17 +48,29 @@ gulp.task('css:admin', function() {
         .pipe(plugins.notify('CSS build finished'));
 });
 
-gulp.task('js', function() {
-    return gulp.src(['app/Resources/js/**/*.js'])
-        .pipe(plugins.if(!argv.production, plugins.sourcemaps.init()))
-        .pipe(plugins.concat('main.js'))
+gulp.task('jshint', function(){
+    return gulp.src('app/Resources/js/**/*.js')
         .pipe(plugins.jshint())
         .pipe(plugins.jshint.reporter('jshint-stylish'))
+
+});
+
+gulp.task('js', ['jshint'], function() {
+    return gulp.src([
+            'app/Resources/js/web.js',
+            'app/Resources/js/main.js',
+            'app/Resources/js/admin.js'
+        ])
+        .pipe(plugins.if(!argv.production, plugins.sourcemaps.init()))
+        .pipe(plugins.es6ModuleTranspiler({
+            formatter: 'bundle'
+        }))
         .pipe(plugins.babel())
         .on('error', plugins.notify.onError("Babel error: <%= error.file %> <%= error.message %>"))
         .pipe(plugins.if(!argv.production, plugins.sourcemaps.write()))
         .pipe(plugins.if(argv.production, plugins.uglify()))
         .on('error', plugins.notify.onError("Uglify error: <%= error.file %> <%= error.message %>"))
+        .pipe(plugins.flatten())
         .pipe(gulp.dest('web/js/'))
         .pipe(plugins.notify('JS build finished'));
 });
@@ -109,7 +121,8 @@ gulp.task('build', [
 );
 
 gulp.task('default', ['build'], function() {
-    gulp.watch('app/Resources/less/**', ['css']);
+    gulp.watch('app/Resources/less/web/**', ['css:web']);
+    gulp.watch('app/Resources/less/admin/**', ['css:admin']);
     gulp.watch('app/Resources/js/**', ['js']);
     gulp.watch('app/Resources/img/**', ['assets:images']);
     gulp.watch('app/Resources/fonts/**', ['assets:fonts']);

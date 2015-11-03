@@ -107,14 +107,6 @@ vich_uploader:
 
     mappings:
 
-        destination_image:
-            uri_prefix:         /files/destinations
-            upload_destination: %kernel.root_dir%/../web/files/destinations
-            namer:              app.uploader.uniqid_namer
-            inject_on_load:     false
-            delete_on_update:   true
-            delete_on_remove:   true
-
         video_thumbnails:
             uri_prefix:         /files/thumbnails/videos
             upload_destination: %kernel.root_dir%/../web/files/thumbnails/videos

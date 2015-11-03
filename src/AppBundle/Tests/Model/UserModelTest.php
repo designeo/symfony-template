@@ -102,9 +102,7 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
 
         $userCreateMail = $this->getUserCreateMailMock();
 
-        $subscriptionModel = $this->getSubscriptionModelMock();
-
-        $userModel = new UserModel($em, $userRepository, $userCreateMail, $subscriptionModel);
+        $userModel = new UserModel($em, $userRepository, $userCreateMail);
         $userModel->remove($user);
     }
 
@@ -134,17 +132,7 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
      */
     private function getUserCreateMailMock()
     {
-        return $this->getMockBuilder('AppBundle\Service\Notification\UserCreateMail')
-          ->disableOriginalConstructor()
-          ->getMock();
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    private function getSubscriptionModelMock()
-    {
-        return $this->getMockBuilder('AppBundle\Model\SubscriptionModel')
+        return $this->getMockBuilder('Designeo\FrameworkBundle\Service\Notification\UserCreateMail')
           ->disableOriginalConstructor()
           ->getMock();
     }
@@ -164,16 +152,6 @@ class UserModelTest extends \PHPUnit_Framework_TestCase
         }
 
         return $mock;
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    private function getUOWMock()
-    {
-        return $this->getMockBuilder('Doctrine\ORM\UnitOfWork')
-          ->disableOriginalConstructor()
-          ->getMock();
     }
 
 }

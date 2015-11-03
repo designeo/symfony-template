@@ -2,16 +2,17 @@
 
 {% block title %}{{ parent() }} - {{ 'admin.staticText.title'|trans }} {% endblock %}
 
-{% block content %}
-
-    <div class="row">
-        <div class="col-md-12 main-block-heading">
-            <h2 class="pull-left">{{ 'admin.staticText.title'|trans }}</h2>
-            <a href="{{ url('admin_static_text_new') }}" class="btn btn-primary pull-right" title="{{ 'admin.staticText.actions.create'|trans }}">
-                <span class="glyphicon glyphicon-plus"></span>
-            </a>
-        </div>
+{% block main_heading %}
+    <div class="main-block-heading">
+        <h1 class="pull-left">{{ 'admin.staticText.title'|trans }}</h1>
+        <a href="{{ url('admin_static_text_new') }}" class="btn btn-primary pull-right" title="{{ 'admin.staticText.actions.create'|trans }}">
+            <span class="fa fa-plus"></span>
+        </a>
+        <div class="clearfix"></div>
     </div>
+{% endblock %}
+
+{% block content %}
 
     {{ include('AppBundle:Admin/StaticText:includes/grid.html.twig') }}
 

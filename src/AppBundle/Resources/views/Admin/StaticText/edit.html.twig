@@ -1,20 +1,18 @@
 {% extends 'AppBundle:Admin:layout.html.twig' %}
-    {% block title %}{{ parent() }} - {{ title|trans }} {% endblock %}
+{% block title %}{{ parent() }} - {{ title|trans }} {% endblock %}
+{% block main_heading_content %}{{ title|trans }}{% endblock %}
 
 {% block content %}
-
-    <h1>{{ title|trans }}</h1>
-    {#
-
-        =======================
-        BASIC TEMPLATE
-        -----------------------
-
-    #}
 
     {{ form_start(form) }}
 
     {{ form_errors(form) }}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.name, {'label': 'admin.staticText.entity.name'}) }}
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-6">
@@ -30,13 +28,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            {{ form_row(form.name, {'label': 'admin.staticText.entity.name'}) }}
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.name, {'label': 'admin.staticText.entity.name'}) }}
+            {{ form_row(form.content, {'label': 'admin.staticText.entity.content'}) }}
         </div>
     </div>
 

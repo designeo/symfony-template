@@ -2,14 +2,11 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
-use AppBundle\Entity\Traits\Timestamps;
-use AppBundle\Service\RolesProvider;
+use Designeo\FrameworkBundle\Entity\Traits\Timestamps;
+use Designeo\FrameworkBundle\Service\RolesProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * Class User

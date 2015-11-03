@@ -12,23 +12,21 @@ web:
         web: Web
         profile: Profile
         admin: Administration
-        logout: Sign out
+        logout: Log out
         login: Sign in
-        register: Sign up
+        register: Register
 
     static:
-        aboutUs:
-            title: About us
-        howItWorks:
-            title: How it works?
         termsOfUse:
             title: Terms of use
 
     registration:
-        membershipType:
-            year: Full year
-            threeMonths: Three months
         agreeTermsOfService: I agree to Terms of Service
+
+    profile:
+        changeProfile: Change profile
+        changePassword: Change password
+        loggout: Log out
 
 admin:
     brand:    Administration
@@ -49,28 +47,6 @@ admin:
         action: Action
         reallyDelete: Do you really want to delete this record?
         unfilled: Unfilled
-
-    destination:
-        actions:
-            create: Add destination
-            edit: Edit destination
-
-        entity:
-            lat: Lat
-            lng: Lng
-            code: Code
-            slug: Slug
-            photoFile: Photo
-            name: Name
-
-        messages:
-            recordCreated: Destination was successfully created
-            recordDeleted: Destination was successfully deleted
-            recordUpdated: Destination was successfully updated
-            failedToCreateRecord: System failed to create a new record
-            failedToDeleteRecord: System failed to delete the given record
-
-        title: Destinations
 
     users:
         actions:
@@ -98,20 +74,22 @@ admin:
         title: Users
     staticText:
         actions:
-            create: 'New staticText'
-            edit: 'Edit staticText'
-            detail: 'User staticText'
+            create: 'New text'
+            edit: 'Edit text'
+            detail: 'User text'
         entity:
             name: Name
+            title: Title
+            description: Description
+            content: Content
         errors:
-            duplicateEmail: 'staticText with this e-mail already exists'
-            failedToDelete: 'staticText can''t be deleted'
-            failedToSave: 'staticText could not be saved. Try it again later please.'
+            failedToDelete: 'Text can''t be deleted'
+            failedToSave: 'Text could not be saved. Try it again later please.'
         messages:
-            removed: 'staticText was deleted'
-            saved: 'staticText was saved'
+            removed: 'Text was deleted'
+            saved: 'Text was saved'
             confirmDelete: 'Really delete $entity$?'
-        title: staticText
+        title: Static texts
 security:
     login:
         title: Sign in

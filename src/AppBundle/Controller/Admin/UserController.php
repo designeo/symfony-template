@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\AbstractController;
 use AppBundle\GridDataSources\Admin\UserDataSource;
+use Designeo\FrameworkBundle\Service\RolesProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -15,7 +15,6 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Admin\UserType;
 use AppBundle\Exception\UserException;
 use AppBundle\Model\UserModel;
-use AppBundle\Service\RolesProvider;
 
 /**
  * Class UsersController
@@ -23,7 +22,7 @@ use AppBundle\Service\RolesProvider;
  *
  * @Route("/admin/user", service="app.admin.user_controller")
  */
-class UserController extends AbstractController
+class UserController extends AbstractAdminController
 {
 
     /** @var UserDataSource */

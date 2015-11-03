@@ -8,37 +8,6 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
-    kernel.listener.json_request_transformer:
-        class: AppBundle\Service\RequestTransformer\JsonRequestTransformer
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
-
-    app.timestamp_logging_subscriber:
-        class: AppBundle\Entity\Listeners\TimestampLoggingSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    app.user_tracked_subscriber:
-        class: AppBundle\Entity\Listeners\UserTrackedSubscriber
-        arguments: ['@security.token_storage']
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    app.fos_redirecter_subscriber:
-        class: AppBundle\Subscriber\FOSRedirecterSubscriber
-        arguments:
-            - "@router"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    app.user_subscription_enforcer:
-        class: AppBundle\Service\UserSubscriptionEnforcer
-        arguments: [ @security.authorization_checker]
-
-    app.roles_provider:
-        class: AppBundle\Service\RolesProvider
-        arguments: [ @security.token_storage, @security.authorization_checker]
-
     app.registration_form_type:
         class: AppBundle\Form\Web\RegistrationFormType
         tags:
@@ -49,43 +18,9 @@ services:
         tags:
             - { name: form.type, alias: web_profile }
 
-    app.translatable_entity_param_converter:
-        class: AppBundle\ParamConverter\TranslatableEntityParamConverter
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@app.service.locale_provider'
-        tags:
-            - { name: request.param_converter, converter: translatable_param_converter }
-
-    app.services.slug_service:
-            class: AppBundle\Service\SlugService
-            arguments:
-                - '@cocur_slugify'
-
-    # -----------------
-    # Locale
-    # -----------------
-    app.locale.listener:
-        class: AppBundle\Locale\LocaleListener
-        arguments: ["%locale%", "@router", "%kernel.environment%"]
-        tags:
-            - { name: kernel.event_subscriber }
-
-    app.service.locale_provider:
-        class: AppBundle\Locale\LocaleProvider
-        arguments: ["@twig", "@doctrine.orm.entity_manager", %locale.languages%]
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-
     # -----------------
     # Admin Controllers
     # -----------------
-    app.admin.destination_controller:
-        class: AppBundle\Controller\Admin\DestinationController
-        arguments:
-            - '@app.grid_data_source.admin.destination_data_source'
-            - '@app.model.destination_model'
-
     app.admin.user_controller:
         class: AppBundle\Controller\Admin\UserController
         arguments: ['@app.grid_data_source.admin.user_data_source', '@app.roles_provider', '@app.model.user_model']
@@ -102,17 +37,10 @@ services:
 
     app.web.homepage_controller:
         class: AppBundle\Controller\Web\HomePageController
-        arguments:
-            - '@app.model.destination_model'
 
     app.web.static_controller:
         class: AppBundle\Controller\Web\StaticController
         arguments: []
-
-    app.web.destination_controller:
-        class: AppBundle\Controller\Web\DestinationController
-        arguments:
-            - '@app.model.destination_model'
 
     app.web.profile_controller:
         class: AppBundle\Controller\Web\ProfileController
@@ -120,20 +48,6 @@ services:
     # -----------------
     # Model
     # -----------------
-
-    app.model.abstract_logger_aware_model:
-        class: AppBundle\Model\AbstractLoggerAwareModel
-        abstract: true
-        calls:
-            - [setLogger, ['@logger']]
-
-    app.model.destination_model:
-        class: AppBundle\Model\DestinationModel
-        arguments:
-            - '@app.repository.destination_repository'
-            - '@doctrine.orm.entity_manager'
-            - '@app.service.locale_provider'
-            - '@app.services.slug_service'
 
     app.model.static_text_model:
         class: AppBundle\Model\StaticTextModel
@@ -152,10 +66,6 @@ services:
     # -----------------
     # IS Grid managers
     # -----------------
-    app.grid_data_source.admin.destination_data_source:
-        class: AppBundle\GridDataSources\Admin\DestinationDataSource
-        arguments: ['@doctrine.orm.entity_manager']
-
     app.grid_data_source.admin.static_text_data_source:
         class: AppBundle\GridDataSources\Admin\StaticTextDataSource
         arguments:
@@ -165,35 +75,10 @@ services:
         class: AppBundle\GridDataSources\Admin\UserDataSource
         arguments: ['@doctrine.orm.entity_manager']
 
-    # ---------------------------
-    # Notifications
-    # ---------------------------
-    app.notifications.mailer:
-        class: AppBundle\Service\Notification\Mailer
-        arguments: ['@mailer', '@templating', '@translator']
-
-    app.notifications.user_create_mail:
-        class: AppBundle\Service\Notification\UserCreateMail
-        arguments: ['@app.notifications.mailer', '%mailer_sender_mail%', '%mailer_sender_name%']
-
 
     # ---------------------------
     # Repositories
     # ---------------------------
-    app.repository.destination_repository:
-        class: AppBundle\Repository\DestinationRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
-        arguments:
-            - AppBundle:Destination
-
-    app.repository.destination_translation_repository:
-        class: AppBundle\Repository\DestinationTranslationRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
-        arguments:
-            - AppBundle:DestinationTranslation
-
     app.repository.static_text_repository:
         class: AppBundle\Repository\StaticTextRepository
         factory_service: doctrine.orm.default_entity_manager
@@ -208,20 +93,17 @@ services:
         arguments:
             - AppBundle:User
 
+    # ------------------------
+    # Vich uploader extensions
+    # ------------------------
+
+    app.uploader.uniqid_namer:
+        class: Vich\UploaderBundle\Naming\UniqidNamer
+
+
     # --------------------
     # Twig extensions
     # --------------------
-    app.twig.bool_extension:
-        class: AppBundle\Twig\BoolExtension
-        arguments: ['@translator']
-        tags:
-            - { name: twig.extension }
-
-    app.twig.role_extension:
-        class: AppBundle\Twig\RoleExtension
-        tags:
-            - { name: twig.extension }
-
     app.twig.static_text_extension:
         class: AppBundle\Twig\StaticTextExtension
         arguments:
@@ -229,9 +111,3 @@ services:
         tags:
             - { name: twig.extension }
 
-    # ------------------------
-    # Vich uploader extensions
-    # ------------------------
-
-    app.uploader.uniqid_namer:
-        class: Vich\UploaderBundle\Naming\UniqidNamer

@@ -2,10 +2,9 @@
 {% set route_params = app.request.get('_route_params') | merge(filter) %}
 {% import 'AppBundle:Grid:paging.html.twig' as paginator %}
 
-<div class="grid">
-    <form method="get" class="grid-filter">
-        <div class="grid_header"></div>
-        <div class="grid_body">
+<div class="row">
+    <div class="col-sm-12">
+        <form method="get" class="grid-filter">
             <table class="table responsive table-hover">
                 <thead class="title">
                     <tr>
@@ -41,36 +40,34 @@
                             </select>
                         </th>
                         {#<th></th>#}
-                        <th class="last-column functions">
-                            <button class="btn-neutral btn btn-sm" name="filter" type="submit"><span class="fa fa-check"></span></button>
-                            <a href="{{ url('admin_user_index') }}" class="btn-neutral btn btn-sm"><span class="fa fa-times"></span></a>
+                        <th class="text-right">
+                            <button type="submit" class="btn btn-black btn-sm"><span class="fa fa-filter"></span></button>
+                            <a class="btn btn-default btn-sm" href="{{ url('admin_user_index') }}"><span class="fa fa-times"></span></a>
                         </th>
                     </tr>
                 </thead>
-
-                {% for data_item in data %}
                 <tbody>
-                    <tr class="grid-row-cells even">
-                        <td class="grid-column-name">{{ data_item.getFullName }}</td>
-                        <td class="grid-column-name">{{ data_item.email }}</td>
-                        <td class="grid-column-name">{{ data_item.userRoleName }}</td>
-                        <td class="grid-column-name">{{ data_item.enabled|renderBool }}</td>
-                        <td class="text-right functions">
-                            <a href="{{ url('admin_user_detail', {'id': data_item.id}) }}" class="btn btn-secondary"><span class="glyphicon glyphicon-th"></span></a>
-                            <a href="{{ url('admin_user_edit', {'id': data_item.id}) }}" class="btn btn-secondary"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="{{ url('admin_user_remove', {'id': data_item.id}) }}" class="btn btn-primary" data-method="DELETE" data-confirm="{{ 'admin.users.messages.confirmDelete'|trans }}"><span class="glyphicon glyphicon-trash"></span></a>
+                {% for data_item in data %}
+                    <tr>
+                        <td>{{ data_item.getFullName }}</td>
+                        <td>{{ data_item.email }}</td>
+                        <td>{{ data_item.userRoleName }}</td>
+                        <td>{{ data_item.enabled|renderBool }}</td>
+                        <td class="functions">
+                            <a href="{{ url('admin_user_detail', {'id': data_item.id}) }}"><span class="fa fa-th"></span></a>
+                            <a href="{{ url('admin_user_edit', {'id': data_item.id}) }}"><span class="fa fa-edit"></span></a>
+                            <a href="{{ url('admin_user_remove', {'id': data_item.id}) }}" data-method="DELETE" data-confirm="{{ 'admin.users.messages.confirmDelete'|trans }}"><span class="fa fa-trash"></span></a>
                         </td>
-
                     </tr>
                 {%  endfor %}
                 </tbody>
             </table>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         {% block pagination %}
             {% if data|length > 0 %}
                 {{ paginator.nav(page, max_page) }}

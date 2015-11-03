@@ -1,5 +1,9 @@
 {% extends 'layout.html.twig' %}
 
+{% block head_css %}
+    <link rel="stylesheet" href="{{ asset('/css/web.css') }}"/>
+{% endblock %}
+
 {% block header %}
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -16,7 +20,7 @@
             </div>
 
             <div class="collapse navbar-collapse" id="navigation">
-                {{ knp_menu_render('AppBundle:Builder:mainMenu', { 'style': 'navbar-right' }) }}
+                {{ knp_menu_render('Designeo\FrameworkBundle:Builder:mainMenu', { 'style': 'navbar-right' }) }}
             </div>
         </div>
     </nav>
@@ -25,8 +29,6 @@
 {% block footer %}
     <footer>
         <ul>
-            <li><a href="{{ path('app_static_aboutus') }}">{{ 'web.static.aboutUs.title'|trans }}</a></li>
-            <li><a href="{{ path('app_static_howitworks') }}">{{ 'web.static.howItWorks.title'|trans }}</a></li>
             <li><a href="{{ path('app_static_termsofuse') }}">{{ 'web.static.termsOfUse.title'|trans }}</a></li>
         </ul>
 
@@ -34,4 +36,10 @@
             <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}" class="{% if locale == lang_locale %}active{% endif %}">{{ language }}</a> |
         {% endfor %}
     </footer>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('/js/web.js') }}" type="application/javascript"></script>
+
 {% endblock %}

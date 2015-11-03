@@ -4,6 +4,7 @@ namespace AppBundle\Model;
 
 use AppBundle\Entity\StaticText;
 use AppBundle\Repository\StaticTextRepository;
+use Designeo\FrameworkBundle\Model\AbstractLoggerAwareModel;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\DBAL\DBALException;
 use AppBundle\Exception\StaticTextException;

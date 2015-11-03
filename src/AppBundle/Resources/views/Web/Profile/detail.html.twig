@@ -5,8 +5,8 @@
     <div>{{ user.email }}</div>
 
     <div class="text-center">
-        <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-lg btn-info">Change profile</a><br>
-        <a href="{{ path('fos_user_change_password') }}" class="btn btn-lg btn-warning">Change password</a><br>
-        <a href="{{ path('fos_user_security_logout') }}" class="btn btn-lg btn-default">Log out</a><br>
+        <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-lg btn-info">{{ 'web.profile.changeProfile'|trans }}</a><br>
+        <a href="{{ path('fos_user_change_password') }}" class="btn btn-lg btn-warning">{{ 'web.profile.changePassword'|trans }}</a><br>
+        <a href="{{ path('fos_user_security_logout') }}" class="btn btn-lg btn-default">{{ 'web.profile.loggout'|trans }}</a><br>
     </div>
 {% endblock %}

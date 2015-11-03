@@ -1,72 +1,89 @@
 {% extends 'layout.html.twig' %}
 
-            {% block head_css %}
-                <link rel="stylesheet" href="{{ asset('/css/admin.css') }}"/>
-            {% endblock head_css %}
+{% block head_css %}
+    <link rel="stylesheet" href="{{ asset('/css/admin.css') }}"/>
+{% endblock head_css %}
+
+{% block body_class %}cms{% endblock body_class %}
+
+{% block sidebar %}
+    <div class="sidebar">
+        <ul class="nav nav-sidebar">
+            <li class="toggle"><a class="sidebar-toggle" href="#"><span class="fa fa-bars" aria-hidden="true"></span> <span class="toggle-title closing">{{ 'admin.brand'|trans }}</span></a></li>
+            <li{# class="active"#}><a href="{{ url('admin_homepage') }}"><span class="fa fa-dashboard"></span> <span class="closing">{{ 'admin.brand'|trans }}</span></a></li>
+            <li><a href="{{ url('admin_user_index') }}"><span class="fa fa-user"></span> <span class="closing">{{ 'admin.users.title'|trans }}</span></a></li>
+            <li><a href="{{ url('admin_static_text_index') }}"><span class="fa fa-align-left"></span> <span class="closing">{{ 'admin.staticText.title'|trans }}</span></a></li>
+        </ul>
+    </div>
+{% endblock sidebar %}
 
 {% block header %}
-    <nav class="navbar navbar-default navbar-admin">
+
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation-admin">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
 
-                <a class="sidebar-toggle" href="#"><span class="fa fa-bars" aria-hidden="true"></span></a>
-                <a class="navbar-brand" href="{{ path('admin_homepage') }}">
-                    {{ 'admin.brand'|trans }}
-                </a>
+            <div class="row">
+
+                <div class="col-sm-7 col-xs-6 text-right">
+                    <a class="navbar-brand" href="{{ url('admin_homepage') }}"><img src="{{ asset('/img/logo-admin.png') }}" alt="{{ 'admin.brand'|trans }}"/></a>
+                </div>
+
+                <div class="col-sm-5 col-xs-6 text-right">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="clearfix"></div>
+                    <div id="navbar-lang" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            {% for lang_locale,language in languages %}
+                                <li><a class="lang {% if locale == lang_locale %}active{% endif %}" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}">{{ language }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        {{ knp_menu_render('Designeo\FrameworkBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}
+                    </div>
+                </div>
             </div>
 
-            <div class="collapse navbar-collapse" id="navigation-admin">
-                {{ knp_menu_render('AppBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}
-            </div>
         </div>
     </nav>
 {% endblock header %}
 
 {% block container %}
+    <section class="main-content">
+        <div class="main-block">
+            {% block flash_messages %}
+                {% for label, flashes in app.session.flashbag.all %}
+                    {% for flash in flashes %}
+                        <div class="alert alert-{{ label }} alert-dismissible">
+                            {{ flash|trans }}
 
-    <div id="container" class="{% block containerClass %}container-fluid main-layout{% endblock %}">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endblock flash_messages %}
 
-        <aside class="sidebar">
-            <div class="nav-collapse" tabindex="5000">
-                <ul class="nav nav-sidebar">
-
-                    <li><a href="{{ url('admin_homepage') }}"><span class="fa fa-th-large"></span> Rozcestník</a></li>
-                    <li><a href="{{ url('admin_destination_index') }}"><span class="fa fa-plane"></span>Destinace</a></li>
-                    <li><a href="{{ url('admin_user_index') }}"><span class="fa fa-user"></span>Uživatelé</a></li>
-                    <li><a href="{{ url('admin_static_text_index') }}"><span class="fa fa-bars"></span>Statické texty</a></li>
-                </ul>
-            </div>
-        </aside>
-
-        <section class="main-content">
-
-            <div class="main-block">
-
-                <div class="row">
-
-                    {% block flash_messages %}
-                        {% for label, flashes in app.session.flashbag.all %}
-                            {% for flash in flashes %}
-                                <div class="alert alert-{{ label }}">
-                                    {{ flash|trans }}
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-                    {% endblock flash_messages %}
-
-
-                    {% block content %}{% endblock %}
-
+            {% block main_heading %}
+                <div class="main-block-heading">
+                    <h1>{% block main_heading_content %}{% endblock %}</h1>
                 </div>
+            {% endblock %}
 
-            </div>
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+{% endblock %}
 
-        </section>
-    </div>
-{% endblock container %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('/js/admin.js') }}" type="application/javascript"></script>
+
+{% endblock %}

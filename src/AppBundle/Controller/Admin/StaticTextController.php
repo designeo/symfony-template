@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\AbstractController;
 use AppBundle\Entity\StaticText;
 use AppBundle\Exception\StaticTextException;
 use AppBundle\Form\Admin\StaticTextType;
@@ -21,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @Route("/admin/staticText", service="app.admin.staticText_controller")
  */
-class StaticTextController extends AbstractController
+class StaticTextController extends AbstractAdminController
 {
     /**
      * @var StaticTextModel
