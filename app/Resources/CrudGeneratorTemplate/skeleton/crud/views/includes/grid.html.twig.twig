@@ -61,7 +61,7 @@
                         <td>{{ data_item.id }}</td>
                         <td class="functions">
                             <a href="{{ url('admin_[[ entity ]]_edit', {'id': data_item.id}) }}"><span class="fa fa-edit"></span></a>
-                            <a href="{{ url('admin_[[ entity ]]_remove', {'id': data_item.id}) }}" data-method="DELETE" data-confirm="{{ 'admin.users.messages.confirmDelete'|trans }}"><span class="fa fa-trash"></span></a>
+                            <a href="{{ url('admin_[[ entity ]]_remove', {'id': data_item.id}) }}" data-method="DELETE" data-confirm="{{ 'admin.[[ entity ]].messages.confirmDelete'|trans }}"><span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
                 {%  endfor %}
