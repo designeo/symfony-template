@@ -85,7 +85,7 @@ class {{ entity_class }}Model extends AbstractLoggerAwareModel
             $this->entityManager->flush();
         } catch (DBALException $e) {
             $this->logger->error($e);
-            throw new {{ entity_class }}Exception('admin.{{ entity }}.errors.failedToDelete', null, $e);
+            throw new {{ entity_class }}Exception('admin.{{ entity }}.errors.failedToSave', null, $e);
         }
     }
 
