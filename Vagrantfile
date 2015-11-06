@@ -30,7 +30,7 @@ Vagrant.configure(2) do |config|
 
     ansible.groups = {
         "local" => ["default"],
-        #"dev" => ["development"]
+        #"dev" => ["default"]
     }
 
     #ansible.playbook = "ansible/testplaybook.yml"

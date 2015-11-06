@@ -5,4 +5,5 @@ app_user: vagrant
 deploy_method: vagrant
 deploy_versioned: False
 
-composer_github_oauth: 301b58709a2c6a49f6f2ab1a9732ee42c98aaa00
+## github OAuth token
+#composer_github_oauth: #enter your OAuth token here!
