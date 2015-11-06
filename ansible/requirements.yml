@@ -1,36 +1,36 @@
 
 # Basic designeo server tools
 - src: git+git@git.designeo.cz:ansible/designeo.server.git
-  path: ansible_roles
+  path: roles
 
 # PHP
 - src: git+git@git.designeo.cz:ansible/designeo.php.git
-  path: ansible_roles
+  path: roles
 
 # Apache
 - src: git+git@git.designeo.cz:ansible/designeo.apache.git
-  path: ansible_roles
+  path: roles
 
 # Deploy Symfony app
 - src: git+git@git.designeo.cz:ansible/designeo.symfony_app.git
-  path: ansible_roles
+  path: roles
 
 # Deploy Webenv app
 - src: git+git@git.designeo.cz:ansible/designeo.web_env.git
-  path: ansible_roles
+  path: roles
 
 # Deploy postgresql
 - src: git+git@git.designeo.cz:ansible/designeo.postgresql.git
-  path: ansible_roles
+  path: roles
 
 # Deploy mysql
 #- src: git+http://git.designeo.cz/ansible/designeo.mysql.git
-#  path: ansible_roles
+#  path: roles
 
 # Composer
 - src: kosssi.composer
-  path: ansible_roles
+  path: roles
 
 # Nodejs 0.12
 - src: ateoto.nodejs
-  path: ansible_roles
+  path: roles
