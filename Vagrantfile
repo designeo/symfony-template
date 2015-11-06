@@ -29,11 +29,12 @@ Vagrant.configure(2) do |config|
   config.vm.provision "ansible" do |ansible|
 
     ansible.groups = {
-        #"local" => ["default"],
-        "dev" => ["development"]
+        "local" => ["default"],
+        #"dev" => ["development"]
     }
 
     #ansible.playbook = "ansible/testplaybook.yml"
     ansible.playbook = "ansible/playbook.yml"
+    ansible.verbose = "vvv"
   end
 end
