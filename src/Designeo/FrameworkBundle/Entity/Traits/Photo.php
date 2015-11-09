@@ -2,7 +2,7 @@
 
 namespace Designeo\FrameworkBundle\Entity\Traits;
 
-use Designeo\FrameworkBundle\Helper\String;
+use Designeo\FrameworkBundle\Helper\Strings;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -107,7 +107,7 @@ trait Photo
     {
         $fileNameParts = explode('.', $originalFileName);
         $extension = array_pop($fileNameParts);
-        $filename = String::webalize(implode('.', $fileNameParts));
+        $filename = Strings::webalize(implode('.', $fileNameParts));
 
         return sprintf('%s.%s', $filename, $extension);
     }

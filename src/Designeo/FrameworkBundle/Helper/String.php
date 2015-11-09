@@ -6,7 +6,7 @@ namespace Designeo\FrameworkBundle\Helper;
  * String helpers
  * @package Designeo\FrameworkBundle\Helper
  */
-class String
+class Strings
 {
 
     /**
