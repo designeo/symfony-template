@@ -4,29 +4,9 @@
 
 ### Dependencies
 
-* __PHP >=5.4__ _(you can downgrade to PHP 5.3.3 as Symfony2's requirement, but seriously do you want it?)_
-* __MySQL__ or __PostgreSQL__ or any other which is supported by Doctrine
+* __PHP >=5.4__
+* __PostgreSQL__
 * __NodeJS__
-
-__Other tools:__
-
-For handling and bulding assets 
-
-### Basic configuration
-
-__composer.json__
-
-* change name node to your project name
-* modify ```"SymfonyTemplate": "app/"``` to your application namespace eg.: ```"MyCoolApp": "app/"```
-
-__bower.json__
-
-* change name node to yout project name
-
-__package.json__
-
-* change name node to yout project name
-* change license
 
 ### Database
 
@@ -132,6 +112,14 @@ however it probably can not fully utilize preconfigured settings from config.yml
 
 [Documentation](https://github.com/schmittjoh/JMSI18nRoutingBundle)
 
+## Designeo framework
+
+[Documentation](src/Designeo/FrameworkBundle/README.md)
+
 ## CRUD generator
 
 [Documentation](src/Designeo/GeneratorBundle/README.md)
+
+## Dump
+
+[Documentation](src/Designeo/DumpBundle/README.md)
