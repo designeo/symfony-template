@@ -20,7 +20,6 @@ monolog:
             type:   stream
             path:   "%kernel.logs_dir%/%kernel.environment%.log"
             level:  debug
-            channels: "!event"
         console:
             type:   console
             bubble: false
@@ -36,6 +35,10 @@ monolog:
                 VERBOSITY_VERY_VERBOSE: NOTICE
                 VERBOSITY_DEBUG: DEBUG
             channels: ["doctrine"]
+        sentry:
+            type:  raven
+            dsn:   %sentry.dsn%
+            level: notice
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
