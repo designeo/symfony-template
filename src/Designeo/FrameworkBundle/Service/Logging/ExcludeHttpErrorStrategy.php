@@ -3,7 +3,7 @@
  * @author: Stanislav Fifik <stanislav.fifik@designeo.cz>
  */
 
-namespace AppBundle\Service\Logging;
+namespace Designeo\FrameworkBundle\Service\Logging;
 
 use Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy;
 use Symfony\Component\HttpKernel\Exception\HttpException;

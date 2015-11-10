@@ -113,5 +113,5 @@ services:
 
 
     logging_strategy:
-        class: AppBundle\Service\Logging\ExcludeHttpErrorStrategy
+        class: Designeo\FrameworkBundle\Service\Logging\ExcludeHttpErrorStrategy
         arguments: ['error']
