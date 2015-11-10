@@ -10,11 +10,6 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
 
-    app.timestamp_logging_subscriber:
-        class: Designeo\FrameworkBundle\Entity\Listeners\TimestampLoggingSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
-
     app.user_tracked_subscriber:
         class: Designeo\FrameworkBundle\Entity\Listeners\UserTrackedSubscriber
         arguments: ['@security.token_storage']

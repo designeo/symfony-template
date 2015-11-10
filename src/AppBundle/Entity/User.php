@@ -3,9 +3,9 @@
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
-use Designeo\FrameworkBundle\Entity\Traits\Timestamps;
 use Designeo\FrameworkBundle\Service\RolesProvider;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
-    use Timestamps;
+    use Timestampable;
 
     /**
      * @var integer
