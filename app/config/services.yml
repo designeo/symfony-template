@@ -111,3 +111,7 @@ services:
         tags:
             - { name: twig.extension }
 
+
+    logging_strategy:
+        class: Designeo\FrameworkBundle\Service\Logging\ExcludeHttpErrorStrategy
+        arguments: ['error']

@@ -5,6 +5,14 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
+
+    public function boot()
+    {
+        parent::boot();
+        $logger = $this->container->get('logger');
+        \Monolog\ErrorHandler::register($logger);
+    }
+
     public function registerBundles()
     {
         $bundles = [
