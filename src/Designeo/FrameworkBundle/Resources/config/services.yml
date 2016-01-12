@@ -25,11 +25,11 @@ services:
 
     app.user_subscription_enforcer:
         class: Designeo\FrameworkBundle\Service\UserSubscriptionEnforcer
-        arguments: [ @security.authorization_checker]
+        arguments: [ '@security.authorization_checker' ]
 
     app.roles_provider:
         class: Designeo\FrameworkBundle\Service\RolesProvider
-        arguments: [ @security.token_storage, @security.authorization_checker]
+        arguments: [ '@security.token_storage', '@security.authorization_checker']
 
     app.translatable_entity_param_converter:
         class: Designeo\FrameworkBundle\ParamConverter\TranslatableEntityParamConverter
@@ -44,9 +44,17 @@ services:
             arguments:
                 - '@cocur_slugify'
 
+    app.services.user_authenticator_service:
+        class: Designeo\FrameworkBundle\Service\UserAuthenticatorService
+        arguments:
+            - '@event_dispatcher'
+            - '@request_stack'
+            - '@security.token_storage'
+
     # -----------------
     # Locale
     # -----------------
+
     app.locale.listener:
         class: Designeo\FrameworkBundle\Locale\LocaleListener
         arguments: ["%locale%", "@router", "%kernel.environment%"]

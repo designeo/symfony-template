@@ -19,7 +19,6 @@ services:
 
     app.repository.{{ entity }}_repository:
         class: AppBundle\Repository\{{ entity_class }}Repository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments:
             - AppBundle:{{ entity_class }}

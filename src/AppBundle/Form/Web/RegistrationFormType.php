@@ -26,7 +26,7 @@ class RegistrationFormType extends AbstractType
             'mapped' => false,
             'required' => true,
             'constraints' => [
-                new EqualTo(['value' => true])
+            new EqualTo(['value' => true])
             ]
         ]);
 

@@ -48,6 +48,16 @@ class User extends BaseUser
     protected $lastName;
 
     /**
+     * @var string access token
+     *
+     * @ORM\Column(name="access_token", type="string", length=255, nullable=true)
+     */
+    private $accessToken;
+
+
+
+
+    /**
      * @return int
      */
     public function getId()
@@ -65,10 +75,12 @@ class User extends BaseUser
 
     /**
      * @param string $firstName
+     * @return $this
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+        return $this;
     }
 
     /**
@@ -81,10 +93,12 @@ class User extends BaseUser
 
     /**
      * @param string $lastName
+     * @return $this
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+        return $this;
     }
 
     /**
@@ -122,10 +136,12 @@ class User extends BaseUser
     /**
      * Avoiding baseUser methods like hasRole etc
      * @param string $role
+     * @return $this
      */
     public function setUserRole($role)
     {
         $this->addRole($role);
+        return $this;
     }
 
     /**
@@ -145,5 +161,35 @@ class User extends BaseUser
     {
         return RolesProvider::getRoleName($this->getUserRole());
     }
+
+    /**
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @param string $accessToken
+     * @return $this
+     */
+    public function setAccessToken($accessToken)
+    {
+        $this->accessToken = $accessToken;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getFullName();
+    }
+
+    public function getSalt()
+    {
+        // there is no need for providing salt as we are crypting our passwords with bcrypt.
+        return null;
+    }
+
 
 }

@@ -42,8 +42,8 @@ class CrudGenerator extends Generator
     /**
      * Generate the CRUD controller.
      *
-     * @param BundleInterface $bundle A bundle object
-     * @param string $entity The entity relative class name
+     * @param BundleInterface   $bundle   A bundle object
+     * @param string            $entity   The entity relative class name
      * @param ClassMetadataInfo $metadata The entity class metadata
      * @param $forceOverwrite
      */
@@ -87,7 +87,7 @@ class CrudGenerator extends Generator
 
         $finder = new Finder();
         $finder
-            ->in(sprintf("%s/Resources/translations", $this->rootDir))
+            ->in(sprintf('%s/Resources/translations', $this->rootDir))
             ->files()
             ->name('messages.*.yml');
 
@@ -107,21 +107,21 @@ class CrudGenerator extends Generator
 
     protected function generateConfiguration()
     {
-        $dir = sprintf("%s/config/crud", $this->rootDir);
+        $dir = sprintf('%s/config/crud', $this->rootDir);
 
         if (!file_exists($dir)) {
             $this->filesystem->mkdir($dir, 0777);
         }
 
-        $this->renderFile('crud/config.yml.twig', sprintf("%s/%s.yml", $dir, $this->entityName), [
+        $this->renderFile('crud/config.yml.twig', sprintf('%s/%s.yml', $dir, $this->entityName), [
             'entity_class'      => $this->entityClass,
             'entity'            => $this->entityName,
         ]);
 
-        $this->newFiles[] = sprintf("%s/%s.yml", $dir, $this->entityName);
+        $this->newFiles[] = sprintf('%s/%s.yml', $dir, $this->entityName);
 
         // update loader
-        $loaderPath = sprintf("%s/loader.yml", $dir);
+        $loaderPath = sprintf('%s/loader.yml', $dir);
         $loaderData = Yaml::parse(file_get_contents($loaderPath));
 
         $found = false;
@@ -145,66 +145,66 @@ class CrudGenerator extends Generator
 
     protected function generateException()
     {
-        $dir = sprintf("%s/Exception", $this->bundle->getPath());
+        $dir = sprintf('%s/Exception', $this->bundle->getPath());
 
         if (!file_exists($dir)) {
             $this->filesystem->mkdir($dir, 0777);
         }
 
-        $this->renderFile('crud/exception.php.twig', sprintf("%s/%sException.php", $dir, $this->entityClass), [
+        $this->renderFile('crud/exception.php.twig', sprintf('%s/%sException.php', $dir, $this->entityClass), [
             'entity_class'      => $this->entityClass,
         ]);
 
-        $this->newFiles[] = sprintf("%s/%sException.php", $dir, $this->entityClass);
+        $this->newFiles[] = sprintf('%s/%sException.php', $dir, $this->entityClass);
     }
 
     protected function generateModel()
     {
-        $dir = sprintf("%s/Model", $this->bundle->getPath());
+        $dir = sprintf('%s/Model', $this->bundle->getPath());
 
         if (!file_exists($dir)) {
             $this->filesystem->mkdir($dir, 0777);
         }
 
-        $this->renderFile('crud/model.php.twig', sprintf("%s/%sModel.php", $dir, $this->entityClass), [
+        $this->renderFile('crud/model.php.twig', sprintf('%s/%sModel.php', $dir, $this->entityClass), [
             'entity'            => $this->entityName,
             'entity_class'      => $this->entityClass,
         ]);
 
-        $this->newFiles[] = sprintf("%s/%sModel.php", $dir, $this->entityClass);
+        $this->newFiles[] = sprintf('%s/%sModel.php', $dir, $this->entityClass);
     }
 
     protected function generateForm()
     {
-        $dir = sprintf("%s/Form/Admin", $this->bundle->getPath());
+        $dir = sprintf('%s/Form/Admin', $this->bundle->getPath());
 
         if (!file_exists($dir)) {
             $this->filesystem->mkdir($dir, 0777);
         }
 
-        $this->renderFile('crud/form.php.twig', sprintf("%s/%sType.php", $dir, $this->entityClass), [
+        $this->renderFile('crud/form.php.twig', sprintf('%s/%sType.php', $dir, $this->entityClass), [
             'entity'            => $this->entityName,
             'entity_class'      => $this->entityClass,
         ]);
 
-        $this->newFiles[] = sprintf("%s/%sType.php", $dir, $this->entityClass);
+        $this->newFiles[] = sprintf('%s/%sType.php', $dir, $this->entityClass);
     }
 
     protected function generateDataSource()
     {
-        $dir = sprintf("%s/GridDataSources/Admin", $this->bundle->getPath());
+        $dir = sprintf('%s/GridDataSources/Admin', $this->bundle->getPath());
 
         if (!file_exists($dir)) {
             $this->filesystem->mkdir($dir, 0777);
         }
 
-        $this->renderFile('crud/datasource.php.twig', sprintf("%s/%sDataSource.php", $dir, $this->entityClass), [
+        $this->renderFile('crud/datasource.php.twig', sprintf('%s/%sDataSource.php', $dir, $this->entityClass), [
             'entity'            => $this->entityName,
             'entity_class'      => $this->entityClass,
             'entity_id'         => $this->entityId,
         ]);
 
-        $this->newFiles[] = sprintf("%s/%sDataSource.php", $dir, $this->entityClass);
+        $this->newFiles[] = sprintf('%s/%sDataSource.php', $dir, $this->entityClass);
     }
 
     protected function generateViews()
@@ -308,7 +308,7 @@ class CrudGenerator extends Generator
 
     protected function addToGit($file)
     {
-        $git = new Process(sprintf("git add %s", $file));
+        $git = new Process(sprintf('git add %s', $file));
         $git->run();
     }
 }

@@ -1,5 +1,9 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
+
+imports:
+    - { resource: crud/loader.yml }
+
 parameters:
 #    parameter_name: value
 
@@ -31,6 +35,20 @@ services:
             - '@app.grid_data_source.admin.static_text_data_source'
             - '@app.model.static_text_model'
 
+
+    # -----------------
+    # API Controllers
+    # -----------------
+    app.api.test_static_controller:
+        class: AppBundle\Controller\Api\V1\TestStaticController
+        arguments:
+            - '@security.token_storage'
+
+    app.api.login_controller:
+        class: AppBundle\Controller\Api\V1\LoginController
+        arguments:
+            - '@security.token_storage'
+
     # -----------------
     # Web Controllers
     # -----------------
@@ -59,9 +77,11 @@ services:
     app.model.user_model:
         class: AppBundle\Model\UserModel
         arguments:
+            - '@security.authentication.manager'
             - '@doctrine.orm.entity_manager'
             - '@app.repository.user_repository'
             - '@app.notifications.user_create_mail'
+            - '@event_dispatcher'
 
     # -----------------
     # IS Grid managers
@@ -81,15 +101,13 @@ services:
     # ---------------------------
     app.repository.static_text_repository:
         class: AppBundle\Repository\StaticTextRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - AppBundle:StaticText
 
     app.repository.user_repository:
         class: AppBundle\Repository\UserRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - AppBundle:User
 
@@ -112,6 +130,114 @@ services:
             - { name: twig.extension }
 
 
+    app.date_twig_ext:
+        class: AppBundle\Twig\Date
+        tags:
+            -  { name: twig.extension }
+
+    # --------------------
+    # Utility services
+    # --------------------
     logging_strategy:
         class: Designeo\FrameworkBundle\Service\Logging\ExcludeHttpErrorStrategy
         arguments: ['error']
+
+
+
+    # ------------------------
+    # API Authenticators
+    # ------------------------
+
+    app.security.provider.rest:
+        class: AppBundle\Security\Provider\RestProvider
+        arguments:
+            - "@app.repository.user_repository"
+        public: false
+
+    app.security.listener.rest:
+        class: AppBundle\Security\Firewall\RestListener
+        arguments:
+            - "@app.security.provider.rest"
+            - "@security.token_storage"
+            - [] # secret placeholder
+            - [] # Debug addresses placeholder
+        public: false
+
+    app.security.listener.api_v1_login:
+        class: AppBundle\Security\Firewall\ApiLoginListener
+        arguments:
+            - '@app.security.provider.api_v1_login'
+            - "@security.token_storage"
+            - [] # Debug addresses placeholder
+        public: false
+
+    app.security.provider.api_v1_login:
+        class: AppBundle\Security\Provider\ApiLoginProvider
+        arguments:
+            - "@app.repository.user_repository"
+            - '@security.password_encoder'
+        public: false
+
+    kernel.event_listener.json_request_transformer:
+        class: Qandidate\Common\Symfony\HttpKernel\EventListener\JsonRequestTransformerListener
+        tags:
+          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 100 }
+
+
+    # ---------------------
+    # QUERY PARAM CONVERTER
+    # ---------------------
+    app.query_converter.converter:
+        class: AppBundle\Service\QueryStringConverter
+        tags:
+            - { name: request.param_converter, priority: 1, query_converter: querystring }
+
+    app.payload_converter.converter:
+        class: AppBundle\Service\PayloadConverter
+        tags:
+            - { name: request.param_converter, priority: 2, query_converter: payload }
+
+
+    # ---------------------------
+    # Test services (mocks)
+    # ---------------------------
+
+    swiftmailer.mailer.default.spool.test_spool:
+        class: AppBundle\Tests\Helpers\TestSpool
+
+    # Fix for fos_user bug https://github.com/FriendsOfSymfony/FOSUserBundle/issues/2048
+    fos_user.doctrine_registry:
+        alias: doctrine
+
+#    Intentionally disabled by default
+#
+#    kernel.event_listener.json_request_transformer:
+#        class: Qandidate\Common\Symfony\HttpKernel\EventListener\JsonRequestTransformerListener
+#        tags:
+#          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 100 }
+
+    kernel.event_listener.exception_to_json_listener:
+        class: AppBundle\Service\ExceptionToJsonListener
+        arguments:
+            - [ '/api/v1' ]
+            - %kernel.environment%
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    # --------------------
+    # Exception translators
+    # --------------------
+    app.service.exception_translator.access_denied_translator:
+        class: AppBundle\Service\ExceptionTranslator\AccessDeniedTranslator
+        tags:
+            - { name: exception_translator, priority: 1 }
+
+    app.service.exception_translator.not_found_translator:
+        class: AppBundle\Service\ExceptionTranslator\NotFoundTranslator
+        tags:
+            - { name: exception_translator, priority: 2 }
+
+    app.service.exception_translator.contract_translator:
+        class: AppBundle\Service\ExceptionTranslator\BadRequestTranslator
+        tags:
+            - { name: exception_translator, priority: 3 }
