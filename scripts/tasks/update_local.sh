@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## get bootstrap path (able to follow single symlink)
-BOOTSTRAP=$(cd $(dirname $0)/$(dirname $(readlink $0) 2>/dev/null) && pwd)/../bootstrap.sh
+BOOTSTRAP=$(dirname $(realpath $0))/../bootstrap.sh
 
 ## help
 HELP="Update current branch and install dependencies"
@@ -15,8 +15,21 @@ EOF
 ## run bootstrap
 source $BOOTSTRAP
 
+
+PARAMETERS=$ROOT/app/config/parameters.yml
+
 ## do the job
 git pull
+
+if [ ! -e $PARAMETERS ] ;
+then
+  composer install --no-scripts
+  link_console
+  info "Configure parameters.yml and create the database..."
+  read -p "After finishing press any key to continue... " -n1 -s
+
+fi
+
 composer install
 npm install
 bower install

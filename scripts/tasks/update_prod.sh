@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## get bootstrap path (able to follow single symlink)
-BOOTSTRAP=$(cd $(dirname $0)/$(dirname $(readlink $0) 2>/dev/null) && pwd)/../bootstrap.sh
+BOOTSTRAP=$(dirname $(realpath $0))/../bootstrap.sh
 
 ## help
 HELP="Update current branch and install dependencies"
