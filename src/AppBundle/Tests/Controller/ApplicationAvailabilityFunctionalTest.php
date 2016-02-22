@@ -40,36 +40,6 @@ class ApplicationAvailabilityFunctionalTest extends AWebDatabaseTestCase
     }
 
     /**
-     * @dataProvider adminUrlProvider
-     * @param string $url
-     */
-    public function testAdmin($url)
-    {
-        $this->signInAsAdmin();
-        $this->client->request('GET', $url);
-
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
-    }
-
-    /**
-     *
-     */
-    protected function signInAsAdmin()
-    {
-        $crawler = $this->client->request('GET', '/login');
-        $form = $crawler->selectButton('_submit')->form(array(
-            '_username'  => 'admin@localhost',
-            '_password'  => 'secret',
-        ));
-
-        $this->client->submit($form);
-
-        $this->assertTrue($this->client->getResponse()->isRedirect());
-
-        $this->client->followRedirect();
-    }
-
-    /**
      * @return array
      */
     public function webUrlProvider()
@@ -77,16 +47,6 @@ class ApplicationAvailabilityFunctionalTest extends AWebDatabaseTestCase
         return array(
             array('/en/'),
             array('/login'),
-        );
-    }
-
-    /**
-     * @return array
-     */
-    public function adminUrlProvider()
-    {
-        return array(
-            array('/admin'),
         );
     }
 }

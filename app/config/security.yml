@@ -18,11 +18,20 @@ security:
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
     firewalls:
+        api_v1_login:
+            pattern: ^/api/v1/login
+            api_login: {}
+
+        api_v1:
+            pattern: ^/api/v1
+            rest_api_key: { secret: [a1897dcc6a7e949b544b8d8b1f91ca92d022c5e7], debugAddresses: [127.0.0.11] }
+            stateless: true
+
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-                csrf_provider: security.csrf.token_manager
+                csrf_token_generator: security.csrf.token_manager
                 check_path: fos_user_security_check
             logout:       true
             anonymous:    true
@@ -41,3 +50,15 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
+
+
+
+#    main:
+#        anonymous: ~
+        # activate different ways to authenticate
+
+        # http_basic: ~
+        # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+        # form_login: ~
+        # http://symfony.com/doc/current/cookbook/security/form_login_setup.html

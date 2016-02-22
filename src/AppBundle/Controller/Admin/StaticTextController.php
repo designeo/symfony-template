@@ -35,7 +35,7 @@ class StaticTextController extends AbstractAdminController
 
     /**
      * @param StaticTextDataSource $staticTextDataSource
-     * @param StaticTextModel $staticTextModel
+     * @param StaticTextModel      $staticTextModel
      */
     public function __construct(StaticTextDataSource $staticTextDataSource, StaticTextModel $staticTextModel)
     {
@@ -134,7 +134,7 @@ class StaticTextController extends AbstractAdminController
      * @ParamConverter("id", class="AppBundle:StaticText")
      * @Template("AppBundle:Admin/StaticText:edit.html.twig")
      *
-     * @param Request $request
+     * @param Request    $request
      * @param StaticText $staticText
      * @return array
      */

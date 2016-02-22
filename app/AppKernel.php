@@ -10,19 +10,20 @@ class AppKernel extends Kernel
     {
         parent::boot();
         $logger = $this->container->get('logger');
-        \Monolog\ErrorHandler::register($logger);
+
+        if ($this->getEnvironment() !== 'test') {
+            \Monolog\ErrorHandler::register($logger);
+        }
     }
 
     public function registerBundles()
     {
         $bundles = [
-            // Default Symfony2 bundles
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
@@ -32,10 +33,9 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
-            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
-            new \Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
-            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
 
             // Designeo bundles
@@ -45,12 +45,13 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle()
         ];
 
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Designeo\GeneratorBundle\DesigneoGeneratorBundle();
+            $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
         }
         else {
             $bundles[] = new \Designeo\DumpBundle\DesigneoDumpBundle();
@@ -62,6 +63,6 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }

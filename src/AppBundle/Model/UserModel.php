@@ -3,11 +3,20 @@
 namespace AppBundle\Model;
 
 use AppBundle\Repository\UserRepository;
+use AppBundle\Security\Token\UserFacebookToken;
 use Designeo\FrameworkBundle\Service\Notification\UserCreateMail;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\DBAL\DBALException;
 use AppBundle\Exception\UserException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\SecurityEvents;
 
 /**
  * Model for User entity
@@ -15,7 +24,6 @@ use AppBundle\Exception\UserException;
  */
 class UserModel
 {
-
     /**
      * @var EntityManagerInterface
      */
@@ -108,5 +116,42 @@ class UserModel
     public function findAll()
     {
         return $this->userRepository->findAll();
+    }
+
+    public function findAllPackagesSenders()
+    {
+        $senders = $this->userRepository->findAllPackagesSenders();
+
+        return $this->createIndexedArray($senders);
+    }
+
+    public function findAllPackagesCouriers()
+    {
+        $couriers = $this->userRepository->findAllPackagesCouriers();
+
+        return $this->createIndexedArray($couriers);
+    }
+
+    public function findAllPaymentInstructionUsers()
+    {
+        $users = $this->userRepository->findAllPaymentInstructionUsers();
+
+        return $this->createIndexedArray($users);
+    }
+
+    /**
+     * Create array of users indexed by user id
+     * @param array $users
+     * @return array
+     */
+    private function createIndexedArray(array $users)
+    {
+        $indexedUsers = [];
+
+        /** @var User $user */
+        foreach ($users as $user) {
+            $indexedUsers[$user->getId()] = $user;
+
+        }
     }
 }

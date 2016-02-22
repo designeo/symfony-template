@@ -1,76 +1,68 @@
 general:
     boolean:
-        yes: Yes
-        no: No
-    date: 'd.m.Y'
+        'yes': 'Yes'
+        'no': 'No'
+    date: d.m.Y
     timestamp: 'd.m.Y H:i'
 web:
-    brand:    "Designeo"
-    homepage: "Web Homepage."
-
+    brand: Shippansee
+    homepage: 'Web Homepage.'
     menu:
         web: Web
         profile: Profile
         admin: Administration
-        logout: Log out
-        login: Sign in
+        logout: 'Log out'
+        login: 'Sign in'
         register: Register
-
     static:
         termsOfUse:
-            title: Terms of use
-
+            title: 'Terms of use'
     registration:
-        agreeTermsOfService: I agree to Terms of Service
-
+        agreeTermsOfService: 'I agree to Terms of Service'
     profile:
-        changeProfile: Change profile
-        changePassword: Change password
-        loggout: Log out
-
+        changeProfile: 'Change profile'
+        changePassword: 'Change password'
+        loggout: 'Log out'
 admin:
-    brand:    Administration
-    homepage: "Admin Homepage."
-
+    brand: Administration
+    homepage: 'Admin Homepage.'
     grids:
         filter: Filter
-        select: --- Select ---
+        select: '--- Select ---'
         reset: Reset
-
     global:
         save: Save
         filter: Filter
-        yes: Yes
-        no: No
+        'yes': 'Yes'
+        'no': 'No'
         reset: Reset
         choose: Choose
         action: Action
-        reallyDelete: Do you really want to delete this record?
+        reallyDelete: 'Do you really want to delete this record?'
         unfilled: Unfilled
-
+        createdAt: 'Created at'
+        updatedAt: 'Updated at'
     users:
         actions:
-            create: New user
-            edit: Edit user
-            detail: User detail
+            create: 'New user'
+            edit: 'Edit user'
+            detail: 'User detail'
         entity:
             email: E-mail
             password: Password
-            firstName: First Name
+            firstName: 'First Name'
             lastName: Surname
             enabled: Enabled
             role: Role
             name: Name
-            lastLogin: Last login
-
+            lastLogin: 'Last login'
         errors:
-            failedToDelete: User can't be deleted
-            duplicateEmail: User with this e-mail already exists
-
+            failedToDelete: 'User can''t be deleted'
+            duplicateEmail: 'User with this e-mail already exists'
         messages:
-            removed: User was deleted
-            saved: User was saved
-            confirmDelete: Really delete user?
+            removed: 'User was deleted'
+            saved: 'User was saved'
+            confirmDelete: 'Really delete user?'
         title: Users
     staticText:
         actions:
@@ -89,15 +81,14 @@ admin:
             removed: 'Text was deleted'
             saved: 'Text was saved'
             confirmDelete: 'Really delete $entity$?'
-        title: Static texts
+        title: 'Static texts'
 security:
     login:
-        title: Sign in
-        email: Email:
-        password: Password:
-        remember_me: Remember me?
+        title: 'Sign in'
+        email: 'Email:'
+        password: 'Password:'
+        remember_me: 'Remember me?'
         submit: Login
-        forgot_password: "Forgot password?"
-
+        forgot_password: 'Forgot password?'
 vich:
-    delete: Delete photo
+    delete: 'Delete photo'

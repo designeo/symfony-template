@@ -26,7 +26,7 @@ class SlugService
         $this->slugify = $slugify;
     }
 
-    public function getSlug($name, iSlugglableRepository $repository, $locale = NULL)
+    public function getSlug($name, iSlugglableRepository $repository, $locale = null)
     {
         $slug = $this->slugify->slugify($name);
         $baseSlug = $slug;

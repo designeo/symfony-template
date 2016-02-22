@@ -28,7 +28,7 @@ class StaticTextModel extends AbstractLoggerAwareModel
 
     /**
      * @param EntityManagerInterface $entityManager
-     * @param StaticTextRepository      $staticTextRepository
+     * @param StaticTextRepository   $staticTextRepository
      */
     public function __construct(
         EntityManagerInterface $entityManager,

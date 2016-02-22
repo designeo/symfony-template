@@ -6,7 +6,9 @@ parameters:
 
 #framework:
 #    validation:
-#        cache: apc
+#        cache: validator.mapping.cache.apc
+#    serializer:
+#        cache: serializer.mapping.cache.apc
 
 #doctrine:
 #    orm:
@@ -19,20 +21,10 @@ monolog:
         main:
             type:         fingers_crossed
             action_level: error
-            handler:      grouped_main
-            activation_strategy: logging_strategy
-        # Groups
-        grouped_main:
-            type:    group
-            members: [sentry, streamed_main]
-        # Streams
-        streamed_main:
+            handler:      nested
+        nested:
             type:  stream
-            path:  %kernel.logs_dir%/%kernel.environment%.log
-            level: error
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
         console:
             type:  console
-        sentry:
-            type:  raven
-            dsn:   %sentry.dsn%
-            level: notice

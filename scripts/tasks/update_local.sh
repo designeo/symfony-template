@@ -27,7 +27,6 @@ then
   link_console
   info "Configure parameters.yml and create the database..."
   read -p "After finishing press any key to continue... " -n1 -s
-
 fi
 
 composer install

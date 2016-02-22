@@ -27,12 +27,13 @@ deployStart $CHANNEL $ENV
 
 composer_install_prod
 npm install
-bower install
+bower install --allow-root
 gulp build --production
 delete_cache
 console d:m:m -n
 console d:f:l --append -n
 delete_cache
-sudo -u www-data -H php bin/console c:c --env=prod --no-debug
+console c:c --env=prod --no-debug
+chown -R www-data:www-data .
 
 deployFinished $CHANNEL $ENV
