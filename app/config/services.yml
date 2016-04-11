@@ -77,11 +77,9 @@ services:
     app.model.user_model:
         class: AppBundle\Model\UserModel
         arguments:
-            - '@security.authentication.manager'
             - '@doctrine.orm.entity_manager'
             - '@app.repository.user_repository'
             - '@app.notifications.user_create_mail'
-            - '@event_dispatcher'
 
     # -----------------
     # IS Grid managers
