@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  */
 class UsersData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
 {
-    protected $superAdminMail = 'admin@localhost';
+    protected $superAdminMail = 'admin@designeo.cz';
 
     /**
      * @param ObjectManager $manager
