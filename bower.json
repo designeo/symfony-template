@@ -1,7 +1,7 @@
 {
   "name": "symfony-template",
   "dependencies": {
-    "designeo-bootstrap": "http://git.designeo.cz/designeo/designeo-boostrap.git#0.1.4",
+    "designeo-bootstrap": "http://git.designeo.cz/designeo/designeo-boostrap.git#2.0.0-RC3",
     "bootstrap-datepicker": "1.4.0"
   },
   "overrides": {

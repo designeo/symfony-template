@@ -2,6 +2,13 @@
 {% set route_params = app.request.get('_route_params') | merge(filter) %}
 {% import 'AppBundle:Grid:paging.html.twig' as paginator %}
 
+
+{% set page_title = 'admin.staticText.title'|trans  %}
+
+<div class="main-block-heading">
+    <h1>{{ page_title }}</h1>
+</div>
+
 <div class="row">
     <div class="col-sm-12">
         <form method="get" class="grid-filter">

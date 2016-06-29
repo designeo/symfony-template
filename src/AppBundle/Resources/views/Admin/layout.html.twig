@@ -1,84 +1,80 @@
-{% extends 'layout.html.twig' %}
+{% extends 'interface-app.html.twig' %}
 
-{% block head_css %}
-    <link rel="stylesheet" href="{{ asset('/css/admin.css') }}"/>
-{% endblock head_css %}
+{% block head_css %}{% endblock head_css %}
 
-{% block body_class %}cms{% endblock body_class %}
+{% block body_class %}{% endblock body_class %}
 
 {% block sidebar %}
-    <div class="sidebar">
-        <ul class="nav nav-sidebar">
-            <li class="toggle"><a class="sidebar-toggle" href="#"><span class="fa fa-bars" aria-hidden="true"></span> <span class="toggle-title closing">{{ 'admin.brand'|trans }}</span></a></li>
-            <li{# class="active"#}><a href="{{ url('admin_homepage') }}"><span class="fa fa-dashboard"></span> <span class="closing">{{ 'admin.brand'|trans }}</span></a></li>
-            <li><a href="{{ url('admin_user_index') }}"><span class="fa fa-user"></span> <span class="closing">{{ 'admin.users.title'|trans }}</span></a></li>
-            <li><a href="{{ url('admin_static_text_index') }}"><span class="fa fa-align-left"></span> <span class="closing">{{ 'admin.staticText.title'|trans }}</span></a></li>
-        </ul>
-    </div>
+    <ul class="nav nav-sidebar">
+        <li class="toggle">
+            <a href="{{ url('admin_homepage') }}">
+                <img src="{{ asset('/img/logo-big-white.png') }}" class="sidebar-logo" alt="{{ 'admin.brand'|trans }}"
+                     width="100" alt="Designeo"></span>
+                <img src="{{ asset('/img/logo-small-white.png') }}" class="sidebar-logo-md"
+                     alt="{{ 'admin.brand'|trans }}" width="36" alt="Designeo"/>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('admin_homepage') }}">
+                <span class="fa fa-home sidebar-ico"></span>
+                <span class="sidebar-label">{{ 'admin.brand'|trans }}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('admin_user_index') }}">
+                <span class="fa fa-user sidebar-ico"></span>
+                <span class="sidebar-label">{{ 'admin.users.title'|trans }}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('admin_static_text_index') }}">
+                <span class="fa fa-align-left sidebar-ico"></span>
+                <span class="sidebar-label">{{ 'admin.staticText.title'|trans }}</span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="nav nav-sidebar" style="position: absolute; bottom: 0;">
+        <li class="dropup">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                <img class="profile-img profile-img-sm" src="/img/unknown.png" alt=""/>
+                <span class="sidebar-label"> John Davenport</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Settings <span class="lnr lnr-cog dropdown-ico"></span></a></li>
+                <li><a href="/logout">Logout <span class="lnr lnr-power-switch dropdown-ico"></span></a></li>
+                <li>
+                    {% for lang_locale,language in languages %}
+                    <a class="lang {% if locale == lang_locale %}active{% endif %}"
+                       href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}">{{ language }}</a>
+                </li>
+                {% endfor %}
+                </li>
+
+                {#{{ knp_menu_render('Designeo\FrameworkBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}#}
+
+            </ul>
+        </li>
+    </ul>
 {% endblock sidebar %}
 
-{% block header %}
-
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-
-            <div class="row">
-
-                <div class="col-sm-7 col-xs-6 text-right">
-                    <a class="navbar-brand" href="{{ url('admin_homepage') }}"><img src="{{ asset('/img/logo-admin.png') }}" alt="{{ 'admin.brand'|trans }}"/></a>
-                </div>
-
-                <div class="col-sm-5 col-xs-6 text-right">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <div class="clearfix"></div>
-                    <div id="navbar-lang" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            {% for lang_locale,language in languages %}
-                                <li><a class="lang {% if locale == lang_locale %}active{% endif %}" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}">{{ language }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        {{ knp_menu_render('Designeo\FrameworkBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </nav>
-{% endblock header %}
-
 {% block container %}
-    <section class="main-content">
-        <div class="main-block">
-            {% block flash_messages %}
-                {% for label, flashes in app.session.flashbag.all %}
-                    {% for flash in flashes %}
-                        <div class="alert alert-{{ label }} alert-dismissible">
-                            {{ flash|trans }}
+    {% block flash_messages %}
+        {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="alert alert-{{ label }} alert-dismissible">
+                    {{ flash|trans }}
 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-            {% endblock flash_messages %}
-
-            {% block main_heading %}
-                <div class="main-block-heading">
-                    <h1>{% block main_heading_content %}{% endblock %}</h1>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            {% endblock %}
+            {% endfor %}
+        {% endfor %}
+    {% endblock flash_messages %}
 
-            {% block content %}{% endblock %}
-        </div>
-    </section>
+    {% block content %}{% endblock %}
 {% endblock %}
 
 {% block javascripts %}
