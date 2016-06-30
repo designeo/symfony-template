@@ -2,53 +2,69 @@
 {% set route_params = app.request.get('_route_params') | merge(filter) %}
 {% import 'AppBundle:Grid:paging.html.twig' as paginator %}
 
+
+{% set page_title = 'admin.staticText.title'|trans %}
+
 <div class="row">
     <div class="col-sm-12">
         <form method="get" class="grid-filter">
             <table class="table responsive table-hover">
                 <thead class="title">
-                    <tr>
-                        <th><a class="order" href="{{ path(route, route_params | merge({ 'sortBy': 'S.name' })) }}">{{ 'admin.staticText.entity.name'|trans }}</a></th>
-                        <th><a class="order" href="{{ path(route, route_params | merge({ 'sortBy': 'S.title' })) }}">{{ 'admin.staticText.entity.title'|trans }}</a></th>
-                        <th><a class="order" href="{{ path(route, route_params | merge({ 'sortBy': 'S.description' })) }}">{{ 'admin.staticText.entity.description'|trans }}</a></th>
-                        <th class="text-right">{{ 'admin.global.action'|trans }}</th>
-                    </tr>
+                <tr>
+                    <th><a class="order"
+                           href="{{ path(route, route_params | merge({ 'sortBy': 'S.name' })) }}">{{ 'admin.staticText.entity.name'|trans }}</a>
+                    </th>
+                    <th><a class="order"
+                           href="{{ path(route, route_params | merge({ 'sortBy': 'S.title' })) }}">{{ 'admin.staticText.entity.title'|trans }}</a>
+                    </th>
+                    <th><a class="order"
+                           href="{{ path(route, route_params | merge({ 'sortBy': 'S.description' })) }}">{{ 'admin.staticText.entity.description'|trans }}</a>
+                    </th>
+                    <th class="text-right">{{ 'admin.global.action'|trans }}</th>
+                </tr>
                 </thead>
                 <thead class="filters">
-                    <tr>
-                        <th>
-                            <input name="name" type="text" value="{{ filter.name }}" class="send-form-on-enter" placeholder="{{ 'admin.global.filter'|trans }}" />
-                        </th>
-                        <th>
-                            <input name="title" type="text" value="{{ filter.title }}" class="send-form-on-enter" placeholder="{{ 'admin.global.filter'|trans }}" />
-                        </th>
-                        <th>
-                            <input name="description" type="text" value="{{ filter.description}}" class="send-form-on-enter" placeholder="{{ 'admin.global.filter'|trans }}" />
-                        </th>
-                        <th class="text-right">
-                            <button type="submit" class="btn btn-black btn-sm"><span class="fa fa-filter"></span></button>
-                            <a class="btn btn-default btn-sm" href="{{ url('admin_static_text_index') }}"><span class="fa fa-times"></span></a>
-                        </th>
-                    </tr>
+                <tr>
+                    <th>
+                        <input name="name" type="text" value="{{ filter.name }}" class="send-form-on-enter"
+                               placeholder="{{ 'admin.global.filter'|trans }}"/>
+                    </th>
+                    <th>
+                        <input name="title" type="text" value="{{ filter.title }}" class="send-form-on-enter"
+                               placeholder="{{ 'admin.global.filter'|trans }}"/>
+                    </th>
+                    <th>
+                        <input name="description" type="text" value="{{ filter.description }}"
+                               class="send-form-on-enter" placeholder="{{ 'admin.global.filter'|trans }}"/>
+                    </th>
+                    <th class="text-right">
+                        <button type="submit" class="btn btn-black btn-sm"><span class="fa fa-filter"></span></button>
+                        <a class="btn btn-default btn-sm" href="{{ url('admin_static_text_index') }}"><span
+                                    class="fa fa-times"></span></a>
+                    </th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for data_item in data %}
-                        <tr>
-                            <td>{{ data_item.name }}</td>
-                            <td>{{ data_item.title }}</td>
-                            <td>{{ data_item.description }}</td>
+                {% for data_item in data %}
+                    <tr>
+                        <td>{{ data_item.name }}</td>
+                        <td>{{ data_item.title }}</td>
+                        <td>{{ data_item.description }}</td>
 
-                            <td class="functions">
-                                <a href="{{ url('admin_static_text_edit', {'id': data_item.id}) }}"><span class="fa fa-edit"></span></a>
-                                <a href="{{ url('admin_static_text_remove', {'id': data_item.id}) }}" data-method="DELETE" data-confirm="{{ 'admin.staticText.messages.confirmDelete'|trans }}"><span class="fa fa-trash"></span></a>
-                            </td>
+                        <td class="functions">
+                            <a href="{{ url('admin_static_text_edit', {'id': data_item.id}) }}"><span
+                                        class="fa fa-edit"></span></a>
+                            <a href="{{ url('admin_static_text_remove', {'id': data_item.id}) }}" data-method="DELETE"
+                               data-confirm="{{ 'admin.staticText.messages.confirmDelete'|trans }}"><span
+                                        class="fa fa-trash"></span></a>
+                        </td>
 
-                        </tr>
-                    {%  endfor %}
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <div class="row">

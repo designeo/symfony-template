@@ -2,6 +2,13 @@
 {% block title %}{{ parent() }} - {{ 'admin.users.title'|trans }} {% endblock %}
 {% block main_heading_content %}{{ 'admin.users.title'|trans }}{% endblock %}
 
+
+{% block main_heading %}
+    <div class="main-block-heading">
+        <h1>{{ title|trans }}</h1>
+    </div>
+{% endblock %}
+
 {% block content %}
 
     {{ form_start(form) }}

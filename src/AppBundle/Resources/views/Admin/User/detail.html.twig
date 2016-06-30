@@ -2,6 +2,12 @@
 {% block title %}{{ parent() }} - {{ user.getFullName }} {% endblock %}
 {% block main_heading_content %}{{ user.getFullName }}{% endblock %}
 
+{% block main_heading %}
+    <div class="main-block-heading">
+        <h1>{{ user.getFullName }}</h1>
+    </div>
+{% endblock %}
+
 {% block content %}
 
     <p>{{ user.email }}</p>

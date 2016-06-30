@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block interface %}
+    <main>
+        <aside class="sidebar sidebar-responsive">
+            {% block sidebar %}{% endblock sidebar %}
+        </aside>
+        <article>
+            <div class="article-container">
+                <div class="page-content">
+                    {% block main_heading %}{% endblock %}
+                    {% block content %}{% endblock content %}
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock interface %}

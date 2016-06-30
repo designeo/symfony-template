@@ -14,6 +14,7 @@ web:
         logout: 'Log out'
         login: 'Sign in'
         register: Register
+
     static:
         termsOfUse:
             title: 'Terms of use'
@@ -38,6 +39,7 @@ admin:
         reset: Reset
         choose: Choose
         action: Action
+        back: 'Back to login'
         reallyDelete: 'Do you really want to delete this record?'
         unfilled: Unfilled
         createdAt: 'Created at'
