@@ -3,8 +3,17 @@
 {% block main_heading_content %}{{ user.getFullName }}{% endblock %}
 
 {% block main_heading %}
-    <div class="main-block-heading">
-        <h1>{{ user.getFullName }}</h1>
+     <div class="main-block-heading">
+        <h1 class="pull-left">{{ user.getFullName }}</h1>
+
+        <a class="btn btn-secondary btn-lg pull-right" href="#" title="Delete">
+            <span class="lnr lnr-trash"></span>
+        </a>
+
+         <a class="btn btn-primary btn-lg pull-right" href="#" title="Edit">
+             <span class="lnr lnr-pencil"></span>
+         </a>
+        <div class="clearfix"></div>
     </div>
 {% endblock %}
 
