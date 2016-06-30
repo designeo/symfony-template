@@ -21,14 +21,14 @@
     {% endblock head %}
 
 </head>
-<body class="{% block body_class %}{% endblock body_class %}">
+<body class="{% if body_class is defined %}{{ body_class }}{% endif %}">
 
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-{% block interface %}{% endblock interface %}
+{% block layout %}{% endblock %}
 
 
 {% block javascripts %}
