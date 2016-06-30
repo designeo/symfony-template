@@ -3,9 +3,9 @@
 {% block title %}{{ parent() }} - {{ 'admin.users.title'|trans }} {% endblock %}
 
 {% block main_heading %}
-    <div class="main-block-heading">
-        <h1 class="pull-left">{{ 'admin.users.title'|trans }}</h1>
-        <a href="{{ url('admin_user_new') }}" class="btn btn-primary pull-right" title="{{ 'admin.users.actions.create'|trans }}">
+    <div class="main-block-heading main-block-heading-actions">
+        <h1>{{ 'admin.users.title'|trans }}</h1>
+        <a href="{{ url('admin_user_new') }}" class="btn btn-primary" title="{{ 'admin.users.actions.create'|trans }}">
             <span class="fa fa-plus"></span>
         </a>
         <div class="clearfix"></div>
