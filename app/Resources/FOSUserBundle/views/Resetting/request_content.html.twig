@@ -1,19 +1,29 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<div class="row">
-    <div class="col-md-4 col-md-offset-4 well">
 
-        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
-            <div class="form-group">
+<div class="interface-login">
+    <div class="page-container">
+        <div class="row">
+            <div class="panel">
+                <div class="panel-header">
+                    <img src="/img/logo-admin.png" width="340" alt="" class="img-responsive">
+                </div>
+
                 {% if invalid_username is defined %}
-                    <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
+                    <div class="alert alert-danger">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</div>
                 {% endif %}
-                <label for="username">{{ 'resetting.request.username'|trans }}</label>
-                <input type="text" id="username" name="username" required="required" />
-            </div>
-            <div>
-                <input type="submit" value="{{ 'resetting.request.submit'|trans }}" />
-            </div>
-        </form>
 
+                <form action="{{ path('fos_user_resetting_send_email') }}" method="POST"
+                      class="fos_user_resetting_request">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="username" name="username" required="required"
+                               placeholder="{{ 'resetting.request.username'|trans }}"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-block btn-lg"
+                               value="{{ 'resetting.request.submit'|trans }}"/>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
