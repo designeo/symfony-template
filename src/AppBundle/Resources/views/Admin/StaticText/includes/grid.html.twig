@@ -38,9 +38,9 @@
                                class="send-form-on-enter" placeholder="{{ 'admin.global.filter'|trans }}"/>
                     </th>
                     <th class="text-right">
-                        <button type="submit" class="btn btn-black btn-sm"><span class="fa fa-filter"></span></button>
+                        <button type="submit" class="btn btn-black btn-sm"><span class="icon icon-funnel"></span></button>
                         <a class="btn btn-default btn-sm" href="{{ url('admin_static_text_index') }}"><span
-                                    class="fa fa-times"></span></a>
+                                    class="icon icon-cross"></span></a>
                     </th>
                 </tr>
                 </thead>
@@ -52,11 +52,15 @@
                         <td>{{ data_item.description }}</td>
 
                         <td class="functions">
-                            <a href="{{ url('admin_static_text_edit', {'id': data_item.id}) }}"><span
-                                        class="fa fa-edit"></span></a>
+                            <a href="{{ url('admin_static_text_edit', {'id': data_item.id}) }}"
+                            class="btn btn-edit">
+                                <i class="icon icon-pencil"></i>
+                            </a>
                             <a href="{{ url('admin_static_text_remove', {'id': data_item.id}) }}" data-method="DELETE"
-                               data-confirm="{{ 'admin.staticText.messages.confirmDelete'|trans }}"><span
-                                        class="fa fa-trash"></span></a>
+                               class="btn btn-delete"
+                               data-confirm="{{ 'admin.staticText.messages.confirmDelete'|trans }}">
+                                <i class="icon icon-trash2"></i>
+                            </a>
                         </td>
 
                     </tr>
@@ -70,7 +74,7 @@
 <div class="row">
     <div class="col-md-12">
         {% block pagination %}
-            {% if data|length > 0 %}
+            {% if max_page > 1 %}
                 {{ paginator.nav(page, max_page) }}
             {% endif %}
         {% endblock pagination %}

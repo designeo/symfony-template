@@ -7,11 +7,11 @@
         <h1>{{ user.getFullName }}</h1>
 
         <a class="btn btn-secondary btn-lg" href="{{ url('admin_user_remove', {'id': user.id}) }}" title="Delete">
-            <span class="lnr lnr-trash"></span>
+            <span class="icon icon-trash"></span>
         </a>
 
         <a class="btn btn-primary btn-lg" href="{{ url('admin_user_edit', {'id': user.id}) }}" title="Edit">
-            <span class="lnr lnr-pencil"></span>
+            <span class="icon icon-pencil"></span>
         </a>
         <div class="clearfix"></div>
     </div>
