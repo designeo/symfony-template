@@ -4,7 +4,7 @@
 
 
 {% block main_heading %}
-    <div class="main-block-heading">
+    <div class="page-heading">
         <h1>{{ title|trans }}</h1>
     </div>
 {% endblock %}
@@ -15,36 +15,65 @@
 
     {{ form_errors(form) }}
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.email, {'label': 'admin.users.entity.email', 'attr': {'placeholder': '@'}}) }}
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_name">{{ "admin.users.entity.email" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.email) }}
+            </div>
         </div>
-        <div class="col-md-6">
-            {{ form_row(form.plainPassword, {'label': 'admin.users.entity.password'}) }}
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.firstName, {'label': 'admin.users.entity.firstName', 'attr': {'placeholder': 'admin.users.entity.firstName'}}) }}
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_title">{{ "admin.users.entity.password" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.plainPassword) }}
+            </div>
         </div>
-        <div class="col-md-6">
-            {{ form_row(form.lastName, {'label': 'admin.users.entity.lastName', 'attr': {'placeholder': 'admin.users.entity.lastName'}}) }}
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.enabled, {'label': 'admin.users.entity.enabled'}) }}
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_description">{{ "admin.users.entity.firstName" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.firstName) }}
+            </div>
         </div>
-        <div class="col-md-6">
-            {{ form_row(form.userRole, {'label': 'admin.users.entity.role', 'placeholder': 'admin.users.entity.role'}) }}
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            {{ form_row(form.submit, {'label': 'admin.global.save'}) }}
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_description">{{ "admin.users.entity.lastName" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.lastName) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_content">{{ "admin.users.entity.enabled" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.enabled) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_content">{{ "admin.users.entity.role" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.userRole) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3">
+                {{ form_row(form.submit, {'label': 'admin.global.save'}) }}
+            </div>
         </div>
     </div>
 

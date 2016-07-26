@@ -3,25 +3,51 @@
 {% block main_heading_content %}{{ user.getFullName }}{% endblock %}
 
 {% block main_heading %}
-    <div class="main-block-heading main-block-heading-actions">
+    <div class="page-heading">
         <h1>{{ user.getFullName }}</h1>
 
-        <a class="btn btn-secondary btn-lg" href="{{ url('admin_user_remove', {'id': user.id}) }}" title="Delete">
-            <span class="icon icon-trash"></span>
-        </a>
+        <div class="page-heading-actions">
+            <a class="btn btn-delete btn-lg"
+               href="{{ url('admin_user_remove', {'id': user.id}) }}" title="Delete">
+                <i class="icon icon-trash2"></i>
+            </a>
 
-        <a class="btn btn-primary btn-lg" href="{{ url('admin_user_edit', {'id': user.id}) }}" title="Edit">
-            <span class="icon icon-pencil"></span>
-        </a>
-        <div class="clearfix"></div>
+            <a class="btn btn-edit btn-lg"
+               href="{{ url('admin_user_edit', {'id': user.id}) }}" title="Edit">
+                <i class="icon icon-pencil"></i>
+            </a>
+        </div>
     </div>
 {% endblock %}
 
 {% block content %}
-
-    <p>{{ user.email }}</p>
-    <p>{{ user.userRoleName }}</p>
-    <p>{{ 'admin.users.entity.enabled'|trans }}: {{ user.enabled|renderBool }}</p>
-    <p>{{ 'admin.users.entity.lastLogin'|trans }}{% if user.lastLogin is not empty %}: {{ user.lastLogin|date('general.timestamp'|trans) }}{% endif %}</p>
-
+    <form class="form-horizontal user-profile">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">{{ user.email }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Role</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">{{ user.userRoleName }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{{ 'admin.users.entity.enabled'|trans }}</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    {{ user.enabled|renderBool }}</p>
+            </div>
+        </div>
+        {% if user.lastLogin is not empty %}
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{ 'admin.users.entity.lastLogin'|trans }}</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{ user.lastLogin|date('general.timestamp'|trans) }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </form>
 {% endblock content %}
