@@ -53,11 +53,11 @@
         </div>
 
         <div class="form-group">
-            <div class="col-sm-3 control-label">
-                <label for="appbundle_static_text_content">{{ "admin.users.entity.enabled" | trans }}</label>
-            </div>
-            <div class="col-sm-6">
-                {{ form_widget(form.enabled) }}
+            <label class="col-sm-3 control-label">{{ "admin.users.entity.enabled" | trans }}</label>
+            <div class="col-sm-9">
+                <div class="form-group">
+                    {{ form_widget(form.enabled) }}
+                </div>
             </div>
         </div>
 
