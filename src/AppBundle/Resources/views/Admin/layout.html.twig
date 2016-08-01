@@ -46,10 +46,11 @@
                 <li><a href="/logout">Logout <i class="icon icon-power-switch dropdown-ico"></span></a></li>
                 <li>
                     {% for lang_locale,language in languages %}
-                    <a class="lang {% if locale == lang_locale %}active{% endif %}"
-                       href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}">{{ language }}</a>
-                </li>
-                {% endfor %}
+                        <a class="lang {% if locale == lang_locale %}active{% endif %}"
+                            href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}">
+                            {{ language }}
+                        </a>
+                    {% endfor %}
                 </li>
 
                 {#{{ knp_menu_render('Designeo\FrameworkBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}#}
