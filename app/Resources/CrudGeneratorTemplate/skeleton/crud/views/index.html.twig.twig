@@ -3,12 +3,16 @@
 {% block title %}{{ parent() }} - {{ 'admin.[[ entity ]].title'|trans }} {% endblock %}
 
 {% block main_heading %}
-    <div class="main-block-heading">
-        <h1 class="pull-left">{{ 'admin.[[ entity ]].title'|trans }}</h1>
-        <a href="{{ url('admin_[[ entity ]]_new') }}" class="btn btn-primary pull-right" title="{{ 'admin.[[ entity ]].actions.create'|trans }}">
-            <span class="fa fa-plus"></span>
-        </a>
-        <div class="clearfix"></div>
+    <div class="page-heading">
+        <h1>{{ 'admin.[[ entity ]].title'|trans }}</h1>
+
+        <div class="page-heading-actions">
+            <a href="{{ url('admin_[[ entity ]]_new') }}"
+               class="btn btn-add btn-lg"
+               title="{{ 'admin.[[ entity ]].actions.create'|trans }}">
+                <i class="icon icon-plus"></i>
+            </a>
+        </div>
     </div>
 {% endblock %}
 

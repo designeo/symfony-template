@@ -3,21 +3,35 @@
 {% set page_title = 'admin.brand'|trans %}
 
 {% block content %}
-    <div class="main-block-heading">
+
+    <div class="page-heading">
         <h1>{{ page_title }}</h1>
     </div>
 
     <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a class="tile" href="{{ url('admin_user_index') }}">
-                <p class="fa fa-user"></p>
-                <h4>{{ 'admin.users.title'|trans }}</h4>
+        <div class="col-md-4">
+            <a class="tile tile-bg-1" href="{{ url('admin_user_index') }}">
+                <div class="row row-eq-height">
+                    <div class="col-sm-3">
+                        <i class="icon icon-user tile-ico"></span>
+                    </div>
+                    <div class="col-sm-9">
+                        <h4 class="width-md">{{ 'admin.users.title'|trans }}</h4>
+                    </div>
+                </div>
             </a>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a class="tile bg-1" href="{{ url('admin_static_text_index') }}">
-                <p class="fa fa-align-left"></p>
-                <h4>{{ 'admin.staticText.title'|trans }}</h4>
+
+        <div class="col-md-4">
+            <a class="tile tile-bg-2" href="{{ url('admin_static_text_index') }}">
+                <div class="row row-eq-height">
+                    <div class="col-sm-3">
+                        <i class="icon icon-align-left tile-ico"></span>
+                    </div>
+                    <div class="col-sm-9">
+                        <h4>{{ 'admin.staticText.title'|trans }}</h4>
+                    </div>
+                </div>
             </a>
         </div>
     </div>

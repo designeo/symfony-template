@@ -4,7 +4,7 @@
 
 
 {% block main_heading %}
-    <div class="main-block-heading">
+    <div class="page-heading">
         <h1>{{ title|trans }}</h1>
     </div>
 {% endblock %}
@@ -15,27 +15,49 @@
 
     {{ form_errors(form) }}
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.name, {'label': 'admin.staticText.entity.name'}) }}
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.title, {'label': 'admin.staticText.entity.title'}) }}
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_name">{{ "admin.staticText.entity.name" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.name) }}
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.description, {'label': 'admin.staticText.entity.description'}) }}
+
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_title">{{ "admin.staticText.entity.title" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.title) }}
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_row(form.content, {'label': 'admin.staticText.entity.content'}) }}
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_description">{{ "admin.staticText.entity.description" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.description) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-3 control-label">
+                <label for="appbundle_static_text_content">{{ "admin.staticText.entity.content" | trans }}</label>
+            </div>
+            <div class="col-sm-6">
+                {{ form_widget(form.content) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3">
+                {{ form_row(form.submit, {'label': 'admin.global.save'}) }}
+            </div>
         </div>
     </div>
 

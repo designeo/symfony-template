@@ -16,19 +16,19 @@
         </li>
         <li>
             <a href="{{ url('admin_homepage') }}">
-                <span class="fa fa-home sidebar-ico"></span>
+                <i class="icon icon-home sidebar-ico"></span>
                 <span class="sidebar-label">{{ 'admin.brand'|trans }}</span>
             </a>
         </li>
         <li>
             <a href="{{ url('admin_user_index') }}">
-                <span class="fa fa-user sidebar-ico"></span>
+                <i class="icon icon-user sidebar-ico"></span>
                 <span class="sidebar-label">{{ 'admin.users.title'|trans }}</span>
             </a>
         </li>
         <li>
             <a href="{{ url('admin_static_text_index') }}">
-                <span class="fa fa-align-left sidebar-ico"></span>
+                <i class="icon icon-align-left sidebar-ico"></span>
                 <span class="sidebar-label">{{ 'admin.staticText.title'|trans }}</span>
             </a>
         </li>
@@ -42,14 +42,15 @@
                 <span class="sidebar-label"> John Davenport</span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="/profile">Settings <span class="lnr lnr-cog dropdown-ico"></span></a></li>
-                <li><a href="/logout">Logout <span class="lnr lnr-power-switch dropdown-ico"></span></a></li>
+                <li><a href="/profile">Settings <i class="icon icon-cog dropdown-ico"></span></a></li>
+                <li><a href="/logout">Logout <i class="icon icon-power-switch dropdown-ico"></span></a></li>
                 <li>
                     {% for lang_locale,language in languages %}
-                    <a class="lang {% if locale == lang_locale %}active{% endif %}"
-                       href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}">{{ language }}</a>
-                </li>
-                {% endfor %}
+                        <a class="lang {% if locale == lang_locale %}active{% endif %}"
+                            href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': lang_locale})) }}">
+                            {{ language }}
+                        </a>
+                    {% endfor %}
                 </li>
 
                 {#{{ knp_menu_render('Designeo\FrameworkBundle:Builder:adminMenu', { 'style': 'navbar-right' }) }}#}

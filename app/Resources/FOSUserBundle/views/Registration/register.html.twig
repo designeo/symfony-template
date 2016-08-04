@@ -1,5 +1,6 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
-
+{% set page_title = 'web.menu.register'|trans %}
+{% set body_class = 'body-auth' %}
 {% block fos_user_content %}
 {% include "FOSUserBundle:Registration:register_content.html.twig" %}
 {% endblock fos_user_content %}

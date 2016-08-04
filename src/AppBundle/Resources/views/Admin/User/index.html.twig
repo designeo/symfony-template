@@ -1,14 +1,15 @@
 {% extends 'AppBundle:Admin:layout.html.twig' %}
 
-{% block title %}{{ parent() }} - {{ 'admin.users.title'|trans }} {% endblock %}
+{% set page_title = 'admin.users.title'|trans %}
 
 {% block main_heading %}
-    <div class="main-block-heading main-block-heading-actions">
+    <div class="page-heading">
         <h1>{{ 'admin.users.title'|trans }}</h1>
-        <a href="{{ url('admin_user_new') }}" class="btn btn-primary" title="{{ 'admin.users.actions.create'|trans }}">
-            <span class="fa fa-plus"></span>
-        </a>
-        <div class="clearfix"></div>
+        <div class="page-heading-actions">
+            <a class="btn btn-add btn-lg" href="{{ url('admin_user_new') }}" title="{{ 'admin.users.actions.create'|trans }}">
+                <i class="icon icon-plus-circle"></i>
+            </a>
+        </div>
     </div>
 {% endblock %}
 
