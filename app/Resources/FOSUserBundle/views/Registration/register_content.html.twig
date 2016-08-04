@@ -1,79 +1,82 @@
+
+
 {% trans_default_domain 'FOSUserBundle' %}
-{% set page_title = 'web.menu.register'|trans %}
+
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-
-        <form action="{{ path('fos_user_registration_register') }}" method="POST"
-              class="form-horizontal fos_user_registration_register">
-            {{ form_start(form) }}
-
-            {{ form_errors(form) }}
-
-            <div class="form-group">
-                <h2>{{ page_title }}</h2>
+    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+        <div class="panel">
+            <div class="panel-heading">
+                <img src="/img/logo-admin.png" width="340" alt="" class="img-responsive">
             </div>
 
-            <div class="form-group">
-                <label for="fos_user_registration_form_firstName"
-                       class="col-sm-3 control-label">{{ form_label(form.firstName) }}</label>
-                <div class="col-sm-9">
-                    {{ form_widget(form.firstName) }}
+
+            <form action="{{ path('fos_user_registration_register') }}" method="POST"
+                  class="form-horizontal fos_user_registration_register">
+                {{ form_start(form) }}
+
+                {{ form_errors(form) }}
+
+                {#{% if error %}#}
+                {#<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+                {#{% endif %}#}
+
+                <div class="form-group">
+                    <h2>{{ page_title }}</h2>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="fos_user_registration_form_lastName"
-                       class="col-sm-3 control-label">{{ form_label(form.lastName) }}</label>
-                <div class="col-sm-9">
-                    {{ form_widget(form.lastName) }}
+                <div class="form-group">
+                    {{ form_label(form.firstName, null,  {'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                    <div class="col-sm-9">
+                        {{ form_widget(form.firstName) }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="fos_user_registration_form_email"
-                       class="col-sm-3 control-label">{{ form_label(form.email) }}
-                </label>
-                <div class="col-sm-9">
-                    {{ form_widget(form.email) }}
+                <div class="form-group">
+                    {{ form_label(form.lastName, null,  {'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                    <div class="col-sm-9">
+                        {{ form_widget(form.lastName) }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="fos_user_registration_form_plainPassword_first"
-                       class="col-sm-3 control-label">{{ form_label(form.plainPassword.first) }}
-                </label>
-                <div class="col-sm-9">
-                    {{ form_widget(form.plainPassword.first) }}
+                <div class="form-group">
+                    {{ form_label(form.email, null,  {'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                    <div class="col-sm-9">
+                        {{ form_widget(form.email) }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="fos_user_registration_form_plainPassword_second"
-                       class="col-sm-3 control-label">{{ form_label(form.plainPassword.second) }}
-                </label>
-                <div class="col-sm-9">
-                    {{ form_widget(form.plainPassword.second) }}
+                <div class="form-group">
+                  {{ form_label(form.plainPassword.first, null,  {'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                    <div class="col-sm-9">
+                        {{ form_widget(form.plainPassword.first) }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group ">
-
-                <label for="fos_user_registration_form_plainPassword_second"
-                       class="col-sm-3 control-label">{{ form_label(form.agreeToS) }}
-                </label>
-                <div class="col-sm-9">
-                    {{ form_widget(form.agreeToS) }}
+                <div class="form-group">
+                    {{ form_label(form.plainPassword.second, null,  {'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                    <div class="col-sm-9">
+                        {{ form_widget(form.plainPassword.second) }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <input class="btn btn-submit btn-block" type="submit" value="{{ 'registration.submit'|trans }}"/>
+                <div class="form-group form-group-agree">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        {{ form_widget(form.agreeToS) }}
+                    </div>
                 </div>
-            </div>
-            {{ form_rest(form) }}
-        </form>
 
 
+
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <input class="btn btn-submit btn-block" type="submit"
+                               value="{{ 'registration.submit'|trans }}"/>
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+            </form>
+
+
+        </div>
     </div>
 </div>
